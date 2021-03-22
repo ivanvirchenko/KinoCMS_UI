@@ -1,0 +1,82 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<div th:insert="~{/share/head :: head}"></div>
+
+<body>
+<div th:insert="~{/share/header :: header}"></div>
+
+<section class="banner-slide container p-0">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="../static/img/slide_1.jpg" th:src="@{/img/slide_1.jpg}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="../static/img/slide_2.jpg" th:src="@{/img/slide_2.jpg}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="../static/img/slide_3.jpg" th:src="@{/img/slide_3.jpg}" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+
+<section class="look-today container p-0 bg-light">
+    <div class="title"
+         th:text="'Смотреите сегодня ' + ${#calendars.day(#calendars.createNow())} + ' ' + ${#calendars.monthName(#calendars.createNow()).toUpperCase()}">
+        Смотрите сегодня, 24 Июля
+    </div>
+    <div class="movies">
+        <div class="movie" th:each="movie : ${movies_in_show}">
+            <a href="#" th:href="@{/movies/{id}(id = ${movie.id})}">
+                <img src="../static/img/movie_images/Illuzia_obmana_poster.jpg" th:src="@{${movie.imgUrl}}" alt="movie">
+                <div class="movie-name" th:text="${movie.name}">Иллюзия обмана</div>
+                <a href="/" class="btn btn-success w-75">Купить билет</a>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="look_soon container p-0 bg-light" th:if="${!future_movies.isEmpty()}">
+    <div class="title">Смотрите скоро</div>
+    <div class="movies">
+        <div class="movie" th:each="movie : ${future_movies}">
+            <a href="#" th:href="@{/movies/{id}(id = ${movie.id})}">
+                <img src="../static/img/movie_images/Jumanji_poster.jpg" th:src="@{${movie.imgUrl}}" alt="movie">
+                <div class="movie-name" th:text="${movie.name}">Джуманджи</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="news container p-0 bg-light">
+    <div class="title">Новости и акции</div>
+    <img src="../static/img/news/news_banner.jpg" th:src="@{/img/news/news_banner.jpg}" class="w-100" alt="news">
+</section>
+
+<section class="commercial container bg-light d-flex flex-column align-items-center">
+    <img src="../static/img/commercial.jpg" th:src="@{/img/commercial.jpg}" alt="commercial">
+    <div class="seo-text">
+        seo seo seo seo seo seo seo seo seo seo seo seo seo seo seo seo seo seo seo seo seo seo seo
+        seo seo seo seo seo seo seo seo seo seo seo
+    </div>
+</section>
+
+<div th:insert="~{share/footer:: the_footer}"></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous">
+</script>
+</body>
+</html>

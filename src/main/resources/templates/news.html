@@ -1,0 +1,25 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<div th:insert="~{/share/head :: head}"></div>
+<body>
+<div th:insert="~{/share/header :: header}"></div>
+
+<div class="container bg-light p-0" th:object="${theNews}">
+    <div class="the_news d-flex">
+        <div class="news_img_holder col-4 p-2">
+            <img src="#" th:src="@{${theNews.imgUrl}}" alt="img">
+        </div>
+        <div class="news_info p-2">
+            <div class="news_title" th:text="*{name}"></div>
+            <div class="news_date" th:text="*{date}"></div>
+            <div class="news_description" th:text="*{description}"></div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="~{share/footer:: the_footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+</body>
+</html>

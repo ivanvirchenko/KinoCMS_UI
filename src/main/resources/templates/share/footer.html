@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<footer class="container bg-light" th:fragment="the_footer">
+    <div class="row">
+        <div class="col-3 stores">
+            <div class="title">Мобильнае приложения</div>
+            <div class="stores-icons d-flex justify-content-center">
+                <img src="../static/icons/google-play.png" th:src="@{/icons/google-play.png}" alt="google-play">
+                <img src="../static/icons/apple-store.png" th:src="@{/icons/apple-store.png}" alt="apple-store">
+            </div>
+        </div>
+        <div class="col-3">
+            <ul>
+                <li class="footer-title">
+                    <a href="/poster" th:href="@{/poster}">Афиша</a>
+                </li>
+                <li>
+                    <a href="/" class="list-item">Скоро в прокате</a>
+                </li>
+                <li>
+                    <a href="/" class="list-item">Кинотеатры</a>
+                </li>
+                <li>
+                    <a href="/" class="list-item">Акции</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <ul>
+                <li>
+                    <a href="/" class="list-item">Новости</a>
+                </li>
+                <li>
+                    <a href="/" class="list-item">Рекламодателям</a>
+                </li>
+                <li>
+                    <a href="/" class="list-item">Контакты</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3 socials">
+            <a href="/">
+                <img src="../static/icons/facebook.png" th:src="@{/icons/facebook.png}" alt="facebook">
+            </a>
+            <a href="/">
+                <img src="../static/icons/vk.png" th:src="@{/icons/vk.png}" alt="vk">
+            </a>
+            <a href="/">
+                <img src="../static/icons/instagram.png" th:src="@{/icons/instagram.png}" alt="instagram">
+            </a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

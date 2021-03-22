@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<body>
+<header th:fragment="header">
+    <div class="container d-flex">
+        <div class="logo">
+            <a href="/">
+                <img src="../../static/img/logo.png" th:src="@{/img/logo.png}" alt="Logo">
+            </a>
+        </div>
+        <div class="nav-bar w-100 d-flex flex-column justify-content-end">
+            <div class="top-navi d-flex align-items-center w-100">
+                <form name="search-form" id="search-form" class="w-50 d-flex align-items-center">
+                    <label for="search"></label>
+                    <input id="search" form="search-form" type="search" placeholder="Поиск" class="p-2">
+                </form>
+                <div class="socials">
+                    <a href="/"><img src="../../static/icons/facebook.png" th:src="@{/icons/facebook.png}" alt="facebook"></a>
+                    <a href="/"><img src="../../static/icons/vk.png" th:src="@{/icons/vk.png}" alt="vk"></a>
+                    <a href="/"><img src="../../static/icons/instagram.png" th:src="@{/icons/instagram.png}"
+                                     alt="instagram"></a>
+                </div>
+                <div class="phones">
+                    <div class="phone">(098) 777-77-77</div>
+                    <div class="phone">(097) 777-77-77</div>
+                </div>
+            </div>
+            <div class="bottom-navi d-flex justify-content-around">
+                <a href="/movies/poster" th:href="@{/movies/poster}">Афиша</a>
+                <a href="/" th:href="@{/movies/soon}">Скоро</a>
+                <a href="/" th:href="@{/cinema/all}">Кинотеатры</a>
+                <a href="/" th:href="@{/promotions}">Акции</a>
+                <a href="/" th:href="@{/news}">Новости</a>
+<!--                <select name="dropdown" id="dropdown-lang">-->
+<!--                    <option class="dropdown-item">RU</option>-->
+<!--                    <option class="dropdown-item">UA</option>-->
+<!--                </select>-->
+            </div>
+        </div>
+    </div>
+</header>
+
+</body>
+</html>

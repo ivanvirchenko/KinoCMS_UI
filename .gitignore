@@ -1,0 +1,5 @@
+*.iml
+target/
+.idea/
+KinoCms DB UML
+data-insert.sql
