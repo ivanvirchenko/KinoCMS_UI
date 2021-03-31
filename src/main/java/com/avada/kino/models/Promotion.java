@@ -17,8 +17,8 @@ public class Promotion extends BasicEntity {
     private LocalDate date;
     private String videoLink;
 
-    public Promotion(String name, String description, String imgUrl, List<Image> gallery, Seo seo, boolean enabled, LocalDate date, String videoLink) {
-        super(name, description, imgUrl, gallery, seo);
+    public Promotion(String name, String description, String imgUrl, Seo seo, boolean enabled, LocalDate date, String videoLink) {
+        super(name, description, imgUrl, seo);
         this.enabled = enabled;
         this.date = date;
         this.videoLink = videoLink;

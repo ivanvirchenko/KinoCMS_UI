@@ -22,13 +22,13 @@ public class MovieController {
 
     @GetMapping("/poster")
     public String getPoster(Model model) {
-        model.addAttribute("movies", service.getMoviesByInShow(true));
+        model.addAttribute("movies", service.getShowingMovies());
         return "poster";
     }
 
     @GetMapping("/soon")
     public String getSoon(Model model) {
-        model.addAttribute("movies", service.getMoviesByInShow(false));
+        model.addAttribute("movies", service.getFutureMovies());
         return "soon";
     }
 }

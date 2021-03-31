@@ -1,5 +1,6 @@
 package com.avada.kino.controllers;
 
+import com.avada.kino.models.Movie;
 import com.avada.kino.repository.MovieRepository;
 import com.avada.kino.service.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class HomeController {
     private final MovieService service;
+
+
     @GetMapping
     public String home(Model model) {
-        model.addAttribute("movies_in_show", service.getMoviesByInShow(true));
-        model.addAttribute("future_movies", service.getMoviesByInShow(false));
+        model.addAttribute("movies_in_show", service.getShowingMovies());
+        model.addAttribute("future_movies", service.getFutureMovies());
+        Movie movie = new Movie();
+        movie.setName("TestMovie");
+
+        service.save(movie);
         return "index";
     }
 }

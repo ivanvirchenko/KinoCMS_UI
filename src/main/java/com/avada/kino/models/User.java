@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+import static javax.persistence.CascadeType.*;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -29,11 +31,9 @@ public class User {
     @Embedded
     private Phone phone;
     private LocalDate birthDay;
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    private City city;
+    private String city;
 
-    public User(String name, String lastName, String login, String email, String password, String address, String cardNumber, Language language, Gender gender, Phone phone, LocalDate birthDay, City city) {
+    public User(String name, String lastName, String login, String email, String password, String address, String cardNumber, Language language, Gender gender, Phone phone, LocalDate birthDay, String city) {
         this.name = name;
         this.lastName = lastName;
         this.login = login;

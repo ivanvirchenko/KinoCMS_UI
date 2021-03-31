@@ -27,7 +27,7 @@
                     <img src="#logo" class="logo" th:src="*{imgUrl}" alt="logo">
                 </div>
                 <div class="button-block d-flex align-items-baseline">
-                    <a href="#" th:href="@{/schedule}" class="btn btn-success w-100">Расписание сеансов</a>
+                    <a href="#" th:href="@{/schedule(cinema=${cinema.id})}" class="btn btn-success w-100">Расписание сеансов</a>
                 </div>
             </div>
             <div class="description" th:text="*{description}"></div>
@@ -36,9 +36,9 @@
             <div class="slider">
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        <div th:each="slide, iteration : *{hallsList}"
+                        <div th:each="slide, iteration : ${cinema.gallery}"
                         th:class="${iteration.first} ? 'carousel-item active' : 'carousel-item'">
-                            <img src="..." th:src="@{${slide.imgUrl}}" class="d-block w-100" alt="...">
+                            <img src="..." th:src="@{${slide.url}}" class="d-block w-100" alt="...">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">

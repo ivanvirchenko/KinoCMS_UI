@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="admin-sidebar">
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4" th:fragment="admin-sidebar">
+    <!-- Brand Logo -->
+    <a href="#" th:href="@{/admin}" class="brand-link">
+        <img src="../../static/img/logo.png" th:src="@{/img/logo.png}"
+             alt="logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Kino CMS</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <p>
+                            Статистика
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <p>
+                            Баннера
+                        </p>
+                    </a>
+                </li>
+
+                <!--Выпадающие списки-->
+                <li class="nav-item has-treeview ">
+                    <a href="#" class="nav-link ">
+                        <p>
+                            Фильмы
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" th:href="@{/admin/movies}" class="nav-link ">
+                                <p>Все фильмы</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!--                    Кинотеатры-->
+                <li class="nav-item has-treeview ">
+                    <a href="#" class="nav-link ">
+                        <p>
+                            Кинотеатры
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <p>Страница кинотеатра</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <p>Страница залла</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!--                    Новости-->
+                <li class="nav-item has-treeview ">
+                    <a href="#" class="nav-link ">
+                        <p>
+                            Новости
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <p>Страница новости</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!--                    Акции-->
+                <li class="nav-item has-treeview ">
+                    <a href="#" class="nav-link ">
+                        <p>
+                            Акции
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <p>Страница акции</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!--                    Страницы-->
+                <li class="nav-item has-treeview ">
+                    <a href="#" class="nav-link ">
+                        <p>
+                            Страницы
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <p>Главная</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <p>О кинотеатре</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <p>Кафе-бар</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <p>VIP-залл</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <p>Реклама</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <p>Детская комната</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <p>Контакты</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!--                    Пользователи-->
+                <li class="nav-item has-treeview ">
+                    <a href="#" class="nav-link ">
+                        <p>
+                            Пользователи
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <p>Редактировать</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!--                    Рассылка-->
+                <li class="nav-item has-treeview ">
+                    <a href="#" class="nav-link ">
+                        <p>
+                            Рассылка
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <p>Выбрать</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>
+</body>
+</html>

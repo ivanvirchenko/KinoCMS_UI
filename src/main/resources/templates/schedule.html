@@ -4,7 +4,42 @@
 <body>
 <div th:insert="~{/share/header :: header}"></div>
 
+<section class="schedule">
+    <div class="container bg-light p-0">
+        <div class="schedule_filters">
+            <form id="schedule_filters" th:action="@{/schedule}" method="get">
 
+                <select id="cinema_select" form="schedule_filters">
+                    <option class="select_option" th:default="0" th:text="'Все'" th:value="0"></option>
+                    <option class="select_option" th:each="sch : ${schedule}"
+                            th:text="${sch.cinema.name}"
+                            th:value="${sch.cinema.id}">
+                    </option>
+                </select>
+
+                <input type="submit" class="btn btn-success">
+            </form>
+        </div>
+        <div class="schedule_titles d-flex text-center">
+            <div class="col-1">Время</div>
+            <div class="col-8">Фильм</div>
+            <div class="col-1">Зал</div>
+            <div class="col-1">Цена</div>
+            <div class="col-1">Бронь</div>
+        </div>
+        <div class="schedule_block" th:each="schedule_item : ${schedule}">
+            <div class="date" th:text="${schedule_item.cinema.name} + ' (' + ${schedule_item.localDate} + ') '"></div>
+            <div class="sessions d-flex text-center" th:each="sessions, iter : ${schedule_item.sessions}"
+                 th:attr="class=${iter.odd} ? 'sessions d-flex gray text-center' : 'sessions d-flex text-center'">
+                <div class="col-1" th:text="${sessions.time}">Время</div>
+                <div class="col-8" th:text="${sessions.movie.name}">Фильм</div>
+                <div class="col-1" th:text="${sessions.hall.name}">Зал</div>
+                <div class="col-1" th:text="${sessions.price}">Цена</div>
+                <div class="col-1 bg-info">Бронь</div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <div th:insert="~{share/footer:: the_footer}"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"

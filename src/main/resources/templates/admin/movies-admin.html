@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:include="~{/share/admin-header :: admin-head}"></div>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <div th:include="~{/share/admin-sidebar :: admin-sidebar}"></div>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <div class="text-center text-xl bg-secondary text-bold pt-5">Список текущих фильмов</div>
+        <div class="movies">
+            <div th:each="movie : ${showing}">
+                <a href="#" th:href="@{/admin/movies/{id}(id=${movie.id})}">
+                    <img src="#" class="w-100" alt="picture" th:src="@{${movie.imgUrl}}">
+                    <p class="text-center text-lg text-bold" th:text="${movie.name}"></p>
+                </a>
+            </div>
+        </div>
+
+        <div class="text-center text-xl bg-secondary text-bold pt-5">Список будущих фильмов</div>
+        <div class="movies">
+            <div class="movie w-100" th:each="movie : ${future}">
+                <a href="#" th:href="@{/admin/movies/{id}(id=${movie.id})}">
+                    <img src="#" class="w-100" alt="picture" th:src="@{${movie.imgUrl}}">
+                    <p class="text-center text-lg text-bold" th:text="${movie.name}"></p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--     /.content-wrapper-->
+
+</div>
+<!-- ./wrapper -->
+<div th:include="~{/share/admin-scripts :: admin-scripts}"></div>
+</body>
+</html>

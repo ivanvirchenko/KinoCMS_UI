@@ -30,7 +30,7 @@
     </div>
 </section>
 
-<section class="look-today container p-0 bg-light">
+<section class="look-today container p-0 bg-light" th:if="${!movies_in_show.isEmpty()}">
     <div class="title"
          th:text="'Смотреите сегодня ' + ${#calendars.day(#calendars.createNow())} + ' ' + ${#calendars.monthName(#calendars.createNow()).toUpperCase()}">
         Смотрите сегодня, 24 Июля

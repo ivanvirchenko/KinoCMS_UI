@@ -16,7 +16,23 @@ public class NewsService {
         return repository.getAll();
     }
 
+    public List<News> getEnabled(boolean enabled) {
+        return repository.getEnabled(enabled);
+    }
+
     public News getById(int id) {
         return repository.getById(id);
+    }
+
+    public void save(News news) {
+        repository.save(news);
+    }
+
+    public void update(News news) {
+        repository.update(news);
+    }
+
+    public void delete(int id) {
+        repository.delete(id);
     }
 }

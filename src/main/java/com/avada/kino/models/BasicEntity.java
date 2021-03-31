@@ -1,9 +1,8 @@
 package com.avada.kino.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,26 +10,32 @@ import java.util.List;
 @Data
 @MappedSuperclass
 @NoArgsConstructor
+@AllArgsConstructor
 public class BasicEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
-    @Column(length = 3048)
+    @Column(length = 5000)
     private String description;
     private String imgUrl;
-    @ElementCollection
-    @Fetch(value = FetchMode.SUBSELECT)
+    @ElementCollection(fetch = FetchType.LAZY)
     private List<Image> gallery;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "seo_id")
     private Seo seo;
 
-    public BasicEntity(String name, String description, String imgUrl, List<Image> gallery, Seo seo) {
+    public BasicEntity(String name, String description, String imgUrl, Seo seo) {
         this.name = name;
         this.description = description;
         this.imgUrl = imgUrl;
-        this.gallery = gallery;
         this.seo = seo;
+    }
+
+    public Seo getSeo() {
+        if (seo == null) {
+            seo = new Seo();
+        }
+        return seo;
     }
 }
