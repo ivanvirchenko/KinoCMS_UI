@@ -18,12 +18,12 @@ public class MovieType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String type;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = {DETACH, MERGE, PERSIST, REFRESH})
     @JoinTable(
             name = "movies_types",
             joinColumns = @JoinColumn(name = "type_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id")
     )
-
     private List<Movie> movies;
 }

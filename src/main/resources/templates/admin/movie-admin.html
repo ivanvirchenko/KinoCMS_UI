@@ -1,22 +1,96 @@
 <!DOCTYPE html>
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <div th:include="~{/share/admin-header :: admin-head}"></div>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
     <div th:include="~{/share/admin-sidebar :: admin-sidebar}"></div>
 
     <div class="content-wrapper p-5">
-        <div class="row">
-            <div class="col-2">
-                <img src="#" alt="#" th:src="${movie.imgUrl}">
-                <div class="mb-3">
-                    <label for="formFileSm" class="form-label">Small file input example</label>
-                    <input class="form-control form-control-sm" id="formFileSm" type="file">
+
+        <form action="#" th:method="post" th:action="@{/admin/movies/update}" th:object="${movie}" class="w-100">
+            <div class="row">
+                <input type="hidden" th:value="*{id}" name="id">
+                <div class="main_img col-3">
+                    <img src="#" alt="#" class="w-100" th:src="*{imgUrl} != null ? *{imgUrl} : '/img/default.jpg'">
+                    <div class="custom-file mt-1">
+                        <input type="file" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    <input type="button" value="Удалить" class="btn btn-primary mt-1">
+                </div>
+
+                <div class="col-9">
+                    <div class="row">
+                        <label>
+                            Название
+                            <input type="text" th:value="*{name}"
+                                   th:field="*{name}"
+                                   class="form-control" placeholder="Название">
+                        </label>
+
+                        <div class="col-3">
+                            Дата начала
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+
+                                <input type="text" class="form-control" data-inputmask-alias="datetime"
+                                       th:field="*{startDate}"  th:value="*{startDate}"
+                                       data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false">
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            Дата окончания
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+
+                                <input type="text" class="form-control" data-inputmask-alias="datetime"
+                                       th:field="*{endDate}"  th:value="*{endDate}"
+                                       data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false">
+                            </div>
+                        </div>
+
+                    </div>
+                    <label class="d-block">
+                        Описание
+                        <textarea th:field="*{description}" rows="10" class="form-control"></textarea>
+                    </label>
+                    <label class="d-block">
+                        Ссылка на видео
+                        <input class="form-control" placeholder="http://youtube.com" type="text"
+                               th:field="*{videoLink}">
+                    </label>
                 </div>
             </div>
-        </div>
+            <div class="seo text-center bg-gradient-blue mt-4">
+                SEO BLOCK
+            </div>
+            <label class="d-block">
+                URL
+                <input class="form-control" type="text" th:field="*{seo.url}">
+            </label>
+            <label class="d-block">
+                Заголовок
+                <input class="form-control" type="text" th:field="*{seo.title}">
+            </label>
+            <label class="d-block">
+                Ключевые слова
+                <input class="form-control" type="text" th:field="*{seo.keyWords}">
+            </label>
+            <label class="d-block">
+                Описание сео
+                <input class="form-control" type="text" th:field="*{seo.description}">
+            </label>
+
+            <input type="submit" class="btn btn-success">
+        </form>
     </div>
+
 
 </div>
 <div th:include="~{/share/admin-scripts :: admin-scripts}"></div>

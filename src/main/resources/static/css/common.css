@@ -9,6 +9,9 @@ a{
     width: 80%;
     margin: 0 auto;
 }
+label {
+    display: block;
+}
 .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

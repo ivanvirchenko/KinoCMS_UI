@@ -4,7 +4,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
@@ -27,13 +27,15 @@ public class Movie extends BasicEntity{
     )
     private List<MovieType> types;
     @NonNull
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate startDate;
+    @Temporal(TemporalType.DATE)
+//    @DateTimeFormat(pattern = "dd/mm/yyyy")
+    private Date startDate;
     @NonNull
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate endDate;
+    @Temporal(TemporalType.DATE)
+//    @DateTimeFormat(pattern = "dd/mm/yyyy")
+    private Date endDate;
 
-    public Movie(String name, String description, String imgUrl, Seo seo, String videoLink, List<MovieType> types, @NonNull LocalDate startDate, @NonNull LocalDate endDate) {
+    public Movie(String name, String description, String imgUrl, Seo seo, String videoLink, List<MovieType> types, @NonNull Date startDate, @NonNull Date endDate) {
         super(name, description, imgUrl, seo);
         this.videoLink = videoLink;
         this.types = types;

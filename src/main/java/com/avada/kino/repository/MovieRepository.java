@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +26,7 @@ public class MovieRepository {
 
             List<Movie> movies = session.createQuery(
                     "select m from Movie m where :date between m.startDate and m.endDate", Movie.class
-            ).setParameter("date", LocalDate.now())
+            ).setParameter("date", new Date())
                     .getResultList();
 
             session.getTransaction().commit();
@@ -42,7 +44,7 @@ public class MovieRepository {
 
             List<Movie> movies = session.createQuery(
                     "select m from Movie m where m.startDate > :date", Movie.class
-            ).setParameter("date", LocalDate.now())
+            ).setParameter("date", new Date())
                     .getResultList();
 
             session.getTransaction().commit();
@@ -55,19 +57,24 @@ public class MovieRepository {
     }
 
     public Movie getById(int id) {
-        Session session = sessionFactory.openSession();
-        try {
+
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             Movie movie = session.createQuery(
-                    "select m from Movie m left join fetch m.gallery where m.id = :id", Movie.class
+                    "select m from Movie m " +
+                            "left join fetch m.gallery " +
+                            "where m.id = :id", Movie.class
             ).setParameter("id", id).getSingleResult();
-            session.getTransaction().commit();
 
+            movie = session.createQuery(
+                    "select m from Movie m " +
+                            "left join fetch m.types where m = :movie", Movie.class
+            ).setParameter("movie", movie).getSingleResult();
+
+            session.getTransaction().commit();
             return movie;
         } catch (NoResultException e) {
             return null;
-        } finally {
-            session.close();
         }
     }
 
@@ -90,22 +97,32 @@ public class MovieRepository {
     public void save(Movie movie) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.persist(movie);
+            session.save(movie);
             session.getTransaction().commit();
         }
     }
 
     public void update(int id, Movie movieNew) {
-        Movie fromDb = getById(id);
-        Optional.ofNullable(movieNew.getName()).ifPresent(fromDb::setName);
-        Optional.ofNullable(movieNew.getStartDate()).ifPresent(fromDb::setStartDate);
-        Optional.ofNullable(movieNew.getEndDate()).ifPresent(fromDb::setEndDate);
-        Optional.ofNullable(movieNew.getDescription()).ifPresent(fromDb::setDescription);
-        Optional.ofNullable(movieNew.getGallery()).ifPresent(fromDb::setGallery);
-        Optional.ofNullable(movieNew.getVideoLink()).ifPresent(fromDb::setVideoLink);
-        Optional.ofNullable(movieNew.getTypes()).ifPresent(fromDb::setTypes);
-        Optional.ofNullable(movieNew.getSeo()).ifPresent(fromDb::setSeo);
-        save(fromDb);
+        Movie fromDb;
+        try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
+
+            fromDb = session.createQuery(
+                    "select m from Movie m join fetch m.gallery " +
+                            "where m.id = :id", Movie.class
+                    ).setParameter("id", id).getSingleResult();
+
+            Optional.ofNullable(movieNew.getName()).ifPresent(fromDb::setName);
+            Optional.ofNullable(movieNew.getStartDate()).ifPresent(fromDb::setStartDate);
+            Optional.ofNullable(movieNew.getEndDate()).ifPresent(fromDb::setEndDate);
+            Optional.ofNullable(movieNew.getDescription()).ifPresent(fromDb::setDescription);
+            Optional.ofNullable(movieNew.getGallery()).ifPresent(fromDb::setGallery);
+            Optional.ofNullable(movieNew.getVideoLink()).ifPresent(fromDb::setVideoLink);
+            Optional.ofNullable(movieNew.getTypes()).ifPresent(fromDb::setTypes);
+            Optional.ofNullable(movieNew.getSeo()).ifPresent(fromDb::setSeo);
+
+            session.getTransaction().commit();
+        }
     }
 
     public void delete(int id) {
@@ -119,16 +136,13 @@ public class MovieRepository {
     }
 
     public List<MovieType> getTypes() {
-        Session session = sessionFactory.openSession();
-        try {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            List<MovieType> movieTypes = session.createQuery(
+            List<MovieType> types = session.createQuery(
                     "select mt from MovieType mt", MovieType.class
             ).getResultList();
             session.getTransaction().commit();
-            return movieTypes;
-        } finally {
-            session.close();
+            return types;
         }
     }
 }

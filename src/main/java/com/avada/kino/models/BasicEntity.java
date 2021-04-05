@@ -31,11 +31,4 @@ public class BasicEntity {
         this.imgUrl = imgUrl;
         this.seo = seo;
     }
-
-    public Seo getSeo() {
-        if (seo == null) {
-            seo = new Seo();
-        }
-        return seo;
-    }
 }
