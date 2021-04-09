@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -100,15 +101,28 @@ public class MovieRepository {
                     "select m from Movie m left join fetch m.types where m = :movie", Movie.class
             ).setParameter("movie", movieFromDb).getSingleResult();
 
+            Optional.ofNullable(movie.getImage()).ifPresent(movieFromDb::setImage);
             Optional.ofNullable(movie.getName()).ifPresent(movieFromDb::setName);
             Optional.of(movie.getStartDate()).ifPresent(movieFromDb::setStartDate);
             Optional.of(movie.getEndDate()).ifPresent(movieFromDb::setEndDate);
             Optional.ofNullable(movie.getVideoLink()).ifPresent(movieFromDb::setVideoLink);
-            Optional.ofNullable(movie.getTypes()).ifPresent(movieFromDb::setTypes);
+            movieFromDb.setTypes(movie.getTypes());
+            if (movie.getSeo() != null) {
+                movieFromDb.getSeo().setUrl(movie.getSeo().getUrl());
+                movieFromDb.getSeo().setTitle(movie.getSeo().getTitle());
+                movieFromDb.getSeo().setKeyWords(movie.getSeo().getKeyWords());
+                movieFromDb.getSeo().setDescription(movie.getSeo().getDescription());
+            }
 
+            session.getTransaction().commit();
+        }
+    }
 
-            Optional.ofNullable(movie.getSeo()).ifPresent(movieFromDb::setSeo);
-
+    public void delete(int id) {
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Movie movie = session.get(Movie.class, id);
+            session.delete(movie);
             session.getTransaction().commit();
         }
     }
@@ -142,4 +156,6 @@ public class MovieRepository {
                 "select count(*) from movie where start_date > date(now())", Integer.class
         );
     }
+
+
 }

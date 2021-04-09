@@ -3,10 +3,7 @@ package com.avada.kino.models;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static javax.persistence.CascadeType.*;
 
@@ -14,18 +11,18 @@ import static javax.persistence.CascadeType.*;
 @Getter
 @Setter
 @ToString(callSuper = true)
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Movie extends BasicEntity{
     private String videoLink;
-    @ManyToMany(cascade = {MERGE, REFRESH, DETACH})
+    @ManyToMany(cascade = {ALL})
     @JoinTable(
-            name = "movies_types",
+            name = "movies_to_types",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "type_id")
     )
-    private List<MovieType> types;
+    private Set<MovieType> types = new HashSet<>();
 
     @NonNull
     @Temporal(TemporalType.DATE)
@@ -34,8 +31,8 @@ public class Movie extends BasicEntity{
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
-
     public void addType(MovieType type) {
         types.add(type);
     }
+
 }

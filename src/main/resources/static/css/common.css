@@ -43,3 +43,15 @@ select {
     background-color: transparent;
     cursor: pointer;
 }
+
+#upload_btn {
+    font-size: 1.5em;
+    color: #0056b3;
+    transition: 0.5s;
+}
+
+#upload_btn:hover{
+    cursor: pointer;
+    color: whitesmoke;
+    background-color: #0056b3;
+}
