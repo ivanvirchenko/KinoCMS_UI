@@ -18,6 +18,12 @@ label {
     column-gap: 20px;
     row-gap: 30px;
 }
+.grid_small {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 20px;
+    row-gap: 30px;
+}
 img {
     width: 100%;
 }

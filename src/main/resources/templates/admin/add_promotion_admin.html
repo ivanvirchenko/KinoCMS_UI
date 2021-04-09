@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<div th:include="~{/share/admin-header :: admin-head}"></div>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+    <div th:include="~{/share/admin-sidebar :: admin-sidebar}"></div>
+
+    <div class="content-wrapper p-5">
+        <form id="news_form" th:action="@{/admin/promotion/add}"
+              enctype="multipart/form-data" method="post" th:object="${new_promotion}">
+            <div class="row">
+                <div class="col-3">
+                    <div class="image_upload">
+                        <img src="#" alt="#" th:src="@{/img/default.jpg}" class="w-100">
+                    </div>
+                    <input type="file" name="main_image" class="btn form-control w-100" required>
+                </div>
+
+                <div class="col-9 p-0 m-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <label class="mr-3">
+                                Название
+                                <input type="text" th:value="*{name}" th:field="*{name}" required class="form-control">
+                            </label>
+                            <div class="mr-3">
+                                Дата добавления
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                    </div>
+
+                                    <input type="text" class="form-control" data-inputmask-alias="datetime"
+                                           data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false"
+                                           th:field="*{date}"
+                                    >
+                                </div>
+                            </div>
+                            <div class="bootstrap-switch-container" style="width: 129px; margin-left: 0px;">
+                                <span class="bootstrap-switch-handle-on bootstrap-switch-success" style="width: 43px;">ON</span>
+                                <span class="bootstrap-switch-label" style="width: 43px;">&nbsp;</span>
+                                <span class="bootstrap-switch-handle-off bootstrap-switch-danger" style="width: 43px;">OFF</span>
+                                <input type="checkbox" name="my-checkbox" th:field="*{enabled}" data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
+                            </div>
+                        </div>
+                        <label>
+                            Описание
+                            <textarea th:field="*{description}" rows="8" class="form-control"></textarea>
+                        </label>
+                    </div>
+                    <label>
+                        Ссылка на видео
+                        <input type="text" th:field="*{videoLink}" class="form-control">
+                    </label>
+                </div>
+            </div>
+
+            <input type="file" name="gallery_images" multiple class="btn">
+
+            <div class="seo text-center bg-gradient-blue mt-4">
+                SEO BLOCK
+            </div>
+            <label class="d-block">
+                URL
+                <input class="form-control" type="text" th:field="*{seo.url}">
+            </label>
+            <label class="d-block">
+                Заголовок
+                <input class="form-control" type="text" th:field="*{seo.title}">
+            </label>
+            <label class="d-block">
+                Ключевые слова
+                <input class="form-control" type="text" th:field="*{seo.keyWords}">
+            </label>
+            <label class="d-block">
+                Описание сео
+                <input class="form-control" type="text" th:field="*{seo.description}">
+            </label>
+
+            <input type="submit" class="btn btn-success">
+        </form>
+    </div>
+
+</div>
+<div th:include="~{/share/admin-scripts :: admin-scripts}"></div>
+</body>
+</html>

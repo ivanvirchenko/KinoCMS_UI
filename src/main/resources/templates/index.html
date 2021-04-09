@@ -38,7 +38,7 @@
     <div class="movies">
         <div class="movie" th:each="movie : ${movies_in_show}">
             <a href="#" th:href="@{/movies/{id}(id = ${movie.id})}">
-                <img src="../static/img/movie_images/Illuzia_obmana_poster.jpg" th:src="@{${movie.imgUrl}}" alt="movie">
+                <img src="../static/img/movie_images/Illuzia_obmana_poster.jpg" th:src="${movie.image.url}" alt="movie">
                 <div class="movie-name" th:text="${movie.name}">Иллюзия обмана</div>
                 <a href="/" class="btn btn-success w-75">Купить билет</a>
             </a>
@@ -51,7 +51,7 @@
     <div class="movies">
         <div class="movie" th:each="movie : ${future_movies}">
             <a href="#" th:href="@{/movies/{id}(id = ${movie.id})}">
-                <img src="../static/img/movie_images/Jumanji_poster.jpg" th:src="@{${movie.imgUrl}}" alt="movie">
+                <img src="../static/img/movie_images/Jumanji_poster.jpg" th:src="${movie.image.url}" alt="movie">
                 <div class="movie-name" th:text="${movie.name}">Джуманджи</div>
             </a>
         </div>
@@ -60,7 +60,7 @@
 
 <section class="news container p-0 bg-light">
     <div class="title">Новости и акции</div>
-    <img src="../static/img/news/news_banner.jpg" th:src="@{/img/news/news_banner.jpg}" class="w-100" alt="news">
+    <img src="../static/img/news/news_banner.jpg" th:src="@{/img/news/bammer.jpg}" class="w-100" alt="news">
 </section>
 
 <section class="commercial container bg-light d-flex flex-column align-items-center">

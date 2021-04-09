@@ -12,7 +12,7 @@
         <div class="movies">
             <div th:each="movie : ${showing}">
                 <a href="#" th:href="@{/admin/movies/{id}(id=${movie.id})}">
-                    <img src="#" class="w-100" alt="picture" th:src="${movie.imgUrl} != null ? ${movie.imgUrl} : '/img/default.jpg'">
+                    <img src="#" class="w-100" alt="picture" th:src="@{${movie.image.url}}">
                     <p class="text-center text-lg text-bold" th:text="${movie.name}"></p>
                 </a>
             </div>
@@ -22,7 +22,7 @@
         <div class="movies">
             <div class="movie w-100" th:each="movie : ${future}">
                 <a href="#" th:href="@{/admin/movies/{id}(id=${movie.id})}">
-                    <img src="#" class="w-100" alt="picture" th:src="@{${movie.imgUrl}}">
+                    <img src="#" class="w-100" alt="picture" th:src="@{${movie.image.url}}">
                     <p class="text-center text-lg text-bold" th:text="${movie.name}"></p>
                 </a>
             </div>

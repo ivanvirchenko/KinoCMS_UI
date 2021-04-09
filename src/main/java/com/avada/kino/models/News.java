@@ -17,10 +17,4 @@ public class News extends BasicEntity {
     private LocalDate date;
     private String videoLink;
 
-    public News(String name, String description, String imgUrl, Seo seo, boolean enabled, LocalDate date, String videoLink) {
-        super(name, description, imgUrl, seo);
-        this.enabled = enabled;
-        this.date = date;
-        this.videoLink = videoLink;
-    }
 }

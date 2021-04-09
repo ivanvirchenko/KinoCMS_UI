@@ -9,7 +9,7 @@
     <section class="content">
         <div class="movie d-flex flex-column align-items-center" th:each="movie: ${movies}">
             <a href="#" th:href="@{/movies/{id}(id = ${movie.id})}">
-                <img th:src="@{${movie.imgUrl}}" alt="Poster" src="../static/img/movie_images/aferistka_poster.jpg">
+                <img th:src="@{${movie.image.url}}" alt="Poster" src="../static/img/movie_images/aferistka_poster.jpg">
                 <div class="movie-name" th:text="${movie.name}">Name</div>
                 <a href="#" class="btn btn-success w-75">Купить</a>
             </a>

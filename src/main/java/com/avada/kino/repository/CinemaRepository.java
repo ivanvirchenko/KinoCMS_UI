@@ -24,7 +24,6 @@ import java.util.List;
 public class CinemaRepository {
 
     private final SessionFactory sessionFactory;
-    private final JdbcTemplate jdbcTemplate;
 
     public List<Cinema> getAll() {
         try (Session session = sessionFactory.openSession()) {
@@ -40,45 +39,18 @@ public class CinemaRepository {
         }
     }
 
-//    private Cinema get(int id) {
-//        try (Session session = sessionFactory.openSession()) {
-//            session.beginTransaction();
-//            Cinema cinema = session.createQuery(
-//                    "select distinct c from Cinema c left join fetch c.hallsList where c.id = :id",
-//                    Cinema.class
-//            ).setParameter("id", id)
-//                    .getSingleResult();
-//
-//            cinema = session.createQuery(
-//                    "select distinct c from Cinema c left join fetch c.gallery where c = :cinema",
-//                    Cinema.class
-//            ).setParameter("cinema", cinema).getSingleResult();
-//
-//            cinema = session.createQuery(
-//                    "select distinct c from Cinema c left join fetch c.schedules` where c = :cinema",
-//                    Cinema.class
-//            ).setParameter("cinema", cinema).getSingleResult();
-//
-//            session.getTransaction().commit();
-//            return cinema;
-//        } catch (EmptyResultDataAccessException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
 
     public Cinema getById(int id) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
             Cinema cinema = session.createQuery(
-                    "select c from Cinema c " +
-                            "left join fetch c.hallsList " +
-                            "left join c.schedules " +
-                            "left join c.gallery " +
-                            "where c.id = :id"
-                    ,Cinema.class
+                    "select c from Cinema c left join fetch c.hallsList where c.id = :id", Cinema.class
             ).setParameter("id", id).getSingleResult();
+
+            cinema = session.createQuery(
+                    "select c from Cinema c left join fetch c.gallery where c = :cinema", Cinema.class
+            ).setParameter("cinema", cinema).getSingleResult();
 
             session.getTransaction().commit();
             return cinema;

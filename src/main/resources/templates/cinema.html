@@ -24,7 +24,7 @@
             <div class="titles d-flex justify-content-start">
                 <div class="logo_block d-flex">
                     <div class="cinema-name" th:text="*{name}"></div>
-                    <img src="#logo" class="logo" th:src="*{imgUrl}" alt="logo">
+                    <img src="#logo" class="logo" th:src="*{image.url}" alt="logo">
                 </div>
                 <div class="button-block d-flex align-items-baseline">
                     <a href="#" th:href="@{/schedule(cinema=${cinema.id})}" class="btn btn-success w-100">Расписание сеансов</a>

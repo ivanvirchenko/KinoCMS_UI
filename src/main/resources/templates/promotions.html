@@ -15,7 +15,7 @@
             <div class="content w-100">
                 <div class="cinema" th:each="promotion: ${promotions}">
                     <a href="#" th:href="@{/promotions/{id}(id = ${promotion.id})}">
-                        <img src="#" th:src="@{${promotion.imgUrl}}" alt="img">
+                        <img src="#" th:src="@{${promotion.image.url}}" alt="img">
                         <div class="promotion_date" th:text="${promotion.date}"></div>
                         <div class="promotion_name" th:text="${promotion.name}"></div>
                     </a>

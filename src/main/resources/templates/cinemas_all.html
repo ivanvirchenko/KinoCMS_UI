@@ -15,7 +15,7 @@
             <div class="content w-100">
                 <div class="cinema" th:each="cinema: ${cinema_list}">
                     <a href="#" th:href="@{/cinema/{id}(id = ${cinema.id})}">
-                        <img src="#" th:src="@{${cinema.imgUrl}}" alt="img">
+                        <img src="#" th:src="@{${cinema.image.url}}" alt="img">
                         <div class="cinema_name" th:text="${cinema.name}"></div>
                     </a>
                 </div>

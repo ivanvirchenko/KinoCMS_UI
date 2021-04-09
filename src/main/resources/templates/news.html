@@ -7,7 +7,7 @@
 <div class="container bg-light p-0" th:object="${theNews}">
     <div class="the_news d-flex">
         <div class="news_img_holder col-4 p-2">
-            <img src="#" th:src="@{${theNews.imgUrl}}" alt="img">
+            <img src="#" th:src="*{image.url}" alt="img">
         </div>
         <div class="news_info p-2">
             <div class="news_title" th:text="*{name}"></div>

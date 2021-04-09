@@ -7,17 +7,17 @@
 <div class="container bg-light p-0">
 
     <section class="banner">
-        <img src="#" th:src="@{/img/news/news_banner.jpg}" alt="Banner">
+        <img src="#" th:src="@{/img/bg.jpg}" alt="Banner">
     </section>
 
     <section class="theatres d-flex align-items-start">
         <div class="theatres_list col-9 ">
-            <div class="content w-100">
+            <div class="grid w-100">
                 <div class="cinema" th:each="news : ${news_all}">
                     <a href="#" th:href="@{/news/{id}(id = ${news.id})}">
-                        <img src="#" th:src="@{${news.imgUrl}}" alt="img">
-                        <div class="promotion_date" th:text="${news.date}"></div>
-                        <div class="promotion_name" th:text="${news.name}"></div>
+                        <img src="#" th:src="@{${news.image.url}}" alt="img">
+                        <div class="news_date_date" th:text="${news.date}"></div>
+                        <div class="news_title" th:text="${news.name}"></div>
                     </a>
                 </div>
             </div>

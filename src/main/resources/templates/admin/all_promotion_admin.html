@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<div th:include="~{/share/admin-header :: admin-head}"></div>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+    <div th:include="~{/share/admin-sidebar :: admin-sidebar}"></div>
+
+    <div class="content-wrapper p-5">
+        <div class="all_news grid">
+            <div class="news"  th:each="prom : ${all_promotions}">
+                <a href="#" th:href="@{/admin/promotion/{id}(id=${prom.id})}">
+                    <img src="" alt="" th:src="${prom.image.url}">
+                    <p th:text="${prom.name}">Name</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div th:include="~{/share/admin-scripts :: admin-scripts}"></div>
+</body>
+</html>

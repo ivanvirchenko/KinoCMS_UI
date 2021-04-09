@@ -19,14 +19,14 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" th:href="@{/admin/statistic}">
                         <p>
                             Статистика
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" th:href="@{/admin/banners}">
                         <p>
                             Баннера
                         </p>
@@ -65,13 +65,13 @@
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link ">
-                                <p>Страница кинотеатра</p>
+                            <a href="#" class="nav-link" th:href="@{/admin/cinema/all}">
+                                <p>Все кинотеатры</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link ">
-                                <p>Страница залла</p>
+                            <a href="#" class="nav-link" th:href="@{/admin/cinema/add}">
+                                <p>Добавить кинотеатр</p>
                             </a>
                         </li>
                     </ul>
@@ -87,8 +87,13 @@
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link ">
-                                <p>Страница новости</p>
+                            <a href="#" th:href="@{/admin/news}" class="nav-link ">
+                                <p>Все новости</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" th:href="@{/admin/news/add}" class="nav-link ">
+                                <p>Добаить новость</p>
                             </a>
                         </li>
                     </ul>
@@ -101,11 +106,15 @@
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link ">
-                                <p>Страница акции</p>
+                            <a href="#" class="nav-link" th:href="@{/admin/promotion/}">
+                                <p>Все акции</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" th:href="@{/admin/promotion/add}">
+                                <p>Добавить акцию</p>
                             </a>
                         </li>
                     </ul>
@@ -125,21 +134,7 @@
                                 <p>Главная</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link ">
-                                <p>О кинотеатре</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link ">
-                                <p>Кафе-бар</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link ">
-                                <p>VIP-залл</p>
-                            </a>
-                        </li>
+
                         <li class="nav-item">
                             <a href="#" class="nav-link ">
                                 <p>Реклама</p>

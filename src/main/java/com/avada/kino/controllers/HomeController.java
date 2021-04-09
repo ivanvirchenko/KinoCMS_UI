@@ -20,10 +20,7 @@ public class HomeController {
     public String home(Model model) {
         model.addAttribute("movies_in_show", service.getShowingMovies());
         model.addAttribute("future_movies", service.getFutureMovies());
-        Movie movie = new Movie();
-        movie.setName("TestMovie");
 
-        service.save(movie);
         return "index";
     }
 }

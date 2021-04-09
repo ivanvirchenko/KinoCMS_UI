@@ -8,18 +8,18 @@
 
     <div class="content-wrapper p-5">
         <form enctype="multipart/form-data"
-              method="post" th:action="@{/admin/movies/add}" th:object="${newMovie}">
+              method="post" th:action="@{/admin/movies/add}" th:object="${movie}">
 
             <div class="row">
                 <div class="col-3 image_upload">
                     <img src="#" alt="#" th:src="@{/img/default.jpg}" class="w-100">
-                    <input type="file" name="file" required class="w-100 mt-3">
+                    <input type="file" name="file"  class="w-100 mt-3">
                 </div>
                 <div class="col-9">
                     <div class="row">
                         <label class="mr-3">
                             Название
-                            <input type="text" th:field="*{name}" class="form-control" required>
+                            <input type="text" th:field="*{name}" class="form-control" >
                         </label>
                         <div class=" mr-3">
                             <p class="m-0 text-bold">Начало проката</p>
@@ -28,7 +28,7 @@
                                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                 </div>
                                 <input type="text" class="form-control" data-inputmask-alias="datetime"
-                                       th:field="*{startDate}" th:value="*{startDate}" required
+                                       th:field="*{startDate}" th:value="*{startDate}"
                                        data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false">
                             </div>
                         </div>
@@ -39,46 +39,56 @@
                                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                 </div>
                                 <input type="text" class="form-control" data-inputmask-alias="datetime"
-                                       th:field="*{endDate}" th:value="*{endDate}" required
+                                       th:field="*{endDate}" th:value="*{endDate}"
                                        data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false">
                             </div>
                         </div>
                     </div>
                     <label>
                         Описание фильма
-                        <textarea th:field="*{description}" rows="7" required class="form-control"></textarea>
+                        <textarea th:field="*{description}" rows="7"  class="form-control"></textarea>
                     </label>
                     <label>
                         Ссылка видеоролика
                         <input th:field="*{videoLink}" class="form-control">
                     </label>
+
+
+                    <div class="movie_types d-flex mt-4">
+                        <p class="text-bold mr-3">Типы показов:</p>
+                        <div th:if="${all_types} != null" th:each="m_type : ${all_types}" class="d-flex align-items-baseline mr-5">
+                            <input type="checkbox" class="mr-1"
+                                   th:field="*{types}"
+                                   th:value="${m_type.type}"
+                            >
+                            <label th:for="${m_type.id}" th:text="${m_type.type}"></label>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
+            <input type="file" name="files" multiple class="mt-4">
 
             <div class="seo_block mt-4">
                 <p class="bg-blue text-xl-center">SEO</p>
                 <label>
                     SEO url
-                    <input type="text" class="form-control" th:field="*{seo.url}" required>
+                    <input type="text" class="form-control" th:field="*{seo.url}">
                 </label>
                 <label>
                     SEO заголовок
-                    <input type="text" class="form-control" th:field="*{seo.title}" required>
+                    <input type="text" class="form-control" th:field="*{seo.title}">
                 </label>
                 <label>
                     SEO ключевые слова
-                    <input type="text" class="form-control" th:field="*{seo.keyWords}" required>
+                    <input type="text" class="form-control" th:field="*{seo.keyWords}">
                 </label>
                 <label>
                     SEO описание
-                    <input type="text" class="form-control" th:field="*{seo.description}" required>
+                    <input type="text" class="form-control" th:field="*{seo.description}">
                 </label>
             </div>
-
-<!--            <div th:each="t, i : ${theTypes}" class="d-flex align-items-baseline">-->
-<!--                <input  type="checkbox" th:field="*{types}" th:value="${t.id}">-->
-<!--                <label th:for="${t.id}" th:text="${t.type}"></label>-->
-<!--            </div>-->
 
             <input type="submit" value="Сохранить" class="btn btn-success">
 

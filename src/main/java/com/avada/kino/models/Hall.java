@@ -27,8 +27,4 @@ public class Hall extends BasicEntity{
     @CollectionTable(name = "places")
     private List<HallPlace> places;
 
-    public Hall(String name, String description, String imgUrl, Seo seo, String banner_url) {
-        super(name, description, imgUrl, seo);
-        this.banner_url = banner_url;
-    }
 }

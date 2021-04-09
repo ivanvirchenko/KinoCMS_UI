@@ -34,12 +34,6 @@ public class Cinema extends BasicEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Schedule> schedules;
 
-    public Cinema(String name, String description, String imgUrl, Seo seo, String conditions, String banner_url, City city) {
-        super(name, description, imgUrl, seo);
-        this.conditions = conditions;
-        this.banner_url = banner_url;
-        this.city = city;
-    }
 
     public void add(Hall hall) {
         if (hallsList == null) {

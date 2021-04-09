@@ -8,14 +8,23 @@
 
     <div class="content-wrapper p-5">
 
-        <form action="#" th:method="post" th:action="@{/admin/movies/update}" th:object="${movie}" class="w-100">
+        <form action="#" th:method="post" enctype="multipart/form-data"
+              th:action="@{/admin/movies/update}" th:object="${movie_from_db}" class="w-100">
+            <input type="hidden" th:value="*{id}" th:field="*{id}">
             <div class="row">
-                <input type="hidden" th:value="*{id}" name="id">
                 <div class="main_img col-3">
-                    <img src="#" alt="#" class="w-100" th:src="*{imgUrl} != null ? *{imgUrl} : '/img/default.jpg'">
-                    <div class="custom-file mt-1">
-                        <input type="file" class="custom-file-input" id="customFile">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    <img src="#" alt="#" class="main_img w-100" th:src="*{image.url}">
+                    <div class="form-group">
+                        <label for="exampleInputFile">File input</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="exampleInputFile">
+                                <label  class="custom-file-label" for="exampleInputFile">picture.jpg</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="">Upload</span>
+                            </div>
+                        </div>
                     </div>
                     <input type="button" value="Удалить" class="btn btn-primary mt-1">
                 </div>
@@ -65,8 +74,26 @@
                         <input class="form-control" placeholder="http://youtube.com" type="text"
                                th:field="*{videoLink}">
                     </label>
+
+                    <div class="movie_types d-flex mt-4">
+                        <p class="text-bold mr-3">Типы показов:</p>
+                        <div th:each="m_type : ${all_types}" class="d-flex align-items-baseline mr-5">
+                            <input type="checkbox" class="mr-1"
+                                   th:field="*{types}"
+                                   th:value="${m_type.id}"
+                                   th:text="${m_type.type}"
+                            >
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="d-flex mt-4">
+                <div class="gallery w-25 mr-3" th:each="image : *{gallery}">
+                    <img class="w-100 d-block" src="#" alt="#" th:src="${image.url}">
+                </div>
+            </div>
+
             <div class="seo text-center bg-gradient-blue mt-4">
                 SEO BLOCK
             </div>

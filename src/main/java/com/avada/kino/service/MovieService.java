@@ -25,23 +25,23 @@ public class MovieService {
         return repository.getById(id);
     }
 
-    public List<Movie> getByName(String name) {
-        return repository.getByName(name);
-    }
-
     public void save(Movie movie) {
         repository.save(movie);
     }
 
-    public void update(int id, Movie movie) {
-        repository.update(id, movie);
-    }
-
-    public void delete(int id) {
-        repository.delete(id);
-    }
-
     public List<MovieType> getTypes() {
         return repository.getTypes();
+    }
+
+    public int getTotalMoviesCount() {
+        return repository.getTotalMoviesCount();
+    }
+
+    public int getCurrentMoviesCount() {
+        return repository.getCurrentMoviesCount();
+    }
+
+    public int getFutureMoviesCount() {
+        return repository.getFutureMoviesCount();
     }
 }
