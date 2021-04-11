@@ -22,16 +22,16 @@ public class Cinema extends BasicEntity {
     private String conditions;
     private String banner_url;
 
-    @ManyToOne(cascade = {MERGE, DETACH, PERSIST, REFRESH})
+    @ManyToOne(cascade = {MERGE, DETACH, REFRESH})
     @JoinColumn(name = "city_id")
     private City city;
 
     @OneToMany(mappedBy = "cinema", fetch = FetchType.LAZY, cascade = ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Hall> hallsList;
 
     @OneToMany(mappedBy = "cinema", fetch = FetchType.LAZY, cascade = ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Schedule> schedules;
 
 
@@ -41,13 +41,5 @@ public class Cinema extends BasicEntity {
         }
         hall.setCinema(this);
         hallsList.add(hall);
-    }
-
-    public void add(Schedule schedule) {
-        if (schedules == null) {
-            schedules = new ArrayList<>();
-        }
-        schedule.setCinema(this);
-        schedules.add(schedule);
     }
 }

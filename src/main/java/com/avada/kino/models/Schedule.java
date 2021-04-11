@@ -20,7 +20,7 @@ public class Schedule {
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "movie_sessions")
     private List<MovieSession> sessions;
-    @ManyToOne(cascade = {REFRESH, MERGE, DETACH, PERSIST})
+    @ManyToOne
     @JoinColumn(name = "cinema_id")
     private Cinema cinema;
 
@@ -28,9 +28,5 @@ public class Schedule {
         sessions.add(session);
     }
 
-    public Schedule(LocalDate localDate, List<MovieSession> sessions, Cinema cinema) {
-        this.localDate = localDate;
-        this.sessions = sessions;
-        this.cinema = cinema;
-    }
+
 }

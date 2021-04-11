@@ -16,5 +16,4 @@ public class News extends BasicEntity {
     private boolean enabled;
     private LocalDate date;
     private String videoLink;
-
 }

@@ -1,36 +1,44 @@
 package com.avada.kino.service;
 
+import com.avada.kino.dao.CinemaDao;
 import com.avada.kino.models.Cinema;
-import com.avada.kino.repository.CinemaRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CinemaService {
-    private final CinemaRepository repository;
+public class CinemaService implements DaoService<Cinema>{
 
-    public List<Cinema> getAll() {
-        return repository.getAll();
-    }
+    private final CinemaDao dao;
 
-    public Cinema getById(int id) {
-        return repository.getById(id);
-    }
-
+    @Override
     public void save(Cinema cinema) {
-        repository.save(cinema);
+        dao.save(cinema);
     }
 
+    @Override
+    public List<Cinema> getAll() {
+        return dao.getAll();
+    }
+
+    public List<Cinema> getAllWithoutCollections() {
+        return dao.getAllWithoutCollections();
+    }
+
+    @Override
+    public Cinema getById(int id) {
+        return dao.getById(id);
+    }
+
+    @Override
     public void update(Cinema cinema) {
-        repository.update(cinema);
+        dao.update(cinema);
     }
 
+    @Override
     public void delete(int id) {
-        repository.delete(id);
+        dao.delete(id);
     }
 }
