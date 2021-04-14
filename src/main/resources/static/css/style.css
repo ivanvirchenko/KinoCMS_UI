@@ -14,3 +14,16 @@
     color: whitesmoke;
     border-radius: 10px 10px 0 0;
 }
+
+.delete-x {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.ifactive {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 100;
+}

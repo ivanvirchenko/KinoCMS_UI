@@ -8,101 +8,131 @@ values ('2D'),
        ('3D'),
        ('IMAX');
 
+INSERT INTO seo (description, key_words, title, url) values
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com'),
+('description', 'keyword, keyword, keyword, keyword, keyword', 'The seo', 'http//:8080/www.google.com');
+
 -- #Movie gallery insertion
 INSERT INTO movie (description, image_name, image_url, name, start_date, end_date, video_link, seo_id)
 VALUES ( 'Реальна історія в’язня Гуантанамо, який провів за ґратами 14 років. У центрі сюжету мавританець Мохаммед Ульд Слахі (Тагар Рагім). Влада США підозрює його у вербуванні терористів під час терактів 11 вересня. Без офіційних звинувачень і можливості захисту в суді, Слахі запроторюють до в’язниці. Лише через 6 років він отримує право на адвоката, і у боротьбу проти урядової машини вступають адвокатка Ненсі Голландер (Джоді Фостер) та її помічниця Тері Дункан (Шейлін Вудлі). Завдяки їхній титанічній праці вдасться розкрити шокуючу істину та довести, що людський дух не стримають ніякі ґрати. Фільм засновано на автобіографічній книзі «Щоденник Гуантанамо».'
-       , 'mavritanec_poster.jpg'
-       , '/img/movie_images/mavritanec_poster.jpg'
+       , 'Mavritanec.jpeg'
+       , '/movies/Mavritanec.jpeg'
        , 'Мавританець'
        , date(now())
        , date(now() + interval '14 day')
        , 'https://www.youtube.com/embed/-aRNcSi3_h0'
-       , null),
+       , 1),
 
        ( 'Парочка улюблених мультяшних ворогів повертається на великі екрани в анімації «Том і Джеррі» від режисера Тіма Сторі. Коли Джеррі переїжджає в найдорожчий готель Нью-Йорка напередодні «весілля століття», весільна розпорядниця змушена найняти Тома, щоб здихатись від миші. Та війна між цими двома загрожує знищенням її кар''єри, весілля і, можливо, самого готелю. Але невдовзі постає ще більша проблема: диявольськи амбітний колега планує змову проти них трьох.'
-       , 'Tom_&_Jerry_poster.jpg'
-       , '/img/movie_images/Tom_&_Jerry_poster.jpg'
+       , 'Tom$Jerry.jpg'
+       , '/movies/Tom$Jerry.jpg'
        , 'Том і Джеррі'
        , date(now())
        , date(now() + interval '14 day')
        , 'https://www.youtube.com/embed/HAfBOQfJbYo'
-       , null),
+       , 2),
 
        ( 'Побудувавши успішну юридичну кар''єру, Марла майстерно користується людьми, прикриваючись турботою про них. Вона звикла безкарно обдирати своїх багатих клієнтів за рахунок рідкісної чарівності і чималої частки цинізму. Але її нова підопічна - не така проста, як здається, і солодке життя головної героїні скоро перетвориться на гру на виживання...'
-       , 'aferistka_poster.jpg'
-       , '/img/movie_images/aferistka_poster.jpg'
+       , 'aferistka.jpg'
+       , '/movies/aferistka.jpg'
        , 'Аферистка'
        , date(now())
        , date(now() + interval '14 day')
        , 'https://www.youtube.com/embed/j3QgakCnxvA'
-       , null),
+       , 3),
 
        ( 'Клер повертається додому з поїздки по Близькому Сходу і дізнається про те, що її 13-річний син викрадений місцевими бандитами на чолі з якимось чоловіком, відомим як Отець.'
-       , 'dochka_volka_poster.jpg'
-       , '/img/movie_images/dochka_volka_poster.jpg'
+       , 'WolfDoughter.jpg'
+       , '/movies/WolfDoughter.jpg'
        , 'Дочка вовка'
        , date(now())
        , date(now() + interval '14 day')
        , 'https://www.youtube.com/embed/nA6cIwCEBys&t=1s'
-       , null),
+       , 4),
 
        ( 'Через 15 років після вторгнення невідомий вірус загрожує співіснуванню дружніх інопланетних гібридів і людей. Народжена на космічному кораблі мутантка Роуз Корлі зазнає складнощів з управлінням власною вогняною рукою, коли на неї виходять члени опору. Вони пропонують дівчині приєднатися до складу добре підготовленого загону, куди входить і її брат-інопланетян Трент, відправитися на ворожу планету і захопити осереддя від зруйнованого корабля, що допоможе врятувати людство.'
-       , 'skyline_3_poster.jpg'
-       , '/img/movie_images/skyline_3_poster.jpg'
+       , 'Skyline 3.jpg'
+       , '/movies/Skyline 3.jpg'
        , 'Скайлайн 3'
        , date(now())
        , date(now() + interval '14 day')
        , 'https://www.youtube.com/embed/cfztMubgCm4'
-       , null),
+       , 5),
 
        ( 'Головні герої картини - команда добре злагоджених ілюзіоністів. Вони настільки вправні в своїй майстерності, що прямо під час виступів займаються грабежами. По сліду злочинців йдуть федеральні агенти, але зловити спритників буде непростою справою.'
-       , 'Illuzia_obmana_poster.jpg'
-       , '/img/movie_images/Illuzia_obmana_poster.jpg'
+       , 'Illusion.jpg'
+       , '/movies/Illusion.jpg'
        , 'Ілюзія обману'
        , date(now() + interval '1 day')
        , date(now() + interval '15 day')
        , 'https://www.youtube.com/embed/d7bJKtjYE_E'
-       , null),
+       , 6),
 
-       ( 'У фільмі "Джуманджі" зразка 1995 року жителі джунглів проникли в наш світ, але на цей раз гості приходять вже до них. Дивовижна четвірка американських підлітків чисто випадково зустрічається в кабінеті директора школи через поведінку і інші гріхи. Всіх їх в якості покарання відправляють на горище освітнього закладу відривати дужки з макулатури. І тут абсолютно несподівано для глядачів хлопець на ім''я Спенсер знаходить в завалах комп''ютерну гру "Джуманджі". "Давайте зіграємо", - пропонує братам по нещастю він. Ну і далі поїхало-понеслося.
+       ( 'У фільмі Джуманджі зразка 1995 року жителі джунглів проникли в наш світ, але на цей раз гості приходять вже до них. Дивовижна четвірка американських підлітків чисто випадково зустрічається в кабінеті директора школи через поведінку і інші гріхи. Всіх їх в якості покарання відправляють на горище освітнього закладу відривати дужки з макулатури. І тут абсолютно несподівано для глядачів хлопець на ім''я Спенсер знаходить в завалах комп''ютерну гру "Джуманджі". "Давайте зіграємо", - пропонує братам по нещастю він. Ну і далі поїхало-понеслося.
          Школярі потрапляють на тропічний острів - всередину комп''ютерної гри, кардинально змінивши свій зовнішній вигляд. У них з''явилися неймовірні (ну і трохи кумедні) суперсили і, звичайно ж, вразливі місця (красномовний приклад: боязнь кексів) .Таким чином, хлопці - вже згаданий боязкий Спенсер, а також чорношкірий качок Фрідж - перетворюються в непереможного доктора Брейвстоуна і зброєносця Франкліна "Мус" Фінбара відповідно. "Змінилися" і дівчата: красуня, Instagram-зірка Беттані стала товстим професором Шеллі , а нецілована Марта перетворюється на відчайдушну і спритну героїню Рубі.'
-       , 'Jumanji_poster.jpg'
-       , '/img/movie_images/Jumanji_poster.jpg'
+       , 'Jumanji.jpg'
+       , '/movies/Jumanji.jpg'
        , 'Джуманджі'
        , date(now() + interval '10 day')
        , date(now() + interval '14 day')
        , 'https://www.youtube.com/embed/E_116VG-djE'
-       , null);
+       , 7);
 
 -- # Movies insertion
 INSERT INTO movie_gallery
-values (1, 'mavritanec_frame_1', '/img/movie_images/mavritanec_frame_1.jpg'),
-       (1, 'mavritanec_frame_2', '/img/movie_images/mavritanec_frame_2.jpg'),
-       (1, 'mavritanec_frame_3', '/img/movie_images/mavritanec_frame_3.jpg'),
+values (1, 'mavritanec_frame_1', '/movies/Mavritanec_1.jpg'),
+       (1, 'mavritanec_frame_2', '/movies/Mavritanec_2.jpg'),
+       (1, 'mavritanec_frame_3', '/movies/Mavritanec_3.jpg'),
 
-       (2, 'Tom_&_Jerry_frame_1', '/img/movie_images/Tom_&_Jerry_frame_1.jpg'),
-       (2, 'Tom_&_Jerry_frame_2', '/img/movie_images/Tom_&_Jerry_frame_2.jpg'),
-       (2, 'Tom_&_Jerry_frame_3', '/img/movie_images/Tom_&_Jerry_frame_3.jpg'),
+       (2, 'Tom_&_Jerry_frame_1', '/movies/Tom$Jerry_1.jpg'),
+       (2, 'Tom_&_Jerry_frame_2', '/movies/Tom$Jerry_2.jpg'),
+       (2, 'Tom_&_Jerry_frame_3', '/movies/Tom$Jerry_3.jpg'),
 
-       (3, 'aferistka_frame_1.jpg', '/img/movie_images/aferistka_frame_1.jpg'),
-       (3, 'aferistka_frame_2.jpg', '/img/movie_images/aferistka_frame_2.jpg'),
-       (3, 'aferistka_frame_3.jpg', '/img/movie_images/aferistka_frame_3.jpg'),
+       (3, 'aferistka_frame_1.jpg', '/movies/aferistka_1.jpg'),
+       (3, 'aferistka_frame_2.jpg', '/movies/aferistka_2.jpg'),
+       (3, 'aferistka_frame_3.jpg', '/movies/aferistka_3.jpg'),
 
-       (4, 'dochka_volka_frame_1.jpg', '/img/movie_images/dochka_volka_frame_1.jpg'),
-       (4, 'dochka_volka_frame_2.jpg', '/img/movie_images/dochka_volka_frame_2.jpg'),
-       (4, 'dochka_volka_frame_3.jpg', '/img/movie_images/dochka_volka_frame_3.jpg'),
+       (4, 'dochka_volka_frame_1.jpg', '/movies/WolfDoughter_1.jpg'),
+       (4, 'dochka_volka_frame_2.jpg', '/movies/WolfDoughter_2.jpg'),
+       (4, 'dochka_volka_frame_3.jpg', '/movies/WolfDoughter_3.jpg'),
 
-       (5, 'skyline_3_frame_1.jpg', '/img/movie_images/skyline_3_frame_1.jpg'),
-       (5, 'skyline_3_frame_2.jpg', '/img/movie_images/skyline_3_frame_2.jpg'),
-       (5, 'skyline_3_frame_3.jpg', '/img/movie_images/skyline_3_frame_3.jpg'),
+       (5, 'skyline_3_frame_1.jpg', '/movies/Skyline_1.jpg'),
+       (5, 'skyline_3_frame_2.jpg', '/movies/Skyline_2.jpg'),
 
-       (6, 'Illuzia_obmana_frame_1.jpg', '/img/movie_images/Illuzia_obmana_frame_1.jpg'),
-       (6, 'Illuzia_obmana_frame_2.jpg', '/img/movie_images/Illuzia_obmana_frame_2.jpg'),
-       (6, 'Illuzia_obmana_frame_3.jpg', '/img/movie_images/Illuzia_obmana_frame_3.jpg'),
+       (6, 'Illuzia_obmana_frame_1.jpg', '/movies/Illusion_1.jpg'),
+       (6, 'Illuzia_obmana_frame_2.jpg', '/movies/Illusion_2.jpg'),
+       (6, 'Illuzia_obmana_frame_3.jpg', '/movies/Illusion_3.jpg'),
 
-       (7, 'Jumanji_frame_1.jpeg', '/img/movie_images/Jumanji_frame_1.jpeg'),
-       (7, 'Jumanji_frame_2.jpg', '/img/movie_images/Jumanji_frame_2.jpg'),
-       (7, 'Jumanji_frame_3.jpg', '/img/movie_images/Jumanji_frame_3.jpg');
+       (7, 'Jumanji_frame_1.jpeg', '/movies/Jumanji_1.jpg'),
+       (7, 'Jumanji_frame_2.jpg', '/movies/Jumanji_2.jpg'),
+       (7, 'Jumanji_frame_3.jpg', '/movies/Jumanji_3.jpg');
 
 -- #Insert cinemas
 INSERT INTO cinema (description, image_name, image_url, name, banner_url, conditions, seo_id, city_id)
@@ -111,11 +141,11 @@ values ( 'Кинотеатр "Лейпциг" предлагает своим г
        На втором этаже кинотеатра "Лейпциг" расположен бар, где посетители смогут приобрести вкусный попкорн и любые напитки.
        Кинотеатр "Лейпциг" ждет Вас!'
        , 'leipzig.jpg'
-       , '/img/cinema_images/leipzig.jpg'
+       , '/cinema_images/leipzig.jpg'
        , 'Лейпциг'
-       , '/img/cinema_images/cinema-banner.jpg'
+       , '/cinema_images/cinema-banner.jpg'
        , 'Некоторые условия'
-       , null
+       , 8
        , 1),
 
 
@@ -125,11 +155,11 @@ values ( 'Кинотеатр "Лейпциг" предлагает своим г
         Кінотеатр є найбільшим в Україні, що дозволяє зробити різноманіття репертуару максимально широким та розклад сеансів надзвичайно зручним навіть для найвибагливішого кіномана. Якщо і цього замало – діє власний M CLUB – дві надкомфортні кінозали, розраховані на 34 відвідувача у кожній з них. Кінозали обладнані спеціальними кріслами- реклайнерами, що розкладаються у зручне індивідуальне напівлежаче положення. Крім того, на кожному кріслі є кнопка виклику адміністратора, який подбає, аби відвідувач був забезпечений смаколиками кінотеатру. Одна кінозала обладнана технологією звуку Dolby Atmos, і для повного відчуття та передавання ефектів зала повністю оббита спеціальною чорною тканиною. Кінозали відділені власним затишним фойє, на території діє алкогольний бар з вишуканими коктейлями та напоями.
         Кінотеатр пишається своєю унікальною для України технологією, яка розроблена спеціально для Multiplex, та водночас найбільшою залою кінотеатру - залою №7 TWINS. Це двопроекторна система зображення, завдяки якій фільми демонструються з роздільною здатністю 4К, а формат 3D стає більш яскравим та чітким.'
        , 'multipleks-lavina.jpg'
-       , '/img/cinema_images/multipleks-lavina.jpg'
+       , '/cinema_images/multipleks-lavina.jpg'
        , 'Multiplex Lavina Mall'
-       , '/img/cinema_images/cinema-banner.jpg'
+       , '/cinema_images/cinema-banner.jpg'
        , 'Некоторые условия'
-       , null
+       , 9
        , 1),
 
 
@@ -143,41 +173,41 @@ values ( 'Кинотеатр "Лейпциг" предлагает своим г
        Осуществить предварительную покупку билетов.
        Услуги, которые предоставляет специализированная касса, также в одесском кинотеатре на Котовского предоставляет промоутер.'
        , 'planeta_kino.jpg'
-       , '/img/cinema_images/planeta_kino.jpg'
+       , '/cinema_images/planeta_kino.jpg'
        , 'Планета кино'
-       , '/img/cinema_images/cinema-banner.jpg'
+       , '/cinema_images/cinema-banner.jpg'
        , 'Некоторые условия'
-       , null
+       , 10
        , 2),
 
 
        ( 'В кінотеатрі “Познань” у Харкові найбільший екран із спеціальним сріблястим покриттям. Окрім чіткого та об''ємного зображення ви отримуєте ефект присутності безпосередньо у сценах фільму. Здається, що герої пробігають зовсім поряд, а за кутом відбуваються перестрілки чи хтось підстерігає саме вас, щоб налякати. Такий ефект точно оцінять ті, хто хоче не просто переглянути кінострічку, а відчути гострі, душевні чи неочікувані моменти сильніше.
         Також у кінотеатрі встановлена сучасна звукова система. Вона робить всі звуки, які лунають у фільмі, об''ємними та виразними.'
        , 'Poznan.jpg'
-       , '/img/cinema_images/Poznan.jpg'
+       , '/cinema_images/Poznan.jpg'
        , 'Poznan'
-       , '/img/cinema_images/cinema-banner.jpg'
+       , '/cinema_images/cinema-banner.jpg'
        , 'Некоторые условия'
-       , null
+       , 11
        , 3);
 
 -- #Insert cinemas images
 INSERT INTO cinema_gallery
-values (1, 'Leipzig_frame_1', '/img/cinema_images/leipzig_frame_1.jpg'),
-       (1, 'Leipzig_frame_2', '/img/cinema_images/leipzig_frame_2.jpg'),
-       (1, 'Leipzig_frame_3', '/img/cinema_images/leipzig_frame_3.jpg'),
+values (1, 'Leipzig_frame_1', '/cinema_images/leipzig_frame_1.jpg'),
+       (1, 'Leipzig_frame_2', '/cinema_images/leipzig_frame_2.jpg'),
+       (1, 'Leipzig_frame_3', '/cinema_images/leipzig_frame_3.jpg'),
 
-       (2, 'multipleks-lavina_frame_1.jpg', '/img/cinema_images/multipleks-lavina_frame_1.jpg'),
-       (2, 'multipleks-lavina_frame_2.jpg', '/img/cinema_images/multipleks-lavina_frame_2.jpg'),
-       (2, 'multipleks-lavina_frame_3.jpg', '/img/cinema_images/multipleks-lavina_frame_3.jpg'),
+       (2, 'multipleks-lavina_frame_1.jpg', '/cinema_images/multipleks-lavina_frame_1.jpg'),
+       (2, 'multipleks-lavina_frame_2.jpg', '/cinema_images/multipleks-lavina_frame_2.jpg'),
+       (2, 'multipleks-lavina_frame_3.jpg', '/cinema_images/multipleks-lavina_frame_3.jpg'),
 
-       (3, 'planeta_kino_frame_1.jpg', '/img/cinema_images/planeta_kino_frame_1.jpg'),
-       (3, 'planeta_kino_frame_2.jpg', '/img/cinema_images/planeta_kino_frame_2.jpg'),
-       (3, 'planeta_kino_frame_3.jpg', '/img/cinema_images/planeta_kino_frame_3.jpg'),
+       (3, 'planeta_kino_frame_1.jpg', '/cinema_images/planeta_kino_frame_1.jpg'),
+       (3, 'planeta_kino_frame_2.jpg', '/cinema_images/planeta_kino_frame_2.jpg'),
+       (3, 'planeta_kino_frame_3.jpg', '/cinema_images/planeta_kino_frame_3.jpg'),
 
-       (4, 'Poznan_frame_1', '/img/cinema_images/Poznan_frame_1.jpg'),
-       (4, 'Poznan_frame_2', '/img/cinema_images/Poznan_frame_2.jpg'),
-       (4, 'Poznan_frame_3', '/img/cinema_images/Poznan_frame_3.jpg');
+       (4, 'Poznan_frame_1', '/cinema_images/Poznan_frame_1.jpg'),
+       (4, 'Poznan_frame_2', '/cinema_images/Poznan_frame_2.jpg'),
+       (4, 'Poznan_frame_3', '/cinema_images/Poznan_frame_3.jpg');
 
 -- #Fill hall table
 INSERT INTO hall (description, image_name, image_url, name, banner_url, seo_id, cinema_id)
@@ -185,110 +215,110 @@ VALUES ( 'Это — отличное место, где можно провес
             В афише кинотеатра KinoLand в Харькове — ленты разного формата. И всегда можно выбрать фильм под настроение. В прокате выходят драмы, мелодрамы, комедии, блокбастеры, фильмы-участники международных кинофестивалей.
             И если вы еще не были в KinoLand, пора исправлять ситуацию. Это атмосферное место точно вам понравится!'
        , 'leipzig_hall_1.jpg'
-       , '/img/hall_images/leipzig_hall_1.jpg'
+       , '/hall_images/leipzig_hall_1.jpg'
        , 'Залл 1'
-       , '/img/hall_images/banner.jpg'
-       , null
+       , '/hall_images/banner.jpg'
+       , 12
        , 1),
 
        ( 'Это — отличное место, где можно провести вечер пятницы в компании с друзьями, или выходные с семьей. Здесь есть все для полного релакса — классные фильмы, бар с напитками и снеками, приятная и комфортная атмосфера.
             В афише кинотеатра KinoLand в Харькове — ленты разного формата. И всегда можно выбрать фильм под настроение. В прокате выходят драмы, мелодрамы, комедии, блокбастеры, фильмы-участники международных кинофестивалей.
             И если вы еще не были в KinoLand, пора исправлять ситуацию. Это атмосферное место точно вам понравится!'
        , 'leipzig_hall_2.jpg'
-       , '/img/hall_images/leipzig_hall_2.jpg'
+       , '/hall_images/leipzig_hall_2.jpg'
        , 'leipzig_hall_2.jpg'
-       , '/img/hall_images/banner.jpg'
-       , null
+       , '/hall_images/banner.jpg'
+       , 13
        , 1),
 
        ( 'Это — отличное место, где можно провести вечер пятницы в компании с друзьями, или выходные с семьей. Здесь есть все для полного релакса — классные фильмы, бар с напитками и снеками, приятная и комфортная атмосфера.
             В афише кинотеатра KinoLand в Харькове — ленты разного формата. И всегда можно выбрать фильм под настроение. В прокате выходят драмы, мелодрамы, комедии, блокбастеры, фильмы-участники международных кинофестивалей.
             И если вы еще не были в KinoLand, пора исправлять ситуацию. Это атмосферное место точно вам понравится!'
        , 'leipzig_hall_3.jpg'
-       , '/img/hall_images/leipzig_hall_3.jpg'
+       , '/hall_images/leipzig_hall_3.jpg'
        , 'leipzig_hall_3.jpg'
-       , '/img/hall_images/banner.jpg'
-       , null
+       , '/hall_images/banner.jpg'
+       , 14
        , 1),
 
        ( 'Это — отличное место, где можно провести вечер пятницы в компании с друзьями, или выходные с семьей. Здесь есть все для полного релакса — классные фильмы, бар с напитками и снеками, приятная и комфортная атмосфера.
              В афише кинотеатра KinoLand в Харькове — ленты разного формата. И всегда можно выбрать фильм под настроение. В прокате выходят драмы, мелодрамы, комедии, блокбастеры, фильмы-участники международных кинофестивалей.
              И если вы еще не были в KinoLand, пора исправлять ситуацию. Это атмосферное место точно вам понравится!'
        , 'lavina_hall_1.jpg'
-       , '/img/hall_images/lavina_hall_1.jpg'
+       , '/hall_images/lavina_hall_1.jpg'
        , 'lavina_hall_1.jpg'
-       , '/img/hall_images/banner.jpg'
-       , null
+       , '/hall_images/banner.jpg'
+       , 15
        , 2),
 
        ( 'Это — отличное место, где можно провести вечер пятницы в компании с друзьями, или выходные с семьей. Здесь есть все для полного релакса — классные фильмы, бар с напитками и снеками, приятная и комфортная атмосфера.
             В афише кинотеатра KinoLand в Харькове — ленты разного формата. И всегда можно выбрать фильм под настроение. В прокате выходят драмы, мелодрамы, комедии, блокбастеры, фильмы-участники международных кинофестивалей.
             И если вы еще не были в KinoLand, пора исправлять ситуацию. Это атмосферное место точно вам понравится!'
        , 'lavina_hall_2.jpg'
-       , '/img/hall_images/lavina_hall_2.jpg'
+       , '/hall_images/lavina_hall_2.jpg'
        , 'lavina_hall_2.jpg'
-       , '/img/hall_images/banner.jpg'
-       , null
+       , '/hall_images/banner.jpg'
+       , 16
        , 2),
 
        ( 'Это — отличное место, где можно провести вечер пятницы в компании с друзьями, или выходные с семьей. Здесь есть все для полного релакса — классные фильмы, бар с напитками и снеками, приятная и комфортная атмосфера.
             В афише кинотеатра KinoLand в Харькове — ленты разного формата. И всегда можно выбрать фильм под настроение. В прокате выходят драмы, мелодрамы, комедии, блокбастеры, фильмы-участники международных кинофестивалей.
             И если вы еще не были в KinoLand, пора исправлять ситуацию. Это атмосферное место точно вам понравится!'
        , 'lavina_lux.jpg'
-       , '/img/hall_images/lavina_lux.jpg'
+       , '/hall_images/lavina_lux.jpg'
        , 'lavina_lux_hall.jpg'
-       , '/img/hall_images/banner.jpg'
-       , null
+       , '/hall_images/banner.jpg'
+       , 17
        , 2),
 
        ( 'Это — отличное место, где можно провести вечер пятницы в компании с друзьями, или выходные с семьей. Здесь есть все для полного релакса — классные фильмы, бар с напитками и снеками, приятная и комфортная атмосфера.
             В афише кинотеатра KinoLand в Харькове — ленты разного формата. И всегда можно выбрать фильм под настроение. В прокате выходят драмы, мелодрамы, комедии, блокбастеры, фильмы-участники международных кинофестивалей.
             И если вы еще не были в KinoLand, пора исправлять ситуацию. Это атмосферное место точно вам понравится!'
        , 'Planeta_kino_hall.jpg'
-       , '/img/hall_images/Planeta_kino_hall.jpg'
+       , '/hall_images/Planeta_kino_hall.jpg'
        , 'Planeta_kino_hall.jpg'
-       , '/img/hall_images/banner.jpg'
-       , null
+       , '/hall_images/banner.jpg'
+       , 18
        , 3),
 
        ( 'Это — отличное место, где можно провести вечер пятницы в компании с друзьями, или выходные с семьей. Здесь есть все для полного релакса — классные фильмы, бар с напитками и снеками, приятная и комфортная атмосфера.
             В афише кинотеатра KinoLand в Харькове — ленты разного формата. И всегда можно выбрать фильм под настроение. В прокате выходят драмы, мелодрамы, комедии, блокбастеры, фильмы-участники международных кинофестивалей.
             И если вы еще не были в KinoLand, пора исправлять ситуацию. Это атмосферное место точно вам понравится!'
        , 'Planeta_kino_hall_2.jpg'
-       , '/img/hall_images/Planeta_kino_hall_2.jpg'
+       , '/hall_images/Planeta_kino_hall_2.jpg'
        , 'Planeta_kino_hall_2.jpg'
-       , '/img/hall_images/banner.jpg'
-       , null
+       , '/hall_images/banner.jpg'
+       , 19
        , 3),
 
        ( 'Это — отличное место, где можно провести вечер пятницы в компании с друзьями, или выходные с семьей. Здесь есть все для полного релакса — классные фильмы, бар с напитками и снеками, приятная и комфортная атмосфера.
             В афише кинотеатра KinoLand в Харькове — ленты разного формата. И всегда можно выбрать фильм под настроение. В прокате выходят драмы, мелодрамы, комедии, блокбастеры, фильмы-участники международных кинофестивалей.
             И если вы еще не были в KinoLand, пора исправлять ситуацию. Это атмосферное место точно вам понравится!'
        , 'Planeta_kino_hall_3.jpg'
-       , '/img/hall_images/Planeta_kino_hall_3.jpg'
+       , '/hall_images/Planeta_kino_hall_3.jpg'
        , 'Planeta_kino_hall_3.jpg'
-       , '/img/hall_images/banner.jpg'
-       , null
+       , '/hall_images/banner.jpg'
+       , 20
        , 3),
 
        ( 'Это — отличное место, где можно провести вечер пятницы в компании с друзьями, или выходные с семьей. Здесь есть все для полного релакса — классные фильмы, бар с напитками и снеками, приятная и комфортная атмосфера.
             В афише кинотеатра KinoLand в Харькове — ленты разного формата. И всегда можно выбрать фильм под настроение. В прокате выходят драмы, мелодрамы, комедии, блокбастеры, фильмы-участники международных кинофестивалей.
             И если вы еще не были в KinoLand, пора исправлять ситуацию. Это атмосферное место точно вам понравится!'
        , 'Poznan_blue_hall.jpg'
-       , '/img/hall_images/Poznan_blue_hall.jpg'
+       , '/hall_images/Poznan_blue_hall.jpg'
        , 'Poznan_blue_hall.jpg'
-       , '/img/hall_images/banner.jpg'
-       , null
+       , '/hall_images/banner.jpg'
+       , 21
        , 4),
 
        ( 'Это — отличное место, где можно провести вечер пятницы в компании с друзьями, или выходные с семьей. Здесь есть все для полного релакса — классные фильмы, бар с напитками и снеками, приятная и комфортная атмосфера.
             В афише кинотеатра KinoLand в Харькове — ленты разного формата. И всегда можно выбрать фильм под настроение. В прокате выходят драмы, мелодрамы, комедии, блокбастеры, фильмы-участники международных кинофестивалей.
             И если вы еще не были в KinoLand, пора исправлять ситуацию. Это атмосферное место точно вам понравится!'
        , 'Poznan_orange_hall.jpg'
-       , '/img/hall_images/Poznan_orange_hall.jpg'
+       , '/hall_images/Poznan_orange_hall.jpg'
        , 'Poznan_orange_hall.jpg'
-       , '/img/hall_images/banner.jpg'
-       , null
+       , '/hall_images/banner.jpg'
+       , 22
        , 4);
 
 -- Insert into Promotion
@@ -296,21 +326,21 @@ INSERT INTO promotion (description, image_name, image_url, name, date, enabled, 
 VALUES ( 'Считаете, что свидание в кино – банальность и пережиток прошлого? Мы с удовольствием опровергнем это заблуждение, доказав, что нет ничего романтичнее, чем вечер в компании Любимого Человека и отличного, выбранного Вами, фильма.
          Лёгкий ужин в индивидуальном зале, когда можно удобно устроиться на мягком диванчике или креслах и наслаждаться вкусными суши или пиццей, фруктами и конфетами, ароматным шампанским или горячим чаем, с головою погрузившись в романтичную атмосферу… Когда так легко представить себя героем одного из любимых фильмов о вечной любви, ведь вокруг Вас с Половинкой мерцают чайные свечи и благоухают лепестки роз, а с экрана любимые актёры так откровенно делятся своими историями…'
        , 'kino_na_dvoih.jpeg'
-       , '/img/promotions/kino_na_dvoih.jpeg'
+       , '/promotions/kino_na_dvoih.jpeg'
        , 'Кино на двоих'
        , '2021-03-20'
        , true
        , null
-       , null),
+       , 23),
 
        ( 'Ночи Кино - это замечательная возможность не только всю ночь смотреть фильмы, заедая свой интерес неограниченным количеством печенья, кофе и чая, но и прекрасный способ наблюдать весь сюжетный драматизм авторских лент в неприлично комфортной обстановке: под наслоениями тепленьких пледов, умостившись в одном из циферблатовских кресел или цветастом диване. Чего еще желать в ночь с субботы на воскресенье ?'
        , 'kino_night.jpg'
-       , '/img/promotions/kino_night.jpg'
+       , '/promotions/kino_night.jpg'
        , 'Ночь кино'
        , '2021-03-25'
        , true
        , null
-       , null),
+       , 24),
 
        ( 'Для справжніх кіноманів ми створили "КІНОВІВТОРОК" у Multiplex Retroville
          Купуй квиток на всі сеанси лише по 60 грн.
@@ -320,12 +350,12 @@ VALUES ( 'Считаете, что свидание в кино – баналь
          * Вартість квитка може бути змінено огранізатором акції по запиту від дистриб''''ютора.
          При покупці квитка по акційній ціні, студентська та пенсійна знижка не діє.'
        , 'kinovtornik.jpg'
-       , '/img/promotions/kinovtornik.jpg'
+       , '/promotions/kinovtornik.jpg'
        , 'Киновторник'
        , '2021-03-25'
        , true
        , null
-       , null);
+       , 25);
 
 INSERT INTO schedule (local_date, cinema_id)
 --     # Расписание для Leipzig
@@ -780,34 +810,33 @@ VALUES (1, 1, 1, 120.00, '10:00:00'),
        (28, 10, 5, 120.00, '22:00:00');
 
 insert into news (description, image_name, image_url, name, date, enabled, video_link, seo_id)
-VALUES ('Лента станет продолжением фильма 1996 года с Майклом Джорданом. Новая часть посвящена приключениям баскетболиста Леброна Джеймса, который вместе с Багзом Банни попадает в ловушку виртуального пространства из-за мошеннического алгоритма Al G Rhythm. Леброну предстоит разгадать план таинственного злодея и принять участие в масштабном матче, где его противниками станут цифровые версии суперзвезд баскетбола.
-   «Космический джем: Новое поколение» — гибридный проект, соединяющий реальных людей и анимированных героев в одном пространстве. Режиссерское кресло занял постановщик «Очень страшного кино 5» Малкольм Д. Ли. В актерский состав также вошли Алекс Уэрта, Дон Чидл, Сонеква Мартин, Кейар Джей Райт, Мартин Клебба, Ксоша Рокьюмор и другие.
-   Российская премьера ожидается 16 июля 2021 года. В США лента выйдет одновременно в кинотеатрах и на платформе HBO Max.
-   Подробнее на Кино-Театр.РУ https://www.kino-teatr.ru/kino/news/y2021/4-4/24209/',
-        'lola.jpg',
-        '/img/news/lola.jpg',
-        'ЛОЛА БАННИ ЗАГОВОРИТ ГОЛОСОМ ЗЕНДАИ',
+VALUES ('Британский актёр Хью Лори выступит продюсером и сценаристом нового мини-сериала «Почему не Эванс?», в основу которого ляжет одноимённый роман Агаты Кристи. Это будет его первый опыт в качестве шоураннера на телевидении.
+        Исполнит ли актёр сам одну из ролей, пока не сообщается. Разработкой проекта занимается стриминговый сервис BritBox, доступный в Великобритании, Северной Америке и Австралии. Премьера состоится в 2022 году.
+        Роман «Почему не Эванс?» был опубликован в 1934 году. Он рассказывает о сыне викария Бобби Джонсе и его подруге Фрэнсис Дервент. Однажды главные герои играют в гольф и находят едва живого мужчину, который перед смертью произносит фразу: «Почему они не спросили Эванса?». Тогда они начинают собственное расследование.',
+        'hous-news.jpg',
+        '/news/hous-news.jpg',
+        'Звезда «Доктора Хауса» Хью Лори снимет сериал по роману Агаты Кристи',
         date(now()),
         true,
         null,
-        null),
-       ('Отучившись у тибетских целителей, Керстен был готов браться за сложных пациентов, не получивших помощи от обычных врачей. В середине 1930-х в Берлине его знали как опытного мануальщика, к которому обращались местные аристократы и даже король Румынии.
-    Одним из клиентов оказался Генрих Гиммлер. Пытаясь избавить его от изнурительной боли в животе, у Керстена появилась возможность влиять на одного из главных организаторов холокоста. С помощью хитрых манипуляций и переговоров со своим пациентом врач смог спасти тысячи людей из концлагерей.
-    В основу сюжета легла одноименная книга Жозефа Кесселя. Производством занимается студия Jerico Films.
-    Подробнее на Кино-Театр.РУ https://www.kino-teatr.ru/kino/news/y2021/4-3/24199/',
-        'vudy.jpg',
-        '/img/news/vudy.jpg',
-        'ВУДИ ХАРРЕЛЬСОН СЫГРАЕТ ЛИЧНОГО ВРАЧА РЕЙХСФЮРЕРА СС',
+        26),
+       ('Звезда «Форсажа» на днях написал в своем Инстаграме, что не против баллотироваться в президенты США и в случае победы готов с радостью и самоотречением служить американскому народу.
+        Актер высказался после того, как результаты социологического опроса показали, что 46% населения страны хотели бы видеть его участником следующей президентской гонки. Он написал, что вряд ли отцы-основатели могли подумать, что в их рядах когда-нибудь окажется двухметровый лысый чувак в татуировках, наполовину самоанец, который обожает текилу и разъезжает на пикапе с сумкой-бананкой наперевес… Но он тронут и готов самоотверженно служить народу, который выказал ему доверие.',
+        'Dwayne_Johnson.jpg',
+        '/news/Dwayne_Johnson.jpg',
+        'Дуэйн Джонсон готов идти в президенты',
         date(now()),
         true,
         null,
-        null),
-       ('В давние времена люди и волшебные существа жили вместе, пока в Дивноземское княжество не нагрянул Белый призрак — безжалостный монстр, способный уничтожить весь мир. Но лишь одному герою под силу остановить чудище. Он молод, силен, красив, а еще водит байк. Его зовут Кощей.
-    Подробнее на Кино-Театр.РУ https://www.kino-teatr.ru/kino/news/y2021/4-3/24198/',
-        'koshey.jpg',
-        '/img/news/koshey.jpg',
-        'ТИЗЕР МУЛЬТФИЛЬМА «КОЩЕЙ. НАЧАЛО»',
+        27),
+       ('В интервью Variety актриса рассказала, что фильм Квентина Тарантино «Однажды в Голливуде», в котором она снималась, имеет 20-часовую режиссерскую версию.
+        Изначально на волне недавно вышедшей «Лиги справедливости Зака Снайдера» речь зашла о существовании режиссерской версии «Отряда самоубийц» Дэвида Эйра, где Робби сыграла Харли Квинн. Однако актриса заметила, что, скорее всего, зрители так называемый «Эйркат» никогда не увидят.
+        Затем Робби плавно перешла к фильму «Однажды в Голливуде» и заявила, что существует 20-часовой монтаж картины, и там очень много крутых сцен, которые по очевидным причинам не вместились в прокатный вариант. Правда, эту режиссерскую версию, по словам актрисы, зрители тоже никогда не увидят.
+        Хотя почему нет? Вдруг Тарантино договорится с каким-нибудь стримингом и выпустит мини-сериал.',
+        'Once_Upon_a_Time_in_Hollywood.jpg',
+        '/news/Once_Upon_a_Time_in_Hollywood.jpg',
+        'Марго Робби проговорилась о режиссерской версии «Однажды в Голливуде»',
         date(now()),
         false,
         null,
-        null);
+        28);

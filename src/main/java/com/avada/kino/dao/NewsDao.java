@@ -26,7 +26,7 @@ public class NewsDao implements Dao<News>{
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             List<News> result =  session.createQuery(
-                    "select n from News n left join fetch n.gallery", News.class
+                    "select n from News n", News.class
             ).getResultList();
             session.getTransaction().commit();
             return result;

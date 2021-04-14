@@ -1,11 +1,13 @@
 package com.avada.kino.dao;
 
 import com.avada.kino.models.Movie;
+import com.avada.kino.models.MovieType;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -33,6 +35,28 @@ public class MovieDao implements Dao<Movie>{
             result = session.createQuery(
                     "select m from Movie m left join fetch m.types where m in :movies", Movie.class
             ).setParameter("movies", result).getResultList();
+            session.getTransaction().commit();
+            return result;
+        }
+    }
+
+    public List<Movie> getCurrent() {
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            List<Movie> result = session.createQuery(
+                    "select m from Movie m where :date between m.startDate and m.endDate", Movie.class
+            ).setParameter("date", LocalDate.now()).getResultList();
+            session.getTransaction().commit();
+            return result;
+        }
+    }
+
+    public List<Movie> getFuture() {
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            List<Movie> result = session.createQuery(
+                    "select m from Movie m where m.startDate > :date", Movie.class
+            ).setParameter("date", LocalDate.now()).getResultList();
             session.getTransaction().commit();
             return result;
         }
@@ -72,6 +96,17 @@ public class MovieDao implements Dao<Movie>{
             Movie movie = session.get(Movie.class, id);
             session.delete(movie);
             session.getTransaction().commit();
+        }
+    }
+
+    public List<MovieType> getAllTypes() {
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            List<MovieType> types = session.createQuery(
+                    "select m from MovieType m", MovieType.class
+            ).getResultList();
+            session.getTransaction().commit();
+            return types;
         }
     }
 }

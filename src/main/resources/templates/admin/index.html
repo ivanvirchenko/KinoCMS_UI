@@ -1,18 +1,16 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ru">
-<th:block th:include="~{/share/head-admin :: head}"></th:block>
-<body>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="~{/share/head-share :: head}"></th:block>
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <th:block th:include="~{/share/sidebar-admin :: sidebar}"></th:block>
-    </aside>
-    <div class="content-wrapper">
+    <!-- Main Sidebar Container -->
+    <th:block th:include="~{/share/side-share :: side}"></th:block>
 
 
 
-    </div>
+
 
 </div>
-<th:block th:include="~{/share/scripts-admin :: scripts}"></th:block>
+<th:block th:include="~{/share/script-share :: scripts}"></th:block>
 </body>
 </html>

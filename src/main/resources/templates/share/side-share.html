@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- Brand Logo -->
+<th:block th:fragment="side">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <a href="/admin" class="brand-link">
+            <img src="../../static/dist/img/AdminLTELogo.png" th:src="@{/dist/img/AdminLTELogo.png}" alt="AdminLTE Logo"
+                 class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">AdminLTE 3</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-camera"></i>
+                            <p>
+                                Фильмы
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" th:href="@{/admin/movies}" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-warning"></i>
+                                    <p>Все фильмы</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" th:href="@{/admin/movies/add}" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-warning"></i>
+                                    <p>Добавить фильм</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-bullhorn"></i>
+                            <p>
+                                Новости
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" th:href="@{/admin/news}" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-warning"></i>
+                                    <p>Все новости</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" th:href="@{/admin/news/add}" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-warning"></i>
+                                    <p>Добавить новость</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-bell"></i>
+                            <p>
+                                Акции
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" th:href="@{/admin/promotion}" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-warning"></i>
+                                    <p>Все акции</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" th:href="@{/admin/promotion/add}" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-warning"></i>
+                                    <p>Добавить акцию</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-city"></i>
+                            <p>
+                                Кинотеатры
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" th:href="@{/admin/cinema}" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-warning"></i>
+                                    <p>Все кинотеатры</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" th:href="@{/admin/cinema/add}" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-warning"></i>
+                                    <p>Добавить кинотеатр</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-icons"></i>
+                            <p>
+                                Баннеры
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" th:href="@{/admin/banners}" class="nav-link">
+                                    <i class="far fa-circle nav-icon text-warning"></i>
+                                    <p>Все баннеры</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+</th:block>
+
+</html>

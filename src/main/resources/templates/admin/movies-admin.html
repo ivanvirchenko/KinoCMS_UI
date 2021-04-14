@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/share/head-share :: head}"></th:block>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Main Sidebar Container -->
+    <th:block th:include="~{/share/side-share :: side}"></th:block>
+
+    <div class="content-wrapper p-3">
+        <div class="bg-gradient-warning p-3">
+            <p class="text-xl m-0 text-uppercase">Текущие фильмы</p>
+        </div>
+
+        <div class="current grid-5">
+            <div class="movie" th:each="mov : ${movie_current}">
+                <a href="#" th:href="@{/admin/movies/{id}(id = ${mov.id})}">
+                    <img src="#" alt="#" th:src="${mov.image.url}" class="w-100">
+                    <p th:text="${mov.name}" class="text-xl text-center bg-dark"></p>
+                </a>
+            </div>
+        </div>
+
+        <div class="bg-gradient-warning p-3">
+            <p class="text-xl m-0 text-uppercase">Будущие фильмы</p>
+        </div>
+
+        <div class="current grid-5">
+            <div class="movie" th:each="mov : ${movie_future}">
+                <a href="#" th:href="@{/admin/movies/{id}(id = ${mov.id})}">
+                    <img src="#" alt="#" th:src="${mov.image.url}" class="w-100">
+                    <p th:text="${mov.name}" class="text-xl text-center bg-dark"></p>
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<th:block th:include="~{/share/script-share :: scripts}"></th:block>
+</body>
+</html>
