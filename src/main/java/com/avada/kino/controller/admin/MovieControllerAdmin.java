@@ -4,11 +4,16 @@ import com.avada.kino.dto.MovieDto;
 import com.avada.kino.mapper.MovieMapper;
 import com.avada.kino.models.Movie;
 import com.avada.kino.service.MovieService;
+import com.avada.kino.util.StringsConstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("admin/movies")
@@ -42,11 +47,12 @@ public class MovieControllerAdmin {
 
     @PostMapping("/add")
     public String save(
-            MovieDto movieDto,
+            MovieDto newMovie,
             @RequestParam("image-input") MultipartFile file,
             @RequestParam("image-pick-input-multiple") MultipartFile[] files
     ) {
-        Movie movie = mapper.toMovie(movieDto, movieService.getAllTypes());
+
+        Movie movie = mapper.toMovie(newMovie, movieService.getAllTypes());
         movieService.saveWithFiles(movie, file, files);
         return "redirect:/admin/movies";
     }

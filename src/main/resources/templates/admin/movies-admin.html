@@ -16,7 +16,7 @@
         <div class="current grid-5">
             <div class="movie" th:each="mov : ${movie_current}">
                 <a href="#" th:href="@{/admin/movies/{id}(id = ${mov.id})}">
-                    <img src="#" alt="#" th:src="${mov.image.url}" class="w-100">
+                    <img src="#" alt="#" th:src="${mov.logo.url}" class="w-100">
                     <p th:text="${mov.name}" class="text-xl text-center bg-dark"></p>
                 </a>
             </div>
@@ -29,7 +29,7 @@
         <div class="current grid-5">
             <div class="movie" th:each="mov : ${movie_future}">
                 <a href="#" th:href="@{/admin/movies/{id}(id = ${mov.id})}">
-                    <img src="#" alt="#" th:src="${mov.image.url}" class="w-100">
+                    <img src="#" alt="#" th:src="${mov.logo.url}" class="w-100">
                     <p th:text="${mov.name}" class="text-xl text-center bg-dark"></p>
                 </a>
             </div>

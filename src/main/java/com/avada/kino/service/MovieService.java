@@ -91,14 +91,14 @@ public class MovieService implements DaoService<Movie> {
     public void deleteMainImage(int movieId, String imageNme) {
         Movie movie = getById(movieId);
         fileService.deleteFile(imageNme, MOVIES_UPLOAD_PATH);
-        movie.setImage(null);
+        movie.setLogo(null);
         update(movie);
     }
 
     private void saveSingleFile(MultipartFile file, Movie movie) {
         if (!file.isEmpty()) {
             String fileName = fileService.saveFile(file, MOVIES_UPLOAD_PATH);
-            movie.setImage(new Image(fileName, File.separator + MOVIES_UPLOAD_PATH + File.separator + fileName));
+            movie.setLogo(new Image(fileName, File.separator + MOVIES_UPLOAD_PATH + File.separator + fileName));
         }
     }
 

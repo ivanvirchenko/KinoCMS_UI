@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/share/head-share :: head}"></th:block>
+    <title>Add news</title>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Main Sidebar Container -->
+    <th:block th:include="~{/share/side-share :: side}"></th:block>
+
+    <div class="content-wrapper p-3">
+
+        <div class="p-3 bg-gradient-warning mt-2 mb-0 d-flex justify-content-between">
+            <p class="m-0  text-xl">Кинотеатры</p>
+        </div>
+
+        <div class="cinemas grid-5" th:if="${!cinemaList.isEmpty()}">
+            <a th:href="@{/admin/cinema/{id}(id=${cinema.id})}" class="cinema" th:each="cinema : ${cinemaList}">
+                <img src="#" alt="#"
+                     th:src="${cinema.logo != null and !cinema.logo.url.isEmpty()} ? ${cinema.logo.url} : '/default/default_image_h.png'" class="w-100">
+                <p th:text="${cinema.name}" class="text-lg text-uppercase text-center bg-gray-dark"></p>
+            </a>
+        </div>
+    </div>
+
+</div>
+<th:block th:include="~{/share/script-share :: scripts}"></th:block>
+</body>
+</html>

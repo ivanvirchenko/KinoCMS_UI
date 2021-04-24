@@ -13,10 +13,8 @@
         <div class="p-3 bg-gradient-warning mt-2 mb-0 d-flex justify-content-between">
             <p class="m-0  text-xl">Редактор фильма</p>
             <div class="d-flex align-items-center">
-
                 <input id="submit_btn" form="add-movie-form" type="submit" class="btn btn-outline-dark mr-4"
                        value="Сохранить">
-
             </div>
         </div>
 
@@ -49,14 +47,15 @@
                         <!--Name-->
                         <div class="name col-3">
                             <label for="name-input">Название</label>
-                            <input id="name-input" required type="text" class="form-control" th:field="*{name}"
+                            <input id="name-input" type="text" class="form-control" th:field="*{name}"
                                    name="movie_name">
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                         </div>
                         <!--StartDate-->
                         <div class="start-date col-3">
                             <label for="start-date-input">Дата начала</label>
                             <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                <input id="start-date-input" required type="text" class="form-control datepicker-input"
+                                <input id="start-date-input" type="text" class="form-control datepicker-input"
                                        data-target="#reservationdate" th:field="*{startDate}">
                                 <div class="input-group-append" data-target="#reservationdate"
                                      data-toggle="datetimepicker">
@@ -68,7 +67,7 @@
                         <div class="start-date col-3">
                             <label for="end-date-input">Дата окончания</label>
                             <div class="input-group date" id="reservationdate2" data-target-input="nearest">
-                                <input id="end-date-input" required type="text" class="form-control datepicker-input"
+                                <input id="end-date-input" type="text" class="form-control datepicker-input"
                                        data-target="#reservationdate2" th:field="*{endDate}">
                                 <div class="input-group-append" data-target="#reservationdate2"
                                      data-toggle="datetimepicker">
@@ -92,7 +91,7 @@
                     <!--Description-->
                     <label class="d-block">
                         Описание
-                        <textarea rows="5" required style="resize: none" class="form-control"
+                        <textarea rows="5" style="resize: none" class="form-control"
                                   th:field="*{description}"></textarea>
                     </label>
                 </div>
@@ -110,19 +109,19 @@
             <div class="container">
                 <label class="d-block">
                     URL
-                    <input type="text" required th:field="*{seo.url}" placeholder="URL" class="form-control">
+                    <input type="text" th:field="*{seo.url}" placeholder="URL" class="form-control">
                 </label>
                 <label class="d-block">
                     Заголовок
-                    <input type="text" required th:field="*{seo.title}" placeholder="Title" class="form-control">
+                    <input type="text" th:field="*{seo.title}" placeholder="Title" class="form-control">
                 </label>
                 <label class="d-block">
                     Ключевые слова
-                    <input type="text" required th:field="*{seo.keyWords}" placeholder="Key words" class="form-control">
+                    <input type="text" th:field="*{seo.keyWords}" placeholder="Key words" class="form-control">
                 </label>
                 <label class="d-block">
                     Описание
-                    <textarea rows="5" required style="resize: none" type="text" class="form-control"
+                    <textarea rows="5" style="resize: none" type="text" class="form-control"
                               th:field="*{seo.description}"></textarea>
                 </label>
             </div>

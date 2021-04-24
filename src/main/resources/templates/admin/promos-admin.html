@@ -13,6 +13,13 @@
       <p class="text-xl m-0 text-uppercase">Акции</p>
     </div>
 
+    <div class="promotion grid-5">
+      <a th:href="@{/admin/promotion/{id}(id = ${item.id})}" class="promotion position-relative" th:each="item : ${all_promotion}">
+        <div class="ifactive badge-danger p-2" th:if="${item.enabled == false}">Disabled</div>
+        <img src="#" alt="#" class="w-100" th:src="${item.image.url}">
+        <div th:text="${item.name}" class="text-lg bg-gradient-dark p-2"></div>
+      </a>
+    </div>
 
   </div>
 </div>

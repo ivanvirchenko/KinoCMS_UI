@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/share/head-share :: head}"></th:block>
+    <title>Add news</title>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Main Sidebar Container -->
+    <th:block th:include="~{/share/side-share :: side}"></th:block>
+
+    <div class="content-wrapper p-3">
+
+        <div class="p-3 bg-gradient-warning mt-2 mb-0 d-flex justify-content-between">
+            <p class="m-0  text-xl">Новый кинотеатр</p>
+        </div>
+
+        <form id="add-cinema-from" method="post" enctype="multipart/form-data" th:object="${cinema}"
+              th:action="@{/admin/cinema/save}">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <label class="mr-2">
+                            Название
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                            <input type="text" th:field="*{name}" class="form-control"
+                                   th:attrappend="class=${#fields.hasErrors('name')} ? ' is-invalid'">
+                        </label>
+
+                        <label>
+                            Город
+                            <select class="form-control" th:field="*{city}">
+                                <option disabled selected value="0">Город</option>
+                                <option
+                                        th:each="c : ${cityList}"
+                                        th:value="${c.id}"
+                                        th:text="${c.name}">
+                                </option>
+                            </select>
+                            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="text-danger"></span>
+                        </label>
+
+                        <th:block th:include="~{/share/description-share :: description}"></th:block>
+
+                        <label class="d-block">
+                            Условия
+                            <textarea style="resize: none" rows="4" th:field="*{conditions}"
+                                      class="form-control"></textarea>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <th:block th:include="~{/share/logo-share :: logo-image}"></th:block>
+                    </div>
+                    <div class="col">
+                        <th:block th:include="~{/share/banner-share :: banner-image}"></th:block>
+                    </div>
+                </div>
+            </div>
+            <th:block th:include="~{/share/gallery-share :: gallery-images}"></th:block>
+            <th:block th:include="~{/share/seo-share :: seo}"></th:block>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-default mt-5 mb-5 w-50">
+                    Далее...
+                    <i class="fa fa-arrow-alt-circle-right"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<th:block th:include="~{/share/script-share :: scripts}"></th:block>
+</body>
+</html>

@@ -1,6 +1,5 @@
 package com.avada.kino.service;
 
-import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,12 +8,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.UUID;
+
+import static com.avada.kino.util.UploadPaths.UPLOAD_PATH;
 
 @Service
 public class FileService {
 
-    private final File homePath = new ApplicationHome().getDir();
+    private final File homePath = new File(UPLOAD_PATH);
     private final File uploadDir = new File(homePath.getAbsolutePath() + File.separator + "uploads");
 
     public String saveFile(MultipartFile file, String dirName) {
@@ -31,13 +33,15 @@ public class FileService {
                         + file.getOriginalFilename()
         );
 
+        //            file.transferTo(uploadPath);
         try {
-            file.transferTo(uploadPath);
+            Files.write(uploadPath, file.getBytes(), StandardOpenOption.CREATE_NEW);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return prefix + "@" + file.getOriginalFilename();
     }
+
     public void deleteFile(String name, String folder) {
         Path path = Paths.get(uploadDir.getAbsolutePath() + File.separator + folder + File.separator + name);
         try {

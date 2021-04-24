@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/share/head-share :: head}"></th:block>
+    <title>Add news</title>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Main Sidebar Container -->
+    <th:block th:include="~{/share/side-share :: side}"></th:block>
+
+    <div class="content-wrapper p-3">
+
+        <div class="p-3 bg-gradient-warning mt-2 mb-0 d-flex justify-content-between align-items-center">
+            <p class="m-0  text-xl">Редактор кинотеатра</p>
+            <input type="submit" form="add-cinema-from" value="Сохранить" class="btn btn-outline-secondary">
+        </div>
+
+        <form id="add-cinema-from" method="post" enctype="multipart/form-data" th:object="${cinema}"
+              th:action="@{/admin/cinema/update}">
+            <input type="hidden" th:value="*{id}" th:field="*{id}">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <label class="mr-2">
+                            Название
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                            <input type="text" th:field="*{name}" class="form-control"
+                                   th:attrappend="class=${#fields.hasErrors('name')} ? ' is-invalid'">
+                        </label>
+
+                        <label>
+                            Город
+                            <select class="form-control" name="city">
+                                <option th:each="cty : ${cityList}"
+                                        th:selected="${cty.id == cinema.city.id}"
+                                        th:text="${cty.name}"
+                                        th:value="${cty.id}">
+                                </option>
+                            </select>
+                            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="text-danger"></span>
+                        </label>
+
+                        <th:block th:include="~{/share/description-share :: description}"></th:block>
+
+                        <label class="d-block">
+                            Условия
+                            <textarea style="resize: none" rows="4" th:field="*{conditions}"
+                                      class="form-control"></textarea>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Logo image-->
+                    <div class="col">
+                        <p class="m-0 text-lg text-bold pl-3">Логотип</p>
+                        <img src="#" alt="#" id="logo-image" th:src="*{logo != null or !logo.url.isEmpty()} ? *{logo.url} : '/default/default_image_h.png'" class="w-100">
+                        <div class="row m-0">
+                            <label for="logo-pick-input" class="btn btn-success w-50 mb-0">Загрузить</label>
+                            <input id="logo-pick-input" type="file" name="logo-image" hidden>
+                            <input type="hidden" th:value="*{logo != null} ? *{logo.name}" th:field="*{logo.name}">
+                            <input type="hidden" th:value="*{logo != null} ? *{logo.url}" th:field="*{logo.url}">
+
+                            <input type="hidden" th:value="*{logo.name}" form="delete_logo_form" name="image-name">
+                            <input type="submit" class="btn btn-danger w-50" form="delete_logo_form" value="Удалить">
+                            <span th:if="${#fields.hasErrors('logo')}" th:errors="*{logo}" class="badge-danger p-2"></span>
+                        </div>
+                    </div>
+                    <!--/ Logo image-->
+
+                    <div class="col">
+                        <th:block th:include="~{/share/banner-share :: banner-image}"></th:block>
+                        <input type="hidden" th:value="*{banner.name}" th:field="*{banner.name}">
+                        <input type="hidden" th:value="*{banner.url}" th:field="*{banner.url}">
+                    </div>
+                </div>
+            </div>
+            <th:block th:include="~{/share/gallery-share :: gallery-images}"></th:block>
+
+            <!-- Table of halls -->
+            <div class="p-3 bg-gradient-warning mt-2 mb-0 d-flex justify-content-between align-items-center">
+                <p class="m-0  text-xl">Заллы</p>
+                <a th:href="@{/admin/hall/add(id = *{id})}" class="btn btn-outline-secondary"><i
+                        class="fa fa-plus mr-2"></i>Добавить</a>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Название</th>
+                                    <th>Количество мест</th>
+                                    <th>Кинотеатр</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="h : *{hallsList}">
+                                    <td th:text="${h.id}"></td>
+                                    <td th:text="${h.name}"></td>
+                                    <td th:text="${h.places.size()}"></td>
+                                    <td th:text="${h.cinema.name}"></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+
+            <th:block th:include="~{/share/seo-share :: seo}"></th:block>
+            <input type="hidden" th:value="*{seo.id}" th:field="*{seo.id}">
+        </form>
+
+        <form action="#" id="delete_logo_form" method="post" th:action="@{/admin/cinema/logo/delete}">
+            <input type="hidden" th:value="*{id}" name="cinema_id">
+        </form>
+
+    </div>
+
+</div>
+<th:block th:include="~{/share/script-share :: scripts}"></th:block>
+</body>
+</html>

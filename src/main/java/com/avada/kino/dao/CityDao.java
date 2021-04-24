@@ -1,6 +1,6 @@
 package com.avada.kino.dao;
 
-import com.avada.kino.models.Promotion;
+import com.avada.kino.models.City;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,48 +10,46 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class PromotionDao implements Dao<Promotion> {
-
+public class CityDao implements Dao<City>{
     private final SessionFactory sessionFactory;
 
     @Override
-    public void save(Promotion promotion) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.persist(promotion);
-            session.getTransaction().commit();
-        }
-    }
-
-    @Override
-    public List<Promotion> getAll() {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            List<Promotion> result = session.createQuery(
-                    "select p from Promotion p", Promotion.class
-            ).getResultList();
-            session.getTransaction().commit();
-            return result;
-        }
-    }
-
-    @Override
-    public Promotion getById(int id) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            Promotion result = session.createQuery(
-                    "select p from Promotion p left join fetch p.gallery where p.id = :id", Promotion.class
-            ).setParameter("id", id).getSingleResult();
-            session.getTransaction().commit();
-            return result;
-        }
-    }
-
-    @Override
-    public void update(Promotion promotion) {
+    public void save(City city) {
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.merge(promotion);
+            session.persist(city);
+            session.getTransaction().commit();
+        }
+    }
+
+    @Override
+    public List<City> getAll() {
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            List<City> result =  session.createQuery(
+                    "select c from City c", City.class
+            ).getResultList();
+            session.getTransaction().commit();
+
+            return result;
+        }
+    }
+
+    @Override
+    public City getById(int id) {
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            City city = session.get(City.class, id);
+            session.getTransaction().commit();
+            return city;
+        }
+    }
+
+    @Override
+    public void update(City city) {
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.merge(city);
             session.getTransaction().commit();
         }
     }
@@ -60,8 +58,7 @@ public class PromotionDao implements Dao<Promotion> {
     public void delete(int id) {
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Promotion promotion = session.get(Promotion.class, id);
-            session.delete(promotion);
+            session.createQuery("delete from City c where c.id = :id", City.class).setParameter("id", id);
             session.getTransaction().commit();
         }
     }

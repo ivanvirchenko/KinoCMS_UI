@@ -28,28 +28,9 @@ public class CinemaDao implements Dao<Cinema> {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             List<Cinema> result = session.createQuery(
-                    "select c from Cinema c left join fetch c.gallery", Cinema.class
-            ).getResultList();
-
-            result = session.createQuery(
-                    "select c from Cinema c left join fetch c.hallsList where c in :result", Cinema.class
-            ).setParameter("result", result).getResultList();
-
-            result = session.createQuery(
-                    "select c from Cinema c left join fetch c.schedules where c in :result", Cinema.class
-            ).setParameter("result", result).getResultList();
-
-            session.getTransaction().commit();
-            return result;
-        }
-    }
-
-    public List<Cinema> getAllWithoutCollections() {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            List<Cinema> result = session.createQuery(
                     "select c from Cinema c", Cinema.class
             ).getResultList();
+
             session.getTransaction().commit();
             return result;
         }
@@ -65,10 +46,6 @@ public class CinemaDao implements Dao<Cinema> {
 
             cinema = session.createQuery(
                     "select c from Cinema c left join fetch c.hallsList where c = :cinema", Cinema.class
-            ).setParameter("cinema", cinema).getSingleResult();
-
-            cinema = session.createQuery(
-                    "select c from Cinema c left join fetch c.schedules where c = :cinema", Cinema.class
             ).setParameter("cinema", cinema).getSingleResult();
 
             session.getTransaction().commit();

@@ -5,8 +5,12 @@ import com.avada.kino.service.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/news")
@@ -35,12 +39,21 @@ public class NewsControllerAdmin {
 
     @PostMapping("/add")
     public String addNews(
-            News news,
+            @Valid News news,
+            BindingResult bindingResult,
             @RequestParam("main-image") MultipartFile image,
-            @RequestParam("image-pick-input-multiple") MultipartFile[] gallery
+            @RequestParam("gallery-images") MultipartFile[] gallery
     ) {
+        if (image == null || image.isEmpty()) {
+            FieldError imageError = new FieldError("news", "logo", "Обязательное изображение");
+            bindingResult.addError(imageError);
+        }
+        if (bindingResult.hasErrors()) {
+            return "/admin/news-admin-add";
+        }
+
         newsService.saveWithFiles(news, image, gallery);
-        return "redirect:/admin/news";
+        return "redirect:/admin/news/" + news.getId();
     }
 
     @PostMapping("update")

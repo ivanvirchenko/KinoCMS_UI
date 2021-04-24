@@ -1,27 +1,35 @@
 let mainImageInput = $('#image-pick-input');
+let logoImageInput = $('#logo-pick-input');
 let multipleImageInput = $('#image-pick-input-multiple');
+let logoImage = $('#logo-image');
 let mainImage = $('#main-image');
 let deleteMainImage = $('#delete-main-image');
 let deleteMainImageH = $('#delete-main-image-h');
 let imageHolder = $('#image-holder');
+let deleteLogoBtn = $('#delete-logo-btn');
+
+logoImageInput.change(() => {
+    let url = window.URL.createObjectURL(logoImageInput[0].files[0])
+    logoImage.attr('src', url)
+});
 
 mainImageInput.change(() => {
     let url = window.URL.createObjectURL(mainImageInput[0].files[0])
     mainImage.attr('src', url)
 });
 
-deleteMainImage.click(() => {
-    mainImageInput.val("")
-    mainImage.attr('src', 'http://localhost:8080/default/default_image.png')
+deleteLogoBtn.click(() => {
+    logoImageInput.val('')
+    logoImage.attr('src', 'http://localhost:8080/default/default_image_h.png')
 });
 
 deleteMainImageH.click(() => {
-    mainImageInput.val("")
+    mainImageInput.val('')
     mainImage.attr('src', 'http://localhost:8080/default/default_image_h.png')
 });
 
-
 multipleImageInput.change(() => {
+    $('#empty-div').remove();
     let filesList = multipleImageInput[0].files;
 
     for (let i = 0; i < filesList.length; i++) {
@@ -38,8 +46,9 @@ multipleImageInput.change(() => {
     }
 })
 
-$('#submit_btn').submit(() => {
-    if (mainImageInput[0].files === undefined) {
-        alert("Картинка нада");
+$().ready(() => {
+    if (multipleImageInput[0].files.length === 0){
+        $('#empty-div').text('Список изображений пуст');
+        $('#empty-div').addClass('text-xl text-center')
     }
 })

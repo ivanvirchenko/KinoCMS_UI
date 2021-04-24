@@ -16,7 +16,7 @@ public class MovieMapper {
 
         dto.setId(movie.getId());
         dto.setName(movie.getName());
-        dto.setImage(movie.getImage());
+        dto.setImage(movie.getLogo());
         dto.setStartDate(movie.getStartDate());
         dto.setEndDate(movie.getEndDate());
         dto.setVideoLink(movie.getVideoLink());
@@ -37,7 +37,8 @@ public class MovieMapper {
 
         Optional.ofNullable(dto.getId()).ifPresent(movie::setId);
         movie.setName(dto.getName());
-        movie.setImage(dto.getImage());
+        movie.setLogo(
+                dto.getImage());
         movie.setStartDate(dto.getStartDate());
         movie.setEndDate(dto.getEndDate());
         movie.setVideoLink(dto.getVideoLink());

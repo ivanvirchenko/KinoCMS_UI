@@ -75,14 +75,14 @@ public class NewsService implements DaoService<News> {
     public void deleteMainImage(int newsId, String imageNme) {
         News news = getById(newsId);
         fileService.deleteFile(imageNme, NEWS_UPLOAD_PATH);
-        news.setImage(null);
+        news.setLogo(null);
         update(news);
     }
 
     private void saveSingleFile(MultipartFile file, News news) {
         if (!file.isEmpty()) {
             String fileName = fileService.saveFile(file, NEWS_UPLOAD_PATH);
-            news.setImage(new Image(fileName, File.separator + NEWS_UPLOAD_PATH + File.separator + fileName));
+            news.setLogo(new Image(fileName, File.separator + NEWS_UPLOAD_PATH + File.separator + fileName));
         }
     }
 

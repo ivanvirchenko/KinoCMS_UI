@@ -1,26 +1,34 @@
 package com.avada.kino.models;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.avada.kino.util.StringsConstant.MAX_SIZE;
 import static javax.persistence.CascadeType.*;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@Entity
 public class Cinema extends BasicEntity {
+    @Column(length = 3048)
+    @Size(max = 3048, message = MAX_SIZE + 3048)
     private String conditions;
-    private String banner_url;
+
+    @Embedded
+    @AttributeOverrides(
+            {
+                    @AttributeOverride(name = "name", column = @Column(name = "banner_name")),
+                    @AttributeOverride(name = "url", column = @Column(name = "banner_url"))
+            }
+    )
+    private Image banner;
 
     @ManyToOne(cascade = {MERGE, DETACH, REFRESH})
     @JoinColumn(name = "city_id")
@@ -35,7 +43,7 @@ public class Cinema extends BasicEntity {
     private List<Schedule> schedules;
 
 
-    public void add(Hall hall) {
+    public void addHall(Hall hall) {
         if (hallsList == null) {
             hallsList = new ArrayList<>();
         }
