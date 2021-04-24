@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="banner-element">
+    <img id="banner-image" src="#" alt="#" th:src="*{banner != null and !banner.url.isEmpty()} ? *{banner.url} : '/default/default_image_h.png'" class="w-100">
+    <input id="banner-input" type="file" hidden name="banner-image">
+    <div class="d-flex">
+        <label for="banner-input" class="btn btn-success rounded-0 w-50 m-0">Загрузить</label>
+        <input th:if="*{banner == null or banner.url.isEmpty()}" id="delete-banner" type="button" class="btn btn-danger rounded-0 w-50" value="Удалить">
+
+        <th:block th:if="*{banner != null}">
+            <input  form="delete_banner_form" type="submit" class="btn btn-info rounded-0 w-50" value="Удалить">
+            <input type="hidden" name="banner-image" form="delete_banner_form" th:value="*{banner.name}">
+            <input type="hidden" th:field="*{banner.name}" th:value="*{banner.name}">
+            <input type="hidden" th:field="*{banner.url}" th:value="*{banner.url}">
+        </th:block>
+    </div>
+</th:block>
+</html>
+
+
+
+
+<!--<input type="hidden" th:field="*{banner.name}" th:value="*{banner.name}">-->
+<!--<input type="hidden" th:field="*{banner.url}" th:value="*{banner.url}">-->

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="conditions-element">
+    <label for="conditions">Условия</label>
+    <span th:if="${#fields.hasErrors('conditions')}" th:errors="*{conditions}" class="text-danger"></span>
+    <textarea name="conditions" id="conditions" class="form-control" rows="5" style="resize: none" th:field="*{conditions}"
+              th:attrappend="class=${#fields.hasErrors('conditions')} ? ' is-invalid'">
+    </textarea>
+</th:block>
+</html>

@@ -5,6 +5,7 @@ import com.avada.kino.models.City;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -36,4 +37,5 @@ public class CityService implements DaoService<City> {
     public void delete(int id) {
         dao.delete(id);
     }
+
 }

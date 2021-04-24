@@ -97,11 +97,14 @@ public class CinemaService implements DaoService<Cinema> {
     }
     public void deleteBanner(String name, int cinemaId) {
         fileService.deleteFile(name, CINEMA_UPLOAD_PATH);
-        getById(cinemaId).setBanner(null);
+        Cinema cinema = getById(cinemaId);
+        cinema.setBanner(null);
+        update(cinema);
     }
     public void deleteFromGallery(String name, int cinemaId) {
         fileService.deleteFile(name, CINEMA_UPLOAD_PATH);
         Cinema cinema = getById(cinemaId);
         cinema.getGallery().removeIf(image -> image.getName().equals(name));
+        update(cinema);
     }
 }

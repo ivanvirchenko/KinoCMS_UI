@@ -15,6 +15,10 @@
     border-radius: 10px 10px 0 0;
 }
 
+label {
+    display: block;
+}
+
 .delete-x {
     position: absolute;
     top: 0;

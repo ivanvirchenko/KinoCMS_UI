@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="description-element">
+    <label for="description">Описание</label>
+    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
+    <textarea name="description" id="description" class="form-control" rows="5" style="resize: none" th:field="*{description}"
+              th:attrappend="class=${#fields.hasErrors('description')} ? ' is-invalid'">
+    </textarea>
+</th:block>
+</html>

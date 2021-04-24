@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="seo-element">
+    <p class="title text-xl">SEO</p>
+    <div class="container">
+
+
+        <label class="d-block">
+            URL
+            <input type="text"
+                   th:attrappend="class=${#fields.hasErrors('seo.url')} ? ' is-invalid'"
+                   th:field="*{seo.url}" placeholder="URL" class="form-control">
+        </label>
+
+
+        <label class="d-block">
+            Заголовок
+            <input type="text"
+                   th:attrappend="class=${#fields.hasErrors('seo.title')} ? ' is-invalid'"
+                   th:field="*{seo.title}" placeholder="Title" class="form-control">
+        </label>
+
+
+        <label class="d-block">
+            Ключевые слова
+            <input type="text"
+                   th:attrappend="class=${#fields.hasErrors('seo.keyWords')} ? ' is-invalid'"
+                   th:field="*{seo.keyWords}" placeholder="Key words" class="form-control">
+        </label>
+
+
+        <label class="d-block">
+            Описание
+            <textarea rows="5" style="resize: none" type="text" class="form-control"
+                      th:attrappend="class=${#fields.hasErrors('seo.description')} ? ' is-invalid'"
+                      th:field="*{seo.description}"></textarea>
+        </label>
+
+    </div>
+</th:block>
+</html>

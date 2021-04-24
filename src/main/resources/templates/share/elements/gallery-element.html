@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="gallery-element">
+    <div class="title d-flex justify-content-between align-items-center mt-3">
+        <p class="m-0">Галерея</p>
+        <label for="gallery-input" class="btn btn-outline-light mb-0">
+            <i class="fa fa-plus mr-2"></i>Загрузить
+        </label>
+        <input id="gallery-input" name="gallery-images" type="file" hidden multiple>
+    </div>
+    <div id="image-holder" class="grid-5">
+        <div th:if="*{gallery != null and !gallery.isEmpty()}" th:each="g, i : *{gallery}" class="position-relative">
+            <button form="delete-gallery-form"
+                    th:value="${g.name}"
+                    name="image-name"
+                    type="submit"
+                    class="delete-x btn btn-outline-danger">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <img src="#" alt="#" th:src="${g.url}" class="w-100">
+            <input type="hidden" th:field="*{gallery[__${i.index}__].name}" th:value="${g.name}">
+            <input type="hidden" th:field="*{gallery[__${i.index}__].url}" th:value="${g.url}">
+        </div>
+    </div>
+</th:block>
+</html>

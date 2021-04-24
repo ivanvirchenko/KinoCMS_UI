@@ -1,36 +1,34 @@
-let mainImageInput = $('#image-pick-input');
-let logoImageInput = $('#logo-pick-input');
-let multipleImageInput = $('#image-pick-input-multiple');
+let logoInput = $('#logo-input');
 let logoImage = $('#logo-image');
-let mainImage = $('#main-image');
-let deleteMainImage = $('#delete-main-image');
-let deleteMainImageH = $('#delete-main-image-h');
-let imageHolder = $('#image-holder');
-let deleteLogoBtn = $('#delete-logo-btn');
+let deleteLogo = $('#delete-logo');
+let bannerInput = $('#banner-input');
+let bannerImage = $('#banner-image');
+let deleteBanner = $('#delete-banner');
 
-logoImageInput.change(() => {
-    let url = window.URL.createObjectURL(logoImageInput[0].files[0])
+
+let galleryInput = $('#gallery-input');
+let imageHolder = $('#image-holder');
+
+logoInput.change(() => {
+    let url = window.URL.createObjectURL(logoInput[0].files[0])
     logoImage.attr('src', url)
 });
-
-mainImageInput.change(() => {
-    let url = window.URL.createObjectURL(mainImageInput[0].files[0])
-    mainImage.attr('src', url)
-});
-
-deleteLogoBtn.click(() => {
-    logoImageInput.val('')
+deleteLogo.click(() => {
+    logoInput.val('')
     logoImage.attr('src', 'http://localhost:8080/default/default_image_h.png')
 });
 
-deleteMainImageH.click(() => {
-    mainImageInput.val('')
-    mainImage.attr('src', 'http://localhost:8080/default/default_image_h.png')
+bannerInput.change(() => {
+    let url = window.URL.createObjectURL(bannerInput[0].files[0])
+    bannerImage.attr('src', url)
 });
+deleteBanner.click(() => {
+    bannerInput.val('')
+    bannerImage.attr('src', 'http://localhost:8080/default/default_image_h.png')
+})
 
-multipleImageInput.change(() => {
-    $('#empty-div').remove();
-    let filesList = multipleImageInput[0].files;
+galleryInput.change(() => {
+    let filesList = galleryInput[0].files;
 
     for (let i = 0; i < filesList.length; i++) {
         let img = document.createElement("img");

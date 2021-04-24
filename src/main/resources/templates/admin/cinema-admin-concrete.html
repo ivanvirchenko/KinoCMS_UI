@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{/share/head-share :: head}"></th:block>
-    <title>Add news</title>
+    <title>ADmin cinema</title>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -11,78 +11,68 @@
 
     <div class="content-wrapper p-3">
 
-        <div class="p-3 bg-gradient-warning mt-2 mb-0 d-flex justify-content-between align-items-center">
+        <!-- The title -->
+        <div class="title d-flex justify-content-between align-items-center">
             <p class="m-0  text-xl">Редактор кинотеатра</p>
-            <input type="submit" form="add-cinema-from" value="Сохранить" class="btn btn-outline-secondary">
+            <input type="submit" form="add-cinema-from" value="Сохранить" class="btn btn-outline-light">
         </div>
 
-        <form id="add-cinema-from" method="post" enctype="multipart/form-data" th:object="${cinema}"
-              th:action="@{/admin/cinema/update}">
+        <form id="add-cinema-from" method="post" enctype="multipart/form-data" th:object="${cinema}" th:action="@{/admin/cinema/update}">
             <input type="hidden" th:value="*{id}" th:field="*{id}">
+
             <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <label class="mr-2">
-                            Название
-                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
-                            <input type="text" th:field="*{name}" class="form-control"
-                                   th:attrappend="class=${#fields.hasErrors('name')} ? ' is-invalid'">
-                        </label>
 
-                        <label>
-                            Город
-                            <select class="form-control" name="city">
-                                <option th:each="cty : ${cityList}"
-                                        th:selected="${cty.id == cinema.city.id}"
-                                        th:text="${cty.name}"
-                                        th:value="${cty.id}">
-                                </option>
-                            </select>
-                            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="text-danger"></span>
-                        </label>
-
-                        <th:block th:include="~{/share/description-share :: description}"></th:block>
-
-                        <label class="d-block">
-                            Условия
-                            <textarea style="resize: none" rows="4" th:field="*{conditions}"
-                                      class="form-control"></textarea>
-                        </label>
+                <div class="row mt-4">
+                    <div class="col-3">
+                        <div th:include="~{/share/elements/name-element :: name-element}"></div>
+                    </div>
+                    <div class="col-2">
+                        <label for="city">Город</label>
+                        <select id="city"
+                                class="form-control"
+                                th:field="*{city.id}"
+                                th:attrappend="class=${#fields.hasErrors('city')} ? ' is-invalid'">
+                            <option
+                                    th:each="cty : ${cityList}"
+                                    th:value="${cty.id}"
+                                    th:text="${cty.name}">
+                            </option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="row">
-                    <!-- Logo image-->
-                    <div class="col">
-                        <p class="m-0 text-lg text-bold pl-3">Логотип</p>
-                        <img src="#" alt="#" id="logo-image" th:src="*{logo != null or !logo.url.isEmpty()} ? *{logo.url} : '/default/default_image_h.png'" class="w-100">
-                        <div class="row m-0">
-                            <label for="logo-pick-input" class="btn btn-success w-50 mb-0">Загрузить</label>
-                            <input id="logo-pick-input" type="file" name="logo-image" hidden>
-                            <input type="hidden" th:value="*{logo != null} ? *{logo.name}" th:field="*{logo.name}">
-                            <input type="hidden" th:value="*{logo != null} ? *{logo.url}" th:field="*{logo.url}">
 
-                            <input type="hidden" th:value="*{logo.name}" form="delete_logo_form" name="image-name">
-                            <input type="submit" class="btn btn-danger w-50" form="delete_logo_form" value="Удалить">
-                            <span th:if="${#fields.hasErrors('logo')}" th:errors="*{logo}" class="badge-danger p-2"></span>
-                        </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <div th:include="~{/share/elements/description-element :: description-element}"></div>
                     </div>
-                    <!--/ Logo image-->
+                </div>
 
+                <div class="row mt-2">
                     <div class="col">
-                        <th:block th:include="~{/share/banner-share :: banner-image}"></th:block>
-                        <input type="hidden" th:value="*{banner.name}" th:field="*{banner.name}">
-                        <input type="hidden" th:value="*{banner.url}" th:field="*{banner.url}">
+                        <div th:include="~{/share/elements/conditions-element :: conditions-element}"></div>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col">
+                        <div th:include="~{/share/elements/logo-horizontal-element :: logo-horizintal-element}"></div>
+                    </div>
+                    <div class="col">
+                        <div th:include="~{/share/elements/banner-element :: banner-element}"></div>
                     </div>
                 </div>
             </div>
-            <th:block th:include="~{/share/gallery-share :: gallery-images}"></th:block>
 
-            <!-- Table of halls -->
-            <div class="p-3 bg-gradient-warning mt-2 mb-0 d-flex justify-content-between align-items-center">
+            <th:block th:include="~{/share/elements/gallery-element :: gallery-element}"></th:block>
+
+            <!-- Halls table title -->
+            <div class="title d-flex justify-content-between align-items-center mt-3">
                 <p class="m-0  text-xl">Заллы</p>
-                <a th:href="@{/admin/hall/add(id = *{id})}" class="btn btn-outline-secondary"><i
+                <a th:href="@{/admin/hall/add(id = *{id})}" class="btn btn-outline-light"><i
                         class="fa fa-plus mr-2"></i>Добавить</a>
             </div>
+            <!-- Halls table -->
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -112,12 +102,23 @@
                     <!-- /.card -->
                 </div>
             </div>
+            <!--/ Halls table -->
 
-            <th:block th:include="~{/share/seo-share :: seo}"></th:block>
+            <div class="mt-3" th:include="~{/share/elements/seo-element :: seo-element}"></div>
+
+            <div class="container mt-5">
+                <hr>
+            </div>
             <input type="hidden" th:value="*{seo.id}" th:field="*{seo.id}">
         </form>
 
         <form action="#" id="delete_logo_form" method="post" th:action="@{/admin/cinema/logo/delete}">
+            <input type="hidden" th:value="*{id}" name="cinema_id">
+        </form>
+        <form action="#" id="delete_banner_form" method="post" th:action="@{/admin/cinema/banner/delete}">
+            <input type="hidden" th:value="*{id}" name="cinema_id">
+        </form>
+        <form action="#" id="delete-gallery-form" method="post" th:action="@{/admin/cinema/gallery/delete}">
             <input type="hidden" th:value="*{id}" name="cinema_id">
         </form>
 

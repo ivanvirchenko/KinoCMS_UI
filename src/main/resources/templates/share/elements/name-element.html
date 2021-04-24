@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="name-element">
+    <label for="name">Название</label>
+    <input id="name" name="name" type="text" th:field="*{name}" class="form-control" placeholder="Введите имя"
+           th:attrappend="class=${#fields.hasErrors('name')} ? ' is-invalid'">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+</th:block>
+</html>
