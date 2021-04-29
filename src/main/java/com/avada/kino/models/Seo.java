@@ -18,7 +18,10 @@ public class Seo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotEmpty(message = REQUIRED)
+    @Pattern(
+            regexp = "https?:\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?",
+            message = "HTTP:// или HTTPS:// должны присутствовать"
+    )
     @Size(max = 255, message = MAX_SIZE + 255)
     private String url;
 

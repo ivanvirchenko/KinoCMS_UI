@@ -48,6 +48,10 @@ public class CinemaDao implements Dao<Cinema> {
                     "select c from Cinema c left join fetch c.hallsList where c = :cinema", Cinema.class
             ).setParameter("cinema", cinema).getSingleResult();
 
+            cinema = session.createQuery(
+                    "select c from Cinema c left join fetch c.sessions where c = :cinema", Cinema.class
+            ).setParameter("cinema", cinema).getSingleResult();
+
             session.getTransaction().commit();
             return cinema;
         }

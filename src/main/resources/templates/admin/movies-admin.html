@@ -9,9 +9,28 @@
     <th:block th:include="~{/share/side-share :: side}"></th:block>
 
     <div class="content-wrapper p-3">
-        <div class="bg-gradient-warning p-3">
-            <p class="text-xl m-0 text-uppercase">Текущие фильмы</p>
-        </div>
+
+<!--        <div class="col-3 float-right" th:if="${delete != null}">-->
+<!--            <div class="card bg-success">-->
+<!--                <div class="card-header">-->
+<!--                    <h3 class="card-title">Success</h3>-->
+
+<!--                    <div class="card-tools">-->
+<!--                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; /.card-tools &ndash;&gt;-->
+<!--                </div>-->
+<!--                &lt;!&ndash; /.card-header &ndash;&gt;-->
+<!--                <div class="card-body">-->
+<!--                    The body of the card-->
+<!--                </div>-->
+<!--                &lt;!&ndash; /.card-body &ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+        <p class="text-xl title text-uppercase">Текущие фильмы</p>
 
         <div class="current grid-5">
             <div class="movie" th:each="mov : ${movie_current}">
@@ -22,9 +41,7 @@
             </div>
         </div>
 
-        <div class="bg-gradient-warning p-3">
-            <p class="text-xl m-0 text-uppercase">Будущие фильмы</p>
-        </div>
+        <p class="text-xl title text-uppercase">Будущие фильмы</p>
 
         <div class="current grid-5">
             <div class="movie" th:each="mov : ${movie_future}">

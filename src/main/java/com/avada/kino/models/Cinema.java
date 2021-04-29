@@ -38,10 +38,8 @@ public class Cinema extends BasicEntity {
 //    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Hall> hallsList;
 
-    @OneToMany(mappedBy = "cinema", fetch = FetchType.LAZY, cascade = ALL)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<Schedule> schedules;
-
+    @OneToMany(mappedBy = "cinema", cascade = ALL)
+    private List<MovieSession> sessions;
 
     public void addHall(Hall hall) {
         if (hallsList == null) {
@@ -49,5 +47,10 @@ public class Cinema extends BasicEntity {
         }
         hall.setCinema(this);
         hallsList.add(hall);
+    }
+
+    public void addMovieSession(MovieSession session) {
+        session.setCinema(this);
+        this.sessions.add(session);
     }
 }

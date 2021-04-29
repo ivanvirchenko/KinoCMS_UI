@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="videolink-element">
+    <label class="mt-3">
+        Видео ссылка
+        <input type="text" th:field="*{videoLink}" class="form-control"
+               th:attrappend="class=${#fields.hasErrors('videoLink')} ? ' is-invalid'">
+        <span th:if="${#fields.hasErrors('videoLink')}" th:errors="*{videoLink}"></span>
+    </label>
+</th:block>
+</html>

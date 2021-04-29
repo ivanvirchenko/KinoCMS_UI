@@ -6,7 +6,7 @@
 
 
         <label class="d-block">
-            URL
+            URL <span th:if="${#fields.hasErrors('seo.url')}" th:errors="*{seo.url}" class="text-danger"></span>
             <input type="text"
                    th:attrappend="class=${#fields.hasErrors('seo.url')} ? ' is-invalid'"
                    th:field="*{seo.url}" placeholder="URL" class="form-control">
@@ -14,7 +14,7 @@
 
 
         <label class="d-block">
-            Заголовок
+            Заголовок <span th:if="${#fields.hasErrors('seo.title')}" th:errors="*{seo.title}" class="text-danger"></span>
             <input type="text"
                    th:attrappend="class=${#fields.hasErrors('seo.title')} ? ' is-invalid'"
                    th:field="*{seo.title}" placeholder="Title" class="form-control">
@@ -22,7 +22,7 @@
 
 
         <label class="d-block">
-            Ключевые слова
+            Ключевые слова <span th:if="${#fields.hasErrors('seo.keyWords')}" th:errors="*{seo.keyWords}" class="text-danger"></span>
             <input type="text"
                    th:attrappend="class=${#fields.hasErrors('seo.keyWords')} ? ' is-invalid'"
                    th:field="*{seo.keyWords}" placeholder="Key words" class="form-control">
@@ -30,7 +30,7 @@
 
 
         <label class="d-block">
-            Описание
+            Описание <span th:if="${#fields.hasErrors('seo.description')}" th:errors="*{seo.description}" class="text-danger"></span>
             <textarea rows="5" style="resize: none" type="text" class="form-control"
                       th:attrappend="class=${#fields.hasErrors('seo.description')} ? ' is-invalid'"
                       th:field="*{seo.description}"></textarea>

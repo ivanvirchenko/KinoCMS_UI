@@ -1,8 +1,7 @@
 package com.avada.kino.controller.admin;
 
-import com.avada.kino.dto.MovieDto;
-import com.avada.kino.mapper.MovieMapper;
 import com.avada.kino.models.Movie;
+import com.avada.kino.models.MovieType;
 import com.avada.kino.service.MovieService;
 import com.avada.kino.util.StringsConstant;
 import lombok.RequiredArgsConstructor;
@@ -14,13 +13,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.avada.kino.util.StringsConstant.IMAGE_ERROR;
+import static com.avada.kino.util.StringsConstant.MOVIE_TYPES;
 
 @Controller
 @RequestMapping("admin/movies")
 @RequiredArgsConstructor
 public class MovieControllerAdmin {
     private final MovieService movieService;
-    private final MovieMapper mapper;
 
     @GetMapping
     public String getAll(Model model) {
@@ -31,52 +34,89 @@ public class MovieControllerAdmin {
 
     @GetMapping("/{id}")
     public String getById(@PathVariable int id, Model model) {
-        MovieDto dto = mapper.toDto(movieService.getById(id));
-        model.addAttribute("movie", dto);
-        model.addAttribute("all_types", movieService.getAllTypes());
+        model.addAttribute("movie", movieService.getById(id));
+        model.addAttribute("movie_types", movieService.getAllTypes());
         return "/admin/movies-admin-concrete";
     }
 
     @GetMapping("/add")
     public String addMovie(Model model) {
-        MovieDto dto = mapper.toDto(new Movie());
-        model.addAttribute("new_movie", dto);
-        model.addAttribute("all_types", movieService.getAllTypes());
+        model.addAttribute("movie", new Movie());
+        model.addAttribute("movie_types", movieService.getAllTypes());
         return "/admin/movies-admin-add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/save")
     public String save(
-            MovieDto newMovie,
-            @RequestParam("image-input") MultipartFile file,
-            @RequestParam("image-pick-input-multiple") MultipartFile[] files
+            @Valid Movie movie,
+            BindingResult bindingResult,
+            Model model,
+            @RequestParam("type_ids") int[] typeIds,
+            @RequestParam("logo-image") MultipartFile file,
+            @RequestParam("gallery-images") MultipartFile[] files
     ) {
-
-        Movie movie = mapper.toMovie(newMovie, movieService.getAllTypes());
+        extractMovieTypes(typeIds, movie);
+        saveValidation(file, bindingResult, movie);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("movie_types", movieService.getAllTypes());
+            return "/admin/movies-admin-add";
+        }
         movieService.saveWithFiles(movie, file, files);
         return "redirect:/admin/movies";
     }
 
     @PostMapping("/update")
     public String update(
-            MovieDto movieDto,
-            @RequestParam("image-input") MultipartFile file,
-            @RequestParam("image-pick-input-multiple") MultipartFile[] files
+            Movie movie,
+            @RequestParam("checked_type") int[] typeIds,
+            @RequestParam("logo-image") MultipartFile file,
+            @RequestParam("gallery-images") MultipartFile[] files
     ) {
-        Movie movie = mapper.toMovie(movieDto, movieService.getAllTypes());
+        extractMovieTypes(typeIds, movie);
         movieService.updateWithFiles(movie, file, files);
         return "redirect:/admin/movies/" + movie.getId();
     }
 
-    @GetMapping(value = "/gallery/delete", params = {"movie_id", "image_name"})
-    public String deleteFromGallery(@RequestParam("movie_id") int movieId, @RequestParam("image_name") String imageName) {
-        movieService.deleteFromGallery(movieId, imageName);
+    @PostMapping("/delete")
+    public String delete(
+            @RequestParam("movie_id") int movieId
+    ) {
+        movieService.delete(movieId);
+        return "redirect:/admin/movies";
+    }
+
+    @PostMapping("/logo/delete")
+    public String deleteLogo(@RequestParam("movie_id") int movieId, @RequestParam("logo-image") String imageName) {
+        movieService.deleteImage(movieId, imageName);
         return "redirect:/admin/movies/" + movieId;
     }
 
-    @PostMapping("/image/delete")
-    public String deleteMainImage(@RequestParam("movie_id") int movieId, @RequestParam("image_name") String imageName) {
-        movieService.deleteMainImage(movieId, imageName);
+    @PostMapping("/gallery/delete")
+    public String deleteFromGallery(@RequestParam("movie_id") int movieId, @RequestParam("image-name") String logoName) {
+        movieService.deleteFromGallery(movieId, logoName);
         return "redirect:/admin/movies/" + movieId;
+    }
+
+    private void saveValidation(MultipartFile file, BindingResult result, Movie movie){
+        if (movie.getTypes() == null || movie.getTypes().isEmpty()) {
+            FieldError typesError = new FieldError("movie", "types", MOVIE_TYPES);
+        }
+        if (file.isEmpty()) {
+            FieldError logoError = new FieldError("movie", "logo", IMAGE_ERROR);
+            result.addError(logoError);
+        }
+    }
+
+    private void extractMovieTypes(int[] typeIds, Movie movie) {
+        List<MovieType> typesDb = movieService.getAllTypes();
+        List<MovieType> result = new ArrayList<>();
+        for (int type_id : typeIds) {
+            for (MovieType movieType : typesDb) {
+                if (movieType.getId() == type_id) {
+                    result.add(movieType);
+                }
+            }
+        }
+        movie.setTypes(result);
     }
 }

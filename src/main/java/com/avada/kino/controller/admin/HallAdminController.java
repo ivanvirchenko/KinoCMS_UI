@@ -35,6 +35,17 @@ public class HallAdminController {
         return "/admin/hall-admin-add";
     }
 
+    @GetMapping("/update")
+    public String update(
+            Model model,
+            @RequestParam("hall-id") int hallId,
+            @RequestParam("cinema-id") int cinemaId
+    ) {
+        model.addAttribute("hall", hallService.getById(hallId));
+        model.addAttribute("cinema", cinemaService.getById(cinemaId));
+        return "/admin/hall-admin-concrete";
+    }
+
     @PostMapping("/save")
     public String save(
             @Valid Hall hall,
@@ -62,5 +73,15 @@ public class HallAdminController {
         cinemaService.update(cinema);
         session.invalidate();
         return "redirect:/admin/cinema/" + cinema.getId();
+    }
+
+
+    @PostMapping("/logo/delete")
+    public String deleteLogo(
+            @RequestParam("hall_id") int hallId,
+            @RequestParam("cinema_id") int cinemaId
+    ) {
+        hallService.deleteLogo(hallId);
+        return "redirect:/admin/hall/update?hall-id=" + hallId + "&cinema-id=" + cinemaId;
     }
 }

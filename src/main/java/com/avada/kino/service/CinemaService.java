@@ -3,10 +3,12 @@ package com.avada.kino.service;
 import com.avada.kino.dao.CinemaDao;
 import com.avada.kino.models.Cinema;
 import com.avada.kino.models.Image;
+import com.avada.kino.repository.CinemaRepository;
 import com.avada.kino.util.UploadPaths;
 import lombok.RequiredArgsConstructor;
 import org.jvnet.staxex.util.DummyLocation;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -18,12 +20,12 @@ import static com.avada.kino.util.UploadPaths.CINEMA_UPLOAD_PATH;
 @RequiredArgsConstructor
 public class CinemaService implements DaoService<Cinema> {
 
-    private final CinemaDao dao;
+    private final CinemaRepository repository;
     private final FileService fileService;
 
     @Override
     public void save(Cinema cinema) {
-        dao.save(cinema);
+        repository.save(cinema);
     }
 
     public void saveWithFiles(
@@ -36,22 +38,23 @@ public class CinemaService implements DaoService<Cinema> {
         saveBanner(cinema, banner);
         saveToGallery(cinema, gallery);
 
-        dao.save(cinema);
+        save(cinema);
     }
 
     @Override
     public List<Cinema> getAll() {
-        return dao.getAll();
+        return repository.findAll();
     }
 
     @Override
+    @Transactional
     public Cinema getById(int id) {
-        return dao.getById(id);
+        return repository.findById(id);
     }
 
     @Override
     public void update(Cinema cinema) {
-        dao.update(cinema);
+       repository.save(cinema);
     }
 
     public void updateWithFiles(Cinema cinema, MultipartFile logo, MultipartFile banner, MultipartFile[] gallery) {
@@ -63,7 +66,7 @@ public class CinemaService implements DaoService<Cinema> {
 
     @Override
     public void delete(int id) {
-        dao.delete(id);
+        repository.deleteById(id);
     }
 
     private void saveLogo(Cinema cinema, MultipartFile file) {

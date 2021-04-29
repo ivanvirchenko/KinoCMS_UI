@@ -11,8 +11,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Image {
-    @Column(name = "imageName")
     private String name;
-    @Column(name = "imageUrl")
     private String url;
 }

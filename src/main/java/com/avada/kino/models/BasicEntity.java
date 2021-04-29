@@ -31,6 +31,13 @@ public class BasicEntity {
     @NotBlank(message = REQUIRED)
     private String description;
 
+    @Embedded
+    @AttributeOverrides(
+            {
+                    @AttributeOverride(name = "name", column = @Column(name = "logo_name")),
+                    @AttributeOverride(name = "url", column = @Column(name = "logo_url"))
+            }
+    )
     private Image logo;
 
     @ElementCollection

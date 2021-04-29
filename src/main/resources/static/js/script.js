@@ -1,6 +1,10 @@
 let logoInput = $('#logo-input');
 let logoImage = $('#logo-image');
+let logoInputVertical = $('#logo-vertical-input');
+let logoImageVertical = $('#logo-vertical-image');
+
 let deleteLogo = $('#delete-logo');
+let deleteLogoVertical = $('#delete-vertical-logo');
 let bannerInput = $('#banner-input');
 let bannerImage = $('#banner-image');
 let deleteBanner = $('#delete-banner');
@@ -17,6 +21,15 @@ deleteLogo.click(() => {
     logoInput.val('')
     logoImage.attr('src', 'http://localhost:8080/default/default_image_h.png')
 });
+
+logoInputVertical.change(() => {
+    let url = window.URL.createObjectURL(logoInputVertical[0].files[0])
+    logoImageVertical.attr('src', url)
+})
+deleteLogoVertical.click(() => {
+    logoInputVertical.val('')
+    logoImageVertical.attr('src', 'http://localhost:8080/default/default_image.png')
+})
 
 bannerInput.change(() => {
     let url = window.URL.createObjectURL(bannerInput[0].files[0])
@@ -45,8 +58,20 @@ galleryInput.change(() => {
 })
 
 $().ready(() => {
-    if (multipleImageInput[0].files.length === 0){
+    if (multipleImageInput[0].files.length === 0) {
         $('#empty-div').text('Список изображений пуст');
         $('#empty-div').addClass('text-xl text-center')
     }
+})
+
+$(function () {
+    //Date picker
+    $('#reservationdate').datetimepicker({
+        format: 'DD/MM/YYYY'
+    });
+
+    //Date picker
+    $('#reservationdate-end').datetimepicker({
+        format: 'DD/MM/YYYY'
+    });
 })

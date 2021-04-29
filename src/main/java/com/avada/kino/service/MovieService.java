@@ -1,22 +1,16 @@
 package com.avada.kino.service;
 
 import com.avada.kino.dao.MovieDao;
-import com.avada.kino.dto.MovieDto;
 import com.avada.kino.models.Image;
 import com.avada.kino.models.Movie;
 import com.avada.kino.models.MovieType;
-import com.avada.kino.util.UploadPaths;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.PostConstruct;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static com.avada.kino.util.UploadPaths.MOVIES_UPLOAD_PATH;
 
@@ -75,6 +69,9 @@ public class MovieService implements DaoService<Movie> {
 
     @Override
     public void delete(int id) {
+        Movie movie = getById(id);
+        deleteImage(id, movie.getLogo().getName());
+        movie.getGallery().forEach(image -> deleteImage(id, image.getName()));
         dao.delete(id);
     }
 
@@ -89,7 +86,7 @@ public class MovieService implements DaoService<Movie> {
         update(movie);
     }
 
-    public void deleteMainImage(int movieId, String imageNme) {
+    public void deleteImage(int movieId, String imageNme) {
         Movie movie = getById(movieId);
         fileService.deleteFile(imageNme, MOVIES_UPLOAD_PATH);
         movie.setLogo(null);

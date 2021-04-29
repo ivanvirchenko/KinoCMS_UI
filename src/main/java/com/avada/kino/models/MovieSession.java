@@ -1,33 +1,33 @@
 package com.avada.kino.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
-@Embeddable
+@Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class MovieSession {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private LocalDate date;
     private LocalTime time;
     private BigDecimal price;
-
     @ManyToOne
     @JoinColumn(name = "movie_id")
     private Movie movie;
-
+    @ManyToOne
+    @JoinColumn(name = "cinema_id")
+    private Cinema cinema;
     @ManyToOne
     @JoinColumn(name = "hall_id")
     private Hall hall;
-
-    public MovieSession(LocalTime time, BigDecimal price, Movie movie, Hall hall) {
-        this.time = time;
-        this.price = price;
-        this.movie = movie;
-        this.hall = hall;
-    }
 }
