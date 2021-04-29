@@ -1,14 +1,16 @@
 package com.avada.kino.service;
 
-import com.avada.kino.dao.MovieDao;
 import com.avada.kino.models.Image;
 import com.avada.kino.models.Movie;
 import com.avada.kino.models.MovieType;
+import com.avada.kino.repository.MovieRepository;
+import com.avada.kino.repository.MovieTypesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +20,13 @@ import static com.avada.kino.util.UploadPaths.MOVIES_UPLOAD_PATH;
 @RequiredArgsConstructor
 public class MovieService implements DaoService<Movie> {
 
-    private final MovieDao dao;
+    private final MovieRepository repository;
+    private final MovieTypesRepository typesRepository;
     private final FileService fileService;
 
     @Override
     public void save(Movie movie) {
-        dao.save(movie);
+        repository.save(movie);
     }
 
     public void saveWithFiles(Movie movie, MultipartFile file, MultipartFile[] files) {
@@ -37,25 +40,25 @@ public class MovieService implements DaoService<Movie> {
 
     @Override
     public List<Movie> getAll() {
-        return dao.getAll();
+        return repository.findAll();
     }
 
     public List<Movie> getCurrent() {
-        return dao.getCurrent();
+        return repository.getCurrent(LocalDate.now());
     }
 
     public List<Movie> getFuture() {
-        return dao.getFuture();
+        return repository.getFuture(LocalDate.now());
     }
 
     @Override
     public Movie getById(int id) {
-        return dao.getById(id);
+        return repository.findById(id).orElseThrow();
     }
 
     @Override
     public void update(Movie movie) {
-        dao.update(movie);
+        repository.save(movie);
     }
 
     public void updateWithFiles(Movie movie, MultipartFile file, MultipartFile[] files) {
@@ -70,13 +73,13 @@ public class MovieService implements DaoService<Movie> {
     @Override
     public void delete(int id) {
         Movie movie = getById(id);
-        deleteImage(id, movie.getLogo().getName());
-        movie.getGallery().forEach(image -> deleteImage(id, image.getName()));
-        dao.delete(id);
+        fileService.deleteFile(movie.getLogo().getName(), MOVIES_UPLOAD_PATH);
+        movie.getGallery().forEach(image -> fileService.deleteFile(image.getName(), MOVIES_UPLOAD_PATH));
+        repository.delete(movie);
     }
 
     public List<MovieType> getAllTypes() {
-        return dao.getAllTypes();
+        return typesRepository.findAll();
     }
 
     public void deleteFromGallery(int movieId, String imageNme) {
@@ -86,9 +89,9 @@ public class MovieService implements DaoService<Movie> {
         update(movie);
     }
 
-    public void deleteImage(int movieId, String imageNme) {
+    public void deleteLogo(int movieId, String imageName) {
         Movie movie = getById(movieId);
-        fileService.deleteFile(imageNme, MOVIES_UPLOAD_PATH);
+        fileService.deleteFile(imageName, MOVIES_UPLOAD_PATH);
         movie.setLogo(null);
         update(movie);
     }

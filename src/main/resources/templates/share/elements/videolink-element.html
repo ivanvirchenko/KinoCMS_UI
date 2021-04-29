@@ -5,7 +5,7 @@
         Видео ссылка
         <input type="text" th:field="*{videoLink}" class="form-control"
                th:attrappend="class=${#fields.hasErrors('videoLink')} ? ' is-invalid'">
-        <span th:if="${#fields.hasErrors('videoLink')}" th:errors="*{videoLink}"></span>
+        <span th:if="${#fields.hasErrors('videoLink')}" th:errors="*{videoLink}" class="text-danger"></span>
     </label>
 </th:block>
 </html>

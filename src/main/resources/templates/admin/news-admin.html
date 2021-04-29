@@ -9,14 +9,15 @@
     <th:block th:include="~{/share/side-share :: side}"></th:block>
 
     <div class="content-wrapper p-3">
-        <div class="bg-gradient-warning p-3">
-            <p class="text-xl m-0 text-uppercase">Новости</p>
+        <p class="text-xl title m-0 text-uppercase">Новости</p>
+        <div th:if="${all_news.isEmpty()}">
+            <p class="text-xl text-center p-4">Список новостей пуст</p>
         </div>
-
         <div class="news grid-5">
-            <a th:href="@{/admin/news/{id}(id = ${item.id})}" class="news position-relative" th:each="item : ${all_news}">
+            <a th:href="@{/admin/news/{id}(id = ${item.id})}" class="news position-relative"
+               th:each="item : ${all_news}">
                 <div class="ifactive badge-danger p-2" th:if="${item.enabled == false}">Disabled</div>
-                <img src="#" alt="#" class="w-100" th:src="${item.image.url}">
+                <img src="#" alt="#" class="w-100" th:src="${item.logo != null} ? ${item.logo.url} : '/default/default_image_h.png'">
                 <div th:text="${item.name}" class="text-lg bg-gradient-dark p-2"></div>
             </a>
         </div>

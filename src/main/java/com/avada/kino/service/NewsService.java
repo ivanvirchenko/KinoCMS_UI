@@ -2,10 +2,10 @@ package com.avada.kino.service;
 
 import com.avada.kino.models.Image;
 import com.avada.kino.models.News;
-import com.avada.kino.models.News;
-import com.avada.kino.dao.NewsDao;
+import com.avada.kino.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -13,21 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.avada.kino.util.UploadPaths.NEWS_UPLOAD_PATH;
-import static com.avada.kino.util.UploadPaths.NEWS_UPLOAD_PATH;
 
 @Service
 @RequiredArgsConstructor
 public class NewsService implements DaoService<News> {
 
-    private final NewsDao dao;
+    private final NewsRepository repository;
     private final FileService fileService;
 
     @Override
+    @Transactional
     public void save(News news) {
         if (news.getGallery() == null) {
             news.setGallery(new ArrayList<>());
         }
-        dao.save(news);
+        repository.save(news);
     }
 
     public void saveWithFiles(News news, MultipartFile file, MultipartFile[] files) {
@@ -38,17 +38,18 @@ public class NewsService implements DaoService<News> {
 
     @Override
     public List<News> getAll() {
-        return dao.getAll();
+        return repository.findAll();
     }
 
     @Override
     public News getById(int id) {
-        return dao.getById(id);
+        return repository.findById(id).orElseThrow();
     }
 
     @Override
+    @Transactional
     public void update(News news) {
-        dao.update(news);
+        repository.save(news);
     }
 
     public void updateWithFiles(News news, MultipartFile file, MultipartFile[] files) {
@@ -62,7 +63,10 @@ public class NewsService implements DaoService<News> {
 
     @Override
     public void delete(int id) {
-        dao.delete(id);
+        News news = getById(id);
+        fileService.deleteFile(news.getLogo().getName(), NEWS_UPLOAD_PATH);
+        news.getGallery().forEach(image -> fileService.deleteFile(image.getName(), NEWS_UPLOAD_PATH));
+        repository.delete(news);
     }
 
     public void deleteFromGallery(int newsId, String imageNme) {
@@ -72,7 +76,7 @@ public class NewsService implements DaoService<News> {
         update(news);
     }
 
-    public void deleteMainImage(int newsId, String imageNme) {
+    public void deleteImage(int newsId, String imageNme) {
         News news = getById(newsId);
         fileService.deleteFile(imageNme, NEWS_UPLOAD_PATH);
         news.setLogo(null);

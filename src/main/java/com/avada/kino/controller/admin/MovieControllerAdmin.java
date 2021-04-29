@@ -3,7 +3,6 @@ package com.avada.kino.controller.admin;
 import com.avada.kino.models.Movie;
 import com.avada.kino.models.MovieType;
 import com.avada.kino.service.MovieService;
-import com.avada.kino.util.StringsConstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,7 +86,7 @@ public class MovieControllerAdmin {
 
     @PostMapping("/logo/delete")
     public String deleteLogo(@RequestParam("movie_id") int movieId, @RequestParam("logo-image") String imageName) {
-        movieService.deleteImage(movieId, imageName);
+        movieService.deleteLogo(movieId, imageName);
         return "redirect:/admin/movies/" + movieId;
     }
 

@@ -11,48 +11,28 @@
 
     <div class="content-wrapper p-3">
 
-        <div class="p-3 bg-gradient-warning mt-2 mb-0 d-flex justify-content-between">
-            <p class="m-0  text-xl">Редактор новости</p>
+        <div class="p-3 title d-flex justify-content-between">
+            <p class="m-0 text-xl">Редактор новости</p>
             <div class="d-flex align-items-center">
-                <input id="submit-btn" form="add-news-form" type="submit" class="btn btn-outline-dark mr-4" value="Сохранить">
+                <input id="submit-btn" form="add-news-form" type="submit" class="btn btn-outline-light" value="Сохранить">
             </div>
         </div>
 
-        <form id="add-news-form" action="#" th:action="@{/admin/news/add}" method="post" th:object="${news}"
+        <form id="add-news-form" action="#" th:action="@{/admin/news/save}" method="post" th:object="${news}"
               class="mt-2 needs-validation" enctype="multipart/form-data">
 
             <div class="row">
                 <div class="col-3">
                     <!--Main image-->
-                    <div class="image-error bg-danger p-3" th:if="${#fields.hasErrors('logo')}">
-                        <span th:errors="*{logo}" class="text-light text-lg"></span>
-                    </div>
-                    <img id="main-image" src="#" alt="#" class="w-100"
-                         th:src="@{/default/default_image_h.png}">
-
-                    <div class="d-flex">
-                        <input type="file" hidden name="main-image" id="image-pick-input">
-                        <label for="image-pick-input" class="btn btn-success m-0 w-50">Загрузить</label>
-                        <!--Delete main image input-->
-                        <button id="delete-main-image-h" type="button" class="btn btn-danger w-50"
-                                value="Удалить">Удалить
-                        </button>
-                    </div>
+                    <div th:include="~{/share/elements/logo-horizontal-element :: logo-horizintal-element}"></div>
                 </div>
                 <div class="col-9">
                     <div class="row">
-
                         <!--Name-->
-                        <div class="name col-3">
-                            <label for="name-input">Название</label>
-                            <input id="name-input" type="text"
-                                   th:attrappend="class=${#fields.hasErrors('name')} ? ' is-invalid'"
-                                   class="form-control" th:field="*{name}">
-                            <span th:if="${#fields.hasErrors()}" th:errors="*{name}" class="text-danger"></span>
-                        </div>
+                        <div th:include="~{/share/elements/name-element :: name-element}"></div>
 
                         <!--AddDate-->
-                        <div class="start-date col-3">
+                        <div class="start-date col-2">
                             <label for="start-date-input">Дата добавления</label>
                             <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                 <input id="start-date-input" type="text" class="form-control datepicker-input"
@@ -66,8 +46,8 @@
                             <span th:if="${#fields.hasErrors()}" th:errors="*{date}" class="text-danger"></span>
                         </div>
 
-                        <!-- Here must be switch -->
-                        <div class="bootstrap-switch-container ml-4">
+                        <!-- ON/OFF switch -->
+                        <div class="bootstrap-switch-container">
                             <label for="onoff" class="d-block">Активация</label>
                             <input id="onoff" type="checkbox" name="my-checkbox" checked="" data-bootstrap-switch=""
                                    data-off-color="danger" data-on-color="success" th:field="*{enabled}">
@@ -76,26 +56,17 @@
                     </div>
 
                     <!--Video Link-->
-                    <label class="d-block mt-3">
-                        Ссылка на видео
-                        <input type="text" th:field="*{videoLink}" class="form-control col-8">
-                    </label>
-
+                    <div th:include="~{/share/elements/videolink-element :: videolink-element}"></div>
                     <!--Description-->
-                    <label class="d-block">
-                        Описание
-                        <textarea rows="5" style="resize: none" class="form-control"
-                                  th:attrappend="class=${#fields.hasErrors('description')} ? ' is-invalid'"
-                                  th:field="*{description}">
-                        </textarea>
-                    </label>
-                    <span th:if="${#fields.hasErrors()}" th:errors="*{description}" class="text-danger"></span>
+                    <div th:include="~{/share/elements/description-element :: description-element}"></div>
                 </div>
             </div>
 
 
-            <th:block th:include="~{/share/gallery-share :: gallery-images}"></th:block>
-            <th:block th:include="~{/share/seo-share :: seo}"></th:block>
+            <th:block th:include="~{/share/elements/gallery-element :: gallery-element}"></th:block>
+            <div class="mt-2">
+                <th:block th:include="~{/share/elements/seo-element :: seo-element}"></th:block>
+            </div>
         </form>
     </div>
 

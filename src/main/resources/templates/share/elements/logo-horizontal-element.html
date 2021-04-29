@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="logo-horizintal-element">
+
     <div th:if="${#fields.hasErrors('logo')}" th:errors="*{logo}" class="badge-danger p-4"></div>
+
     <img id="logo-image" src="#" alt="#" th:src="*{logo != null and !logo.url.isEmpty()} ? *{logo.url} : '/default/default_image_h.png'" class="w-100">
     <th:block th:if="*{logo != null and !logo.url.isEmpty()}">
         <input type="hidden" th:field="*{logo.name}" th:value="*{logo.name}">

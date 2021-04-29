@@ -2,6 +2,7 @@ package com.avada.kino.controller.admin;
 
 import com.avada.kino.models.News;
 import com.avada.kino.service.NewsService;
+import com.avada.kino.util.StringsConstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+
+import java.util.Optional;
+
+import static com.avada.kino.util.StringsConstant.REQUIRED;
 
 @Controller
 @RequestMapping("/admin/news")
@@ -33,19 +38,19 @@ public class NewsControllerAdmin {
 
     @GetMapping("/{id}")
     public String getConcreteNews(@PathVariable int id, Model model) {
-        model.addAttribute("the_news", newsService.getById(id));
+        model.addAttribute("news", newsService.getById(id));
         return "/admin/news-admin-concrete";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/save")
     public String addNews(
             @Valid News news,
             BindingResult bindingResult,
-            @RequestParam("main-image") MultipartFile image,
+            @RequestParam("logo-image") MultipartFile image,
             @RequestParam("gallery-images") MultipartFile[] gallery
     ) {
         if (image == null || image.isEmpty()) {
-            FieldError imageError = new FieldError("news", "logo", "Обязательное изображение");
+            FieldError imageError = new FieldError("news", "logo", REQUIRED);
             bindingResult.addError(imageError);
         }
         if (bindingResult.hasErrors()) {
@@ -56,25 +61,35 @@ public class NewsControllerAdmin {
         return "redirect:/admin/news/" + news.getId();
     }
 
-    @PostMapping("update")
+    @PostMapping("/update")
     public String update(
-            News news,
-            @RequestParam("image-input") MultipartFile image,
-            @RequestParam("image-pick-input-multiple") MultipartFile[] gallery
+            @Valid News news,
+            BindingResult bindingResult,
+            @RequestParam("logo-image") MultipartFile image,
+            @RequestParam("gallery-images") MultipartFile[] gallery
     ) {
+        if (news.getLogo() == null) {
+            if (image.isEmpty()) {
+                FieldError imageError = new FieldError("news", "logo", REQUIRED);
+                bindingResult.addError(imageError);
+            }
+        }
+        if (bindingResult.hasErrors()) {
+            return "/admin/news-admin-concrete";
+        }
         newsService.updateWithFiles(news, image, gallery);
         return "redirect:/admin/news/" + news.getId();
     }
 
-    @GetMapping(value = "/gallery/delete", params = {"news_id", "image_name"})
-    public String deleteFromGallery(@RequestParam("news_id") int newsId, @RequestParam("image_name") String imageName) {
-        newsService.deleteFromGallery(newsId, imageName);
+    @PostMapping("/logo/delete")
+    public String deleteLogo(@RequestParam("news_id") int newsId, @RequestParam("logo-image") String imageName) {
+        newsService.deleteImage(newsId, imageName);
         return "redirect:/admin/news/" + newsId;
     }
 
-    @PostMapping("/image/delete")
-    public String deleteMainImage(@RequestParam("news_id") int newsId, @RequestParam("image_name") String imageName) {
-        newsService.deleteMainImage(newsId, imageName);
+    @PostMapping("/gallery/delete")
+    public String deleteFromGallery(@RequestParam("news_id") int newsId, @RequestParam("image-name") String imageName) {
+        newsService.deleteFromGallery(newsId, imageName);
         return "redirect:/admin/news/" + newsId;
     }
 }

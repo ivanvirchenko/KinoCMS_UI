@@ -4,6 +4,7 @@
     <p class="title text-xl">SEO</p>
     <div class="container">
 
+        <input th:if="*{seo != null}" type="hidden" th:value="*{seo.id}" th:field="*{seo.id}">
 
         <label class="d-block">
             URL <span th:if="${#fields.hasErrors('seo.url')}" th:errors="*{seo.url}" class="text-danger"></span>

@@ -1,12 +1,9 @@
 package com.avada.kino.service;
 
-import com.avada.kino.dao.CinemaDao;
 import com.avada.kino.models.Cinema;
 import com.avada.kino.models.Image;
 import com.avada.kino.repository.CinemaRepository;
-import com.avada.kino.util.UploadPaths;
 import lombok.RequiredArgsConstructor;
-import org.jvnet.staxex.util.DummyLocation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
