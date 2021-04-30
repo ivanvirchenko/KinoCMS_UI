@@ -1,41 +1,40 @@
 package com.avada.kino.service;
 
-import com.avada.kino.dao.CityDao;
 import com.avada.kino.models.City;
+import com.avada.kino.repository.CityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class CityService implements DaoService<City> {
-    private final CityDao dao;
+    private final CityRepository repository;
 
     @Override
     public void save(City city) {
-        dao.save(city);
+        repository.save(city);
     }
 
     @Override
     public List<City> getAll() {
-        return dao.getAll();
+        return repository.findAll();
     }
 
     @Override
     public City getById(int id) {
-        return dao.getById(id);
+        return repository.findById(id).orElseThrow();
     }
 
     @Override
     public void update(City city) {
-        dao.update(city);
+        repository.save(city);
     }
 
     @Override
     public void delete(int id) {
-        dao.delete(id);
+        repository.deleteById(id);
     }
 
 }

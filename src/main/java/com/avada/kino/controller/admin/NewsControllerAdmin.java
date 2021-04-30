@@ -2,7 +2,6 @@ package com.avada.kino.controller.admin;
 
 import com.avada.kino.models.News;
 import com.avada.kino.service.NewsService;
-import com.avada.kino.util.StringsConstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
-import java.util.Optional;
-
-import static com.avada.kino.util.StringsConstant.REQUIRED;
+import static com.avada.kino.util.UtilConstant.REQUIRED;
 
 @Controller
 @RequestMapping("/admin/news")

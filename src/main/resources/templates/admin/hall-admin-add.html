@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{/share/head-share :: head}"></th:block>
-    <title>Admin cinema</title>
+    <title>New hall</title>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -11,8 +11,14 @@
 
     <div class="content-wrapper p-3">
 
-        <p class="m-0 title text-xl">Новый залл</p>
-        <form class="container-fluid" method="post" enctype="multipart/form-data" th:object="${hall}"
+        <div class="p-3 title d-flex justify-content-between">
+            <p class="m-0 text-xl">Новый залл</p>
+            <div class="d-flex align-items-center">
+                <input id="submit-btn" form="add-hall-form" type="submit" class="btn btn-outline-light" value="Сохранить">
+            </div>
+        </div>
+
+        <form id="add-hall-form" class="container-fluid" method="post" enctype="multipart/form-data" th:object="${hall}"
               th:action="@{/admin/hall/save}">
             <div class="container">
                 <div class="row mt-3">
@@ -58,14 +64,6 @@
 
             <div class="container mt-5">
                 <hr>
-            </div>
-
-            <!-- Next button -->
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-default mb-5 w-50">
-                    Далее...
-                    <i class="fa fa-arrow-alt-circle-right"></i>
-                </button>
             </div>
         </form>
 

@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static com.avada.kino.util.UploadPaths.NEWS_UPLOAD_PATH;
@@ -25,7 +26,7 @@ public class NewsService implements DaoService<News> {
     @Transactional
     public void save(News news) {
         if (news.getGallery() == null) {
-            news.setGallery(new ArrayList<>());
+            news.setGallery(new HashSet<>());
         }
         repository.save(news);
     }
@@ -54,7 +55,7 @@ public class NewsService implements DaoService<News> {
 
     public void updateWithFiles(News news, MultipartFile file, MultipartFile[] files) {
         if (news.getGallery() == null) {
-            news.setGallery(new ArrayList<>());
+            news.setGallery(new HashSet<>());
         }
         saveSingleFile(file, news);
         saveMultipleFiles(files, news);

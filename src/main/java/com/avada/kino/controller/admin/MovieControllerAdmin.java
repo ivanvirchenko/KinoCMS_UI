@@ -15,8 +15,8 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.avada.kino.util.StringsConstant.IMAGE_ERROR;
-import static com.avada.kino.util.StringsConstant.MOVIE_TYPES;
+import static com.avada.kino.util.UtilConstant.IMAGE_ERROR;
+import static com.avada.kino.util.UtilConstant.MOVIE_TYPES;
 
 @Controller
 @RequestMapping("admin/movies")

@@ -1,145 +1,89 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <th:block th:include="~{/share/head-share :: head}"></th:block>
+    <th:block th:include="~{/share/head-share :: head}"></th:block>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-  <!-- Main Sidebar Container -->
-  <th:block th:include="~{/share/side-share :: side}"></th:block>
+    <!-- Main Sidebar Container -->
+    <th:block th:include="~{/share/side-share :: side}"></th:block>
 
-  <div class="content-wrapper p-3">
+    <div class="content-wrapper p-3">
 
-    <div class="p-3 bg-gradient-warning mt-2 mb-0 d-flex justify-content-between">
-      <p class="m-0  text-xl">Редактор акции</p>
-      <div class="d-flex align-items-center">
-        <input form="add-promotion-form" type="submit" class="btn btn-outline-dark mr-4" value="Сохранить">
-      </div>
-    </div>
-
-    <form id="delete-main-image-gorm" th:action="@{/admin/promotion/image/delete}" method="post"></form>
-
-    <form id="add-promotion-form" action="#" th:action="@{/admin/promotion/update}" method="post" th:object="${the_promotion}"
-          class="mt-2" enctype="multipart/form-data">
-
-      <input type="hidden" th:field="*{id}" th:value="*{id}">
-
-
-      <div class="row">
-        <div class="col-3">
-          <!--Main image-->
-          <img id="main-image" src="#" alt="#" class="w-100"
-               th:src="${the_promotion.image != null} ? *{image.url} : '/default/default_image_h.png'">
-
-          <div class="d-flex">
-            <input type="file" hidden name="image-input" id="image-pick-input">
-            <label for="image-pick-input" class="btn btn-success m-0 w-50">Загрузить</label>
-            <input type="hidden" th:field="*{image.name}">
-            <input type="hidden" th:field="*{image.url}">
-            <!--Delete main image input-->
-            <input form="delete-main-image-gorm" type="submit" class="btn btn-danger w-50"
-                   value="Удалить">
-            <input form="delete-main-image-gorm" type="hidden" name="promotion_id" th:value="*{id}">
-            <input form="delete-main-image-gorm" type="hidden" name="image_name"
-                   th:value="*{image.name}">
-          </div>
-        </div>
-        <div class="col-9">
-          <div class="row">
-            <!--Name-->
-            <div class="name col-3">
-              <label for="name-input">Название</label>
-              <input id="name-input" type="text" class="form-control" th:field="*{name}">
+        <div class="title d-flex justify-content-between">
+            <p class="m-0 text-xl">Редактор акции</p>
+            <div class="d-flex align-items-center">
+                <input form="add-promotion-form" type="submit" class="btn btn-outline-light mr-4" value="Сохранить">
+                <input form="delete-promotion-form" type="submit" class="btn btn-outline-danger" value="Удалить">
             </div>
-            <!--AddDate-->
-            <div class="start-date col-3">
-              <label for="start-date-input">Дата добавления</label>
-              <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                <input id="start-date-input" type="text" class="form-control datepicker-input"
-                       data-target="#reservationdate" th:field="*{date}">
-                <div class="input-group-append" data-target="#reservationdate"
-                     data-toggle="datetimepicker">
-                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        </div>
+
+        <form id="add-promotion-form" action="#" th:action="@{/admin/promotion/update}" method="post"
+              th:object="${the_promotion}"
+              class="mt-2" enctype="multipart/form-data">
+            <input type="hidden" th:value="*{id}" th:field="*{id}">
+            <div class="row">
+                <div class="col-3">
+                    <!--Main image-->
+                    <div th:include="~{/share/elements/logo-horizontal-element :: logo-horizintal-element}"></div>
                 </div>
-              </div>
+                <div class="col-9">
+                    <div class="row">
+                        <!--Name-->
+                        <div th:include="~{/share/elements/name-element :: name-element}"></div>
+
+                        <!--AddDate-->
+                        <div class="start-date col-2">
+                            <label for="start-date-input">Дата добавления</label>
+                            <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                <input id="start-date-input" type="text" class="form-control datepicker-input"
+                                       th:attrappend="class=${#fields.hasErrors('date')} ? ' is-invalid'"
+                                       data-target="#reservationdate" th:field="*{date}">
+                                <div class="input-group-append" data-target="#reservationdate"
+                                     data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                            <span th:if="${#fields.hasErrors()}" th:errors="*{date}" class="text-danger"></span>
+                        </div>
+
+                        <!-- ON/OFF switch -->
+                        <div class="bootstrap-switch-container">
+                            <label for="onoff" class="d-block">Активация</label>
+                            <input id="onoff" type="checkbox" name="my-checkbox" checked="" data-bootstrap-switch=""
+                                   data-off-color="danger" data-on-color="success" th:field="*{enabled}">
+                        </div>
+                    </div>
+                    <!--Video Link-->
+                    <div th:include="~{/share/elements/videolink-element :: videolink-element}"></div>
+                    <!--Description-->
+                    <div th:include="~{/share/elements/description-element :: description-element}"></div>
+                </div>
             </div>
+            <div>
+                <th:block th:include="~{/share/elements/gallery-element :: gallery-element}"></th:block>
 
-            <!-- Here must be switch -->
-            <div class="bootstrap-switch-container ml-4">
-              <label for="onoff" class="d-block">Активация</label>
-              <input id="onoff" type="checkbox" name="my-checkbox" checked="" data-bootstrap-switch=""
-                     data-off-color="danger" data-on-color="success" th:field="*{enabled}">
             </div>
+            <div class="mt-2">
+                <th:block th:include="~{/share/elements/seo-element :: seo-element}"></th:block>
+            </div>
+        </form>
 
-          </div>
-          <!--Video Link-->
-          <label class="d-block mt-3">
-            Ссылка на видео
-            <input type="text" th:field="*{videoLink}" class="form-control col-8">
-          </label>
-          <!--Description-->
-          <label class="d-block">
-            Описание
-            <textarea rows="5" style="resize: none" class="form-control"
-                      th:field="*{description}"></textarea>
-          </label>
-        </div>
-      </div>
+        <form id="delete_logo_form" th:action="@{/admin/promotion/logo/delete}" method="post">
+            <input type="hidden" th:value="*{id}" name="promotion_id">
+        </form>
+        <form id="delete-gallery-form" th:action="@{/admin/promotion/gallery/delete}" method="post">
+            <input type="hidden" th:value="*{id}" name="promotion_id">
+        </form>
 
-
-      <div class="p-3 bg-gradient-warning mt-2 mb-0 d-flex justify-content-between align-items-center">
-        <p class="text-xl m-0">Галерея</p>
-        <div class="add-picture">
-          <!-- Gallery input -->
-          <input id="image-pick-input-multiple" type="file" hidden multiple name="image-pick-input-multiple">
-
-          <label for="image-pick-input-multiple" class="btn btn-outline-secondary m-0">Загрузить еще</label>
-        </div>
-      </div>
-      <div id="image-holder" class="gallery grid-5">
-        <div class="images position-relative" th:each="pic, i : *{gallery}">
-          <img src="#" alt="#" th:src="${pic.url}" class="w-100">
-          <input type="hidden" th:field="*{gallery[__${i.index}__].name}" th:value="${pic.name}">
-          <input type="hidden" th:field="*{gallery[__${i.index}__].url}" th:value="${pic.url}">
-          <a th:href="@{/admin/promotion/gallery/delete(image_name = ${pic.name}, promotion_id = ${the_promotion.id})}"
-             class="btn btn-danger delete-x">X</a>
-        </div>
-        <div class="upload-images-block grid-5">
-
-        </div>
-      </div>
-
-      <p class="p-3 bg-gradient-warning mb-0 text-xl">SEO</p>
-      <div class="container">
-        <input type="hidden" th:value="*{seo.id}" th:field="*{seo.id}">
-        <label class="d-block">
-          URL
-          <input type="text" th:field="*{seo.url}" placeholder="URL" class="form-control">
-        </label>
-        <label class="d-block">
-          Заголовок
-          <input type="text" th:field="*{seo.title}" placeholder="Title" class="form-control">
-        </label>
-        <label class="d-block">
-          Ключевые слова
-          <input type="text" th:field="*{seo.keyWords}" placeholder="Key words" class="form-control">
-        </label>
-        <label class="d-block">
-          Описание
-          <textarea rows="5" style="resize: none" type="text" class="form-control"
-                    th:field="*{seo.description}"></textarea>
-        </label>
-      </div>
-    </form>
-    </form>
-  </div>
+    </div>
 
 </div>
 <th:block th:include="~{/share/script-share :: scripts}"></th:block>
 <script>
-  $("input[data-bootstrap-switch]").each(function () {
-    $(this).bootstrapSwitch('state', $(this).prop('checked'));
-  })
+    $("input[data-bootstrap-switch]").each(function () {
+        $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    })
 </script>
 </body>
 </html>

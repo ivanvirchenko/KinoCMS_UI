@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{/share/head-share :: head}"></th:block>
-    <title>ADmin cinema</title>
+    <title>Admin cinema</title>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -18,7 +18,7 @@
         </div>
 
         <form id="add-cinema-from" method="post" enctype="multipart/form-data" th:object="${cinema}"
-              th:action="@{/admin/hall/update}">
+              th:action="@{/admin/cinema/update}">
             <input type="hidden" th:value="*{id}" th:field="*{id}">
 
             <div class="container">
@@ -70,8 +70,8 @@
             <!-- Halls table title -->
             <div class="title d-flex justify-content-between align-items-center mt-3">
                 <p class="m-0  text-xl">Заллы</p>
-                <a th:href="@{/admin/hall/add(id = *{id})}" class="btn btn-outline-light"><i
-                        class="fa fa-plus mr-2"></i>Добавить</a>
+                <a th:href="@{/admin/hall/add(cinema_id = *{id})}" class="btn btn-outline-light"
+                ><i class="fa fa-plus mr-2"></i>Добавить</a>
             </div>
             <!-- Halls table -->
             <div class="row">
@@ -95,7 +95,7 @@
                                     <td th:text="${h.cinema.name}"></td>
                                     <td class="d-flex justify-content-end">
                                         <a href="#" class="btn btn-warning"
-                                           th:href="@{/admin/hall/update(hall-id = ${h.id}, cinema-id = ${cinema.id})}">
+                                           th:href="@{/admin/hall/{id}(id = ${h.id})}">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <button type="submit" form="delete-hall-form" class="btn btn-danger">

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import static com.avada.kino.util.StringsConstant.*;
+import static com.avada.kino.util.UtilConstant.*;
 
 @Data
 @Entity
@@ -19,9 +19,10 @@ public class Seo {
     private int id;
 
     @Pattern(
-            regexp = "https?:\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?",
+            regexp = "^(|https?:\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?)$",
             message = "HTTP:// или HTTPS:// должны присутствовать"
     )
+    @NotEmpty(message = REQUIRED)
     @Size(max = 255, message = MAX_SIZE + 255)
     private String url;
 
@@ -33,9 +34,9 @@ public class Seo {
     @Size(max = 255, message = MAX_SIZE + 255)
     private String keyWords;
 
-    @Column(length = 3048)
+    @Column(length = MAX_SIZE_4000)
     @NotEmpty(message = REQUIRED)
-    @Size(max = 3048, message = MAX_SIZE + 3048)
+    @Size(max = MAX_SIZE_4000, message = MAX_SIZE + MAX_SIZE_4000)
     private String description;
 
     public Seo(String url, String title, String keyWords, String description) {

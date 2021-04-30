@@ -9,10 +9,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import static com.avada.kino.util.StringsConstant.MAX_SIZE;
-import static com.avada.kino.util.StringsConstant.REQUIRED;
+import static com.avada.kino.util.UtilConstant.MAX_SIZE;
+import static com.avada.kino.util.UtilConstant.REQUIRED;
 
 @Data
 @MappedSuperclass
@@ -40,8 +42,8 @@ public class BasicEntity {
     )
     private Image logo;
 
-    @ElementCollection
-    private List<Image> gallery;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Image> gallery;
 
     @Valid
     @ManyToOne(cascade = CascadeType.ALL)
@@ -50,7 +52,7 @@ public class BasicEntity {
 
     public void addToGallery(Image image) {
         if (this.gallery == null) {
-            this.gallery = new ArrayList<>();
+            this.gallery = new HashSet<>();
         }
         gallery.add(image);
     }

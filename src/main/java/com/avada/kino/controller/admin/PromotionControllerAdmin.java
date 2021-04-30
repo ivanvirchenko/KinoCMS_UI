@@ -5,8 +5,14 @@ import com.avada.kino.service.PromotionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
+
+import static com.avada.kino.util.UtilConstant.IMAGE_ERROR;
 
 @Controller
 @RequestMapping("/admin/promotion")
@@ -32,35 +38,57 @@ public class PromotionControllerAdmin {
         return "/admin/promotion-admin";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/save")
     public String addPromotion(
-            Promotion promotion,
-            @RequestParam("main-image") MultipartFile image,
-            @RequestParam("image-pick-input-multiple") MultipartFile[] gallery
+            @Valid Promotion promotion,
+            BindingResult bindingResult,
+            @RequestParam("logo-image") MultipartFile image,
+            @RequestParam("gallery-images") MultipartFile[] gallery
     ) {
+        if (promotion.getLogo() == null) {
+            if (image.isEmpty()) {
+                FieldError imageError = new FieldError("promotion", "logo", IMAGE_ERROR);
+                bindingResult.addError(imageError);
+            }
+        }
+        if (bindingResult.hasErrors()) {
+            return "/admin/promotion-admin-add";
+        }
+
         promotionService.saveWithFiles(promotion, image, gallery);
         return "redirect:/admin/promotion";
     }
 
-    @PostMapping("update")
+    @PostMapping("/update")
     public String update(
-            Promotion promotion,
-            @RequestParam("image-input") MultipartFile image,
-            @RequestParam("image-pick-input-multiple") MultipartFile[] gallery
+            @Valid Promotion promotion,
+            BindingResult bindingResult,
+            @RequestParam("logo-image") MultipartFile image,
+            @RequestParam("gallery-images") MultipartFile[] gallery
     ) {
+        if (promotion.getLogo() == null) {
+            if (image.isEmpty()) {
+                FieldError imageError = new FieldError("promotion", "logo", IMAGE_ERROR);
+                bindingResult.addError(imageError);
+            }
+        }
+        if (bindingResult.hasErrors()) {
+            return "/admin/promotion-admin-add";
+        }
         promotionService.updateWithFiles(promotion, image, gallery);
         return "redirect:/admin/promotion/" + promotion.getId();
     }
 
-    @GetMapping(value = "/gallery/delete", params = {"promotion_id", "image_name"})
-    public String deleteFromGallery(@RequestParam("promotion_id") int promotionId, @RequestParam("image_name") String imageName) {
-        promotionService.deleteFromGallery(promotionId, imageName);
+
+    @PostMapping("/logo/delete")
+    public String deleteLogo(@RequestParam("promotion_id") int promotionId, @RequestParam("logo-image") String imageName) {
+        promotionService.deleteImage(promotionId, imageName);
         return "redirect:/admin/promotion/" + promotionId;
     }
 
-    @PostMapping("/image/delete")
-    public String deleteMainImage(@RequestParam("promotion_id") int promotionId, @RequestParam("image_name") String imageName) {
-        promotionService.deleteMainImage(promotionId, imageName);
+    @PostMapping("/gallery/delete")
+    public String deleteFromGallery(@RequestParam("promotion_id") int promotionId, @RequestParam("image-name") String imageName) {
+        promotionService.deleteFromGallery(promotionId, imageName);
         return "redirect:/admin/promotion/" + promotionId;
     }
 }

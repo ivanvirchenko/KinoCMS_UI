@@ -1,6 +1,6 @@
 package com.avada.kino.util;
 
-public interface StringsConstant {
+public interface UtilConstant {
     String REQUIRED = "Это обязательное поле";
     String DATE_FUTURE_PRESENT = "Дата не может быть меньше текущей";
     String DATE_FUTURE = "Дата окончания не может быть меньше даты старта";
@@ -13,4 +13,6 @@ public interface StringsConstant {
     String LOGO_ATTRIBUTE = "logo";
     String BANNER_ATTRIBUTE = "banner";
     String GALLERY_ATTRIBUTE = "gallery";
+
+    int MAX_SIZE_4000 = 4000;
 }

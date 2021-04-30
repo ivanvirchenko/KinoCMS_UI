@@ -1,11 +1,9 @@
 package com.avada.kino.controller.admin;
 
 import com.avada.kino.models.Cinema;
-import com.avada.kino.models.Hall;
 import com.avada.kino.models.Movie;
 import com.avada.kino.models.MovieSession;
 import com.avada.kino.service.CinemaService;
-import com.avada.kino.service.HallService;
 import com.avada.kino.service.MovieService;
 import com.avada.kino.service.MovieSessionService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import java.time.LocalTime;
 
-import static com.avada.kino.util.StringsConstant.CINEMA_ATTRIBUTE;
+import static com.avada.kino.util.UtilConstant.CINEMA_ATTRIBUTE;
 
 @Controller
 @RequestMapping("/admin/session")

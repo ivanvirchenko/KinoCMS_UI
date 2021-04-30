@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.avada.kino.util.StringsConstant.REQUIRED;
+import static com.avada.kino.util.UtilConstant.REQUIRED;
 import static javax.persistence.CascadeType.MERGE;
 
 @Entity

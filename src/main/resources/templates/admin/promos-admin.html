@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <th:block th:include="~{/share/head-share :: head}"></th:block>
+    <th:block th:include="~{/share/head-share :: head}"></th:block>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-  <!-- Main Sidebar Container -->
-  <th:block th:include="~{/share/side-share :: side}"></th:block>
+    <!-- Main Sidebar Container -->
+    <th:block th:include="~{/share/side-share :: side}"></th:block>
 
-  <div class="content-wrapper p-3">
-    <div class="bg-gradient-warning p-3">
-      <p class="text-xl m-0 text-uppercase">Акции</p>
+    <div class="content-wrapper p-3">
+        <p class="text-xl title m-0 text-uppercase">Акции</p>
+        <div th:if="${all_promotion.isEmpty()}">
+            <p class="text-xl text-center p-4">Список акций пуст</p>
+        </div>
+        <div class="promotion grid-5">
+            <a th:href="@{/admin/promotion/{id}(id = ${item.id})}" class="promotion position-relative"
+               th:each="item : ${all_promotion}">
+                <div class="ifactive badge-danger p-2" th:if="${item.enabled == false}">Disabled</div>
+                <img src="#" alt="#" class="w-100" th:src="${item.logo.url}">
+                <div th:text="${item.name}" class="text-lg bg-gradient-dark p-2"></div>
+            </a>
+        </div>
+
     </div>
-
-    <div class="promotion grid-5">
-      <a th:href="@{/admin/promotion/{id}(id = ${item.id})}" class="promotion position-relative" th:each="item : ${all_promotion}">
-        <div class="ifactive badge-danger p-2" th:if="${item.enabled == false}">Disabled</div>
-        <img src="#" alt="#" class="w-100" th:src="${item.image.url}">
-        <div th:text="${item.name}" class="text-lg bg-gradient-dark p-2"></div>
-      </a>
-    </div>
-
-  </div>
 </div>
 <th:block th:include="~{/share/script-share :: scripts}"></th:block>
 </body>

@@ -18,6 +18,10 @@ public class HallService {
     private final HallRepository repository;
     private static final String UPLOAD_DEST = File.separator + HALLS_UPLOAD_PATH + File.separator;
 
+    public void save(Hall hall) {
+        repository.save(hall);
+    }
+
     public Hall getById(int id) {
         return repository.findById(id).orElseThrow(RuntimeException::new);
     }

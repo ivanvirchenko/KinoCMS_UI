@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static com.avada.kino.util.UploadPaths.MOVIES_UPLOAD_PATH;
@@ -31,7 +32,7 @@ public class MovieService implements DaoService<Movie> {
 
     public void saveWithFiles(Movie movie, MultipartFile file, MultipartFile[] files) {
         if (movie.getGallery() == null) {
-            movie.setGallery(new ArrayList<>());
+            movie.setGallery(new HashSet<>());
         }
         saveSingleFile(file, movie);
         saveMultipleFiles(files, movie);
@@ -63,7 +64,7 @@ public class MovieService implements DaoService<Movie> {
 
     public void updateWithFiles(Movie movie, MultipartFile file, MultipartFile[] files) {
         if (movie.getGallery() == null) {
-            movie.setGallery(new ArrayList<>());
+            movie.setGallery(new HashSet<>());
         }
         saveSingleFile(file, movie);
         saveMultipleFiles(files, movie);

@@ -1,20 +1,20 @@
 package com.avada.kino.models;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import static com.avada.kino.util.StringsConstant.MAX_SIZE;
+import static com.avada.kino.util.UtilConstant.MAX_SIZE;
 import static javax.persistence.CascadeType.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 @Entity
 public class Cinema extends BasicEntity {
     @Column(length = 3048)
@@ -52,5 +52,23 @@ public class Cinema extends BasicEntity {
     public void addMovieSession(MovieSession session) {
         session.setCinema(this);
         this.sessions.add(session);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cinema)) return false;
+        if (!super.equals(o)) return false;
+        Cinema cinema = (Cinema) o;
+        return Objects.equals(conditions, cinema.conditions) &&
+                Objects.equals(banner, cinema.banner) &&
+                Objects.equals(city, cinema.city) &&
+                Objects.equals(hallsList, cinema.hallsList) &&
+                Objects.equals(sessions, cinema.sessions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), conditions, banner, city, hallsList, sessions);
     }
 }

@@ -17,7 +17,7 @@ import javax.validation.Valid;
 
 import java.util.List;
 
-import static com.avada.kino.util.StringsConstant.IMAGE_ERROR;
+import static com.avada.kino.util.UtilConstant.IMAGE_ERROR;
 
 @Controller
 @RequestMapping("/admin/cinema")
@@ -54,7 +54,6 @@ public class CinemaAdminController {
             @RequestParam("banner-image") MultipartFile banner,
             @RequestParam("gallery-images") MultipartFile[] gallery
     ) {
-
         if (logo.isEmpty()) {
             FieldError logoError = new FieldError("cinema", "logo", IMAGE_ERROR);
             bindingResult.addError(logoError);
@@ -62,7 +61,6 @@ public class CinemaAdminController {
         if (bindingResult.hasFieldErrors()) {
             return "/admin/cinema-admin-add";
         }
-
         cinema.setCity(cityService.getById(cityId));
         cinemaService.saveWithFiles(cinema, logo, banner, gallery);
         session.setAttribute("cinema", cinema);

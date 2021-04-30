@@ -1,12 +1,11 @@
 package com.avada.kino.service;
 
-import com.avada.kino.models.Cinema;
 import com.avada.kino.models.MovieSession;
 import com.avada.kino.repository.SessionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor

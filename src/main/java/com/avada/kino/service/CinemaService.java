@@ -2,6 +2,7 @@ package com.avada.kino.service;
 
 import com.avada.kino.models.Cinema;
 import com.avada.kino.models.Image;
+import com.avada.kino.models.MovieSession;
 import com.avada.kino.repository.CinemaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import static com.avada.kino.util.UploadPaths.CINEMA_UPLOAD_PATH;
 public class CinemaService implements DaoService<Cinema> {
 
     private final CinemaRepository repository;
+    private final MovieSessionService movieSessionService;
     private final FileService fileService;
 
     @Override
@@ -44,9 +46,11 @@ public class CinemaService implements DaoService<Cinema> {
     }
 
     @Override
-    @Transactional
     public Cinema getById(int id) {
-        return repository.findById(id);
+        Cinema cinema = repository.findById(id).orElseThrow();
+        cinema.getSessions();
+        cinema.getHallsList();
+        return cinema;
     }
 
     @Override
