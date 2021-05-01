@@ -32,7 +32,7 @@ public class MovieService implements DaoService<Movie> {
 
     public void saveWithFiles(Movie movie, MultipartFile file, MultipartFile[] files) {
         if (movie.getGallery() == null) {
-            movie.setGallery(new HashSet<>());
+            movie.setGallery(new ArrayList<>());
         }
         saveSingleFile(file, movie);
         saveMultipleFiles(files, movie);
@@ -64,7 +64,7 @@ public class MovieService implements DaoService<Movie> {
 
     public void updateWithFiles(Movie movie, MultipartFile file, MultipartFile[] files) {
         if (movie.getGallery() == null) {
-            movie.setGallery(new HashSet<>());
+            movie.setGallery(new ArrayList<>());
         }
         saveSingleFile(file, movie);
         saveMultipleFiles(files, movie);

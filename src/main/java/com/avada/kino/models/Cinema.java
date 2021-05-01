@@ -1,12 +1,15 @@
 package com.avada.kino.models;
 
-import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.avada.kino.util.UtilConstant.MAX_SIZE;
 import static javax.persistence.CascadeType.*;
@@ -14,11 +17,11 @@ import static javax.persistence.CascadeType.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Entity
-public class Cinema extends BasicEntity {
-    @Column(length = 3048)
-    @Size(max = 3048, message = MAX_SIZE + 3048)
+
+public class Cinema extends BasicEntity implements Serializable{
+    @Size(max = 4000, message = MAX_SIZE + 4000)
     private String conditions;
 
     @Embedded
@@ -34,7 +37,7 @@ public class Cinema extends BasicEntity {
     @JoinColumn(name = "city_id")
     private City city;
 
-    @OneToMany(mappedBy = "cinema", fetch = FetchType.LAZY, cascade = ALL)
+    @OneToMany(mappedBy = "cinema", cascade = ALL)
 //    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Hall> hallsList;
 
@@ -42,11 +45,11 @@ public class Cinema extends BasicEntity {
     private List<MovieSession> sessions;
 
     public void addHall(Hall hall) {
-        if (hallsList == null) {
-            hallsList = new ArrayList<>();
+        if (this.hallsList == null) {
+            this.hallsList = new ArrayList<>();
         }
         hall.setCinema(this);
-        hallsList.add(hall);
+        this.hallsList.add(hall);
     }
 
     public void addMovieSession(MovieSession session) {
@@ -54,21 +57,4 @@ public class Cinema extends BasicEntity {
         this.sessions.add(session);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Cinema)) return false;
-        if (!super.equals(o)) return false;
-        Cinema cinema = (Cinema) o;
-        return Objects.equals(conditions, cinema.conditions) &&
-                Objects.equals(banner, cinema.banner) &&
-                Objects.equals(city, cinema.city) &&
-                Objects.equals(hallsList, cinema.hallsList) &&
-                Objects.equals(sessions, cinema.sessions);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), conditions, banner, city, hallsList, sessions);
-    }
 }

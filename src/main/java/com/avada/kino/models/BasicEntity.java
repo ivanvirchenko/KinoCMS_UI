@@ -42,8 +42,8 @@ public class BasicEntity {
     )
     private Image logo;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Image> gallery;
+    @ElementCollection
+    private List<Image> gallery;
 
     @Valid
     @ManyToOne(cascade = CascadeType.ALL)
@@ -52,7 +52,7 @@ public class BasicEntity {
 
     public void addToGallery(Image image) {
         if (this.gallery == null) {
-            this.gallery = new HashSet<>();
+            this.gallery = new ArrayList<>();
         }
         gallery.add(image);
     }

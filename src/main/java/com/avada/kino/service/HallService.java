@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.List;
+import java.util.Optional;
 
 import static com.avada.kino.util.UploadPaths.HALLS_UPLOAD_PATH;
 
@@ -24,6 +26,24 @@ public class HallService {
 
     public Hall getById(int id) {
         return repository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
+    public List<Hall> getByCinemaId(int id) {
+        return repository.findAllByCinemaId(id);
+    }
+
+    public void delete(int id) {
+        Hall hall = getById(id);
+        Optional.ofNullable(hall.getLogo()).ifPresent(
+                image -> fileService.deleteFile(image.getName(), HALLS_UPLOAD_PATH)
+        );
+        Optional.ofNullable(hall.getBanner()).ifPresent(
+                image -> fileService.deleteFile(image.getName(), HALLS_UPLOAD_PATH)
+        );
+        Optional.ofNullable(hall.getGallery()).ifPresent(
+                images -> images.forEach(image -> fileService.deleteFile(image.getName(), HALLS_UPLOAD_PATH))
+                );
+        repository.delete(hall);
     }
 
     public void saveHallImages(MultipartFile logo, MultipartFile banner, MultipartFile[] gallery, Hall hall) {

@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import static javax.persistence.CascadeType.*;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -27,7 +29,7 @@ public class MovieSession {
     @ManyToOne
     @JoinColumn(name = "cinema_id")
     private Cinema cinema;
-    @ManyToOne
+    @ManyToOne(cascade = {MERGE, REFRESH, DETACH})
     @JoinColumn(name = "hall_id")
     private Hall hall;
 }

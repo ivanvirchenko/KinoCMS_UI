@@ -13,7 +13,7 @@
 
         <!-- The title -->
         <div class="title d-flex justify-content-between align-items-center">
-            <p class="m-0  text-xl">Редактор кинотеатра</p>
+            <p class="m-0  text-xl" th:text="'Редактор кинотеатра *' + ${cinema.name} + '*'">Редактор кинотеатра</p>
             <input type="submit" form="add-cinema-from" value="Сохранить" class="btn btn-outline-light">
         </div>
 
@@ -173,7 +173,9 @@
         </form>
 
 
-
+        <form id="delete-hall-form" action="#" th:action="@{/admin/hall/delete}" method="post">
+            <input type="hidden" name="cinema-id" th:value="*{id}">
+        </form>
         <form id="delete-session-form" href="#" th:action="@{/admin/session/delete}" method="post">
             <input type="hidden" th:value="*{id}" name="cinema-id">
         </form>

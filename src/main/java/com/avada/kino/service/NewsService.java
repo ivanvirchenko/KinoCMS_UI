@@ -26,7 +26,7 @@ public class NewsService implements DaoService<News> {
     @Transactional
     public void save(News news) {
         if (news.getGallery() == null) {
-            news.setGallery(new HashSet<>());
+            news.setGallery(new ArrayList<>());
         }
         repository.save(news);
     }
@@ -55,7 +55,7 @@ public class NewsService implements DaoService<News> {
 
     public void updateWithFiles(News news, MultipartFile file, MultipartFile[] files) {
         if (news.getGallery() == null) {
-            news.setGallery(new HashSet<>());
+            news.setGallery(new ArrayList<>());
         }
         saveSingleFile(file, news);
         saveMultipleFiles(files, news);

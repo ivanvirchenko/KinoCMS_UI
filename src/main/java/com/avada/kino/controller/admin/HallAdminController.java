@@ -4,7 +4,6 @@ import com.avada.kino.models.Cinema;
 import com.avada.kino.models.Hall;
 import com.avada.kino.service.CinemaService;
 import com.avada.kino.service.HallService;
-import com.avada.kino.util.UtilConstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,18 +28,17 @@ public class HallAdminController {
     @GetMapping(value = "/add")
     public String addHall(Model model, @RequestParam(value = "cinema_id", required = false) Integer cinemaId, HttpSession session) {
         if (cinemaId != null) {
-            session.setAttribute(CINEMA_ATTRIBUTE, cinemaService.getById(cinemaId));
+            Cinema cinema = cinemaService.getById(cinemaId);
+            session.setAttribute(CINEMA_ATTRIBUTE, cinema);
         }
         model.addAttribute("hall", new Hall());
         return "/admin/hall-admin-add";
     }
 
     @GetMapping("/{id}")
-    public String getById(Model model, @PathVariable int id, HttpSession session) {
+    public String getById(Model model, @PathVariable int id) {
         Hall hall = hallService.getById(id);
         model.addAttribute("hall", hall);
-        session.setAttribute(CINEMA_ATTRIBUTE, hall.getCinema());
-        session.setMaxInactiveInterval(120);
         return "/admin/hall-admin-concrete";
     }
 
@@ -59,7 +57,7 @@ public class HallAdminController {
         if (bindingResult.hasErrors()) {
             return "/admin/hall-admin-add";
         }
-        Cinema cinema = (Cinema) session.getAttribute(UtilConstant.CINEMA_ATTRIBUTE);
+        Cinema cinema = (Cinema) session.getAttribute(CINEMA_ATTRIBUTE);
         hall.fillTheHall(rowsCount, placeCount);
         hallService.saveHallImages(logoImage, bannerImage, gallery, hall);
         cinema.addHall(hall);
@@ -88,7 +86,14 @@ public class HallAdminController {
         hall.fillTheHall(rowsCount, placeCount);
         hallService.saveHallImages(logoImage, bannerImage, gallery, hall);
         hallService.save(hall);
+        session.invalidate();
         return "redirect:/admin/hall/" + hall.getId();
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam("hall-id") int hallId, @RequestParam("cinema-id") int cinemaId) {
+        hallService.delete(hallId);
+        return "redirect:/admin/cinema/" + cinemaId;
     }
 
     @PostMapping("/logo/delete")

@@ -4,6 +4,8 @@ import com.avada.kino.models.Cinema;
 import com.avada.kino.models.Image;
 import com.avada.kino.models.MovieSession;
 import com.avada.kino.repository.CinemaRepository;
+import com.avada.kino.repository.HallRepository;
+import com.avada.kino.repository.SessionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +21,12 @@ import static com.avada.kino.util.UploadPaths.CINEMA_UPLOAD_PATH;
 public class CinemaService implements DaoService<Cinema> {
 
     private final CinemaRepository repository;
-    private final MovieSessionService movieSessionService;
+    private final SessionRepository sessionRepository;
+    private final HallService hallService;
     private final FileService fileService;
 
     @Override
+    @Transactional
     public void save(Cinema cinema) {
         repository.save(cinema);
     }
@@ -47,13 +51,14 @@ public class CinemaService implements DaoService<Cinema> {
 
     @Override
     public Cinema getById(int id) {
-        Cinema cinema = repository.findById(id).orElseThrow();
-        cinema.getSessions();
-        cinema.getHallsList();
+        Cinema cinema = repository.getOne(id);
+        cinema.setHallsList(hallService.getByCinemaId(id));
+        cinema.setSessions(sessionRepository.findAllByCinemaId(id));
         return cinema;
     }
 
     @Override
+    @Transactional
     public void update(Cinema cinema) {
        repository.save(cinema);
     }
@@ -85,7 +90,7 @@ public class CinemaService implements DaoService<Cinema> {
     }
 
     private void saveToGallery(Cinema cinema, MultipartFile[] files) {
-        if (!files[0].isEmpty()) {
+        if (files != null && !files[0].isEmpty()) {
             for (MultipartFile file : files) {
                 String uniqName = fileService.saveFile(file, CINEMA_UPLOAD_PATH);
                 cinema.addToGallery(new Image(uniqName, File.separator + CINEMA_UPLOAD_PATH + File.separator + uniqName));

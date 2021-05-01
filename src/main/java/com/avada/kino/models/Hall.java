@@ -9,15 +9,15 @@ import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static javax.persistence.CascadeType.*;
 
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Hall extends BasicEntity{
+public class Hall extends BasicEntity {
     @Embedded
     @AttributeOverrides(
             {
@@ -31,6 +31,8 @@ public class Hall extends BasicEntity{
     private Cinema cinema;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Place> places;
+    @OneToMany(mappedBy = "hall", cascade = ALL)
+    private List<MovieSession> movieSessions;
 
     public void addPlace(Place place) {
         if (this.places == null) {

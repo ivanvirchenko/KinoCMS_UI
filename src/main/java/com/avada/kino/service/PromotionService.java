@@ -23,7 +23,7 @@ public class PromotionService implements DaoService<Promotion>{
     @Override
     public void save(Promotion promotion) {
         if (promotion.getGallery() == null) {
-            promotion.setGallery(new HashSet<>());
+            promotion.setGallery(new ArrayList<>());
         }
         repository.save(promotion);
     }
@@ -51,7 +51,7 @@ public class PromotionService implements DaoService<Promotion>{
 
     public void updateWithFiles(Promotion promotion, MultipartFile file, MultipartFile[] files) {
         if (promotion.getGallery() == null) {
-            promotion.setGallery(new HashSet<>());
+            promotion.setGallery(new ArrayList<>());
         }
         saveSingleFile(file, promotion);
         saveMultipleFiles(files, promotion);
