@@ -2,6 +2,7 @@ package com.avada.kino.controller.admin;
 
 import com.avada.kino.models.Cinema;
 import com.avada.kino.models.Hall;
+import com.avada.kino.models.Image;
 import com.avada.kino.service.CinemaService;
 import com.avada.kino.service.HallService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import java.io.IOException;
+
 import static com.avada.kino.util.UtilConstant.CINEMA_ATTRIBUTE;
 import static com.avada.kino.util.UtilConstant.IMAGE_ERROR;
 
@@ -26,12 +29,13 @@ public class HallAdminController {
     private final HallService hallService;
 
     @GetMapping(value = "/add")
-    public String addHall(Model model, @RequestParam(value = "cinema_id", required = false) Integer cinemaId, HttpSession session) {
-        if (cinemaId != null) {
-            Cinema cinema = cinemaService.getById(cinemaId);
-            session.setAttribute(CINEMA_ATTRIBUTE, cinema);
-        }
+    public String hallForm(
+            Model model,
+            HttpSession session,
+            @RequestParam("cinema-id") int cinemaId
+    ) {
         model.addAttribute("hall", new Hall());
+        session.setAttribute("cinema-id", cinemaId);
         return "/admin/hall-admin-add";
     }
 
@@ -49,44 +53,51 @@ public class HallAdminController {
             HttpSession session,
             @RequestParam("rows-count") int rowsCount,
             @RequestParam("place-count") int placeCount,
-            @RequestParam("logo-image") MultipartFile logoImage,
-            @RequestParam("banner-image") MultipartFile bannerImage,
+            @RequestParam("logo-image") MultipartFile logo,
+            @RequestParam("banner-image") MultipartFile banner,
             @RequestParam("gallery-images") MultipartFile[] gallery
     ) {
-        validate(rowsCount, placeCount, logoImage, bindingResult);
+        if (logo.isEmpty()) {
+            bindingResult.addError(
+                    new FieldError("hall", "logo", IMAGE_ERROR)
+            );
+        }
         if (bindingResult.hasErrors()) {
             return "/admin/hall-admin-add";
         }
-        Cinema cinema = (Cinema) session.getAttribute(CINEMA_ATTRIBUTE);
+        int cinemaId = (int) session.getAttribute("cinema-id");
+        Cinema cinema = cinemaService.getById(cinemaId);
         hall.fillTheHall(rowsCount, placeCount);
-        hallService.saveHallImages(logoImage, bannerImage, gallery, hall);
+        hallService.saveHallImages(logo, banner, gallery, hall);
         cinema.addHall(hall);
         cinemaService.update(cinema);
-        session.invalidate();
+        session.removeAttribute("cinema-id");
         return "redirect:/admin/cinema/" + cinema.getId();
     }
 
     @PostMapping("/update")
     public String update(
-            @Valid Hall hall,
-            BindingResult bindingResult,
-            HttpSession session,
-            @RequestParam("rows-count") int rowsCount,
-            @RequestParam("place-count") int placeCount,
-            @RequestParam("logo-image") MultipartFile logoImage,
-            @RequestParam("banner-image") MultipartFile bannerImage,
-            @RequestParam("gallery-images") MultipartFile[] gallery
+        @Valid Hall hall,
+        BindingResult bindingResult,
+        @RequestParam("rows-count") int rowsCount,
+        @RequestParam("place-count") int placeCount,
+        @RequestParam("logo-image") MultipartFile logo,
+        @RequestParam("banner-image") MultipartFile banner,
+        @RequestParam("gallery-images") MultipartFile[] gallery
     ) {
-        validate(rowsCount, placeCount, logoImage, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "/admin/hall-admin-add";
+        if (hall.getLogo() == null) {
+            if (logo.isEmpty()) {
+                bindingResult.addError(
+                        new FieldError("hall", "logo", IMAGE_ERROR)
+                );
+            }
         }
-        Cinema cinema = (Cinema) session.getAttribute(CINEMA_ATTRIBUTE);
-        hall.setCinema(cinema);
+        if (bindingResult.hasErrors()) {
+            return "/admin/hall-admin-concrete";
+        }
         hall.fillTheHall(rowsCount, placeCount);
-        hallService.saveHallImages(logoImage, bannerImage, gallery, hall);
+        hallService.saveHallImages(logo, banner, gallery, hall);
         hallService.save(hall);
-        session.invalidate();
         return "redirect:/admin/hall/" + hall.getId();
     }
 
@@ -104,18 +115,20 @@ public class HallAdminController {
         return "redirect:/admin/hall/" + hallId;
     }
 
-    private void validate(int rowsCount, int placeCount, MultipartFile logoImage, BindingResult bindingResult) {
-        if(rowsCount <= 0) {
-            FieldError rowsError = new FieldError("hall", "places", "Недопустимое значение");
-            bindingResult.addError(rowsError);
-        }
-        if(placeCount <= 0) {
-            FieldError rowsError = new FieldError("hall", "places", "Недопустимое значение");
-            bindingResult.addError(rowsError);
-        }
-        if (logoImage.isEmpty()) {
-            FieldError rowsError = new FieldError("hall", "logo", IMAGE_ERROR);
-            bindingResult.addError(rowsError);
-        }
+    @PostMapping("/banner/delete")
+    public String deleteBanner(
+            @RequestParam("hall_id") int hallId
+    ) {
+        hallService.deleteBanner(hallId);
+        return "redirect:/admin/hall/" + hallId;
+    }
+
+    @PostMapping("/gallery/delete")
+    public String deleteLogo(
+            @RequestParam("hall_id") int hallId,
+            @RequestParam("image-name") String imageName
+    ) {
+        hallService.deleteFromGallery(hallId, imageName);
+        return "redirect:/admin/hall/" + hallId;
     }
 }

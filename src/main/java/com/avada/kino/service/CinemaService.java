@@ -54,13 +54,14 @@ public class CinemaService implements DaoService<Cinema> {
         Cinema cinema = repository.getOne(id);
         cinema.setHallsList(hallService.getByCinemaId(id));
         cinema.setSessions(sessionRepository.findAllByCinemaId(id));
+        cinema.getGallery();
         return cinema;
     }
 
     @Override
     @Transactional
     public void update(Cinema cinema) {
-       repository.save(cinema);
+        repository.save(cinema);
     }
 
     public void updateWithFiles(Cinema cinema, MultipartFile logo, MultipartFile banner, MultipartFile[] gallery) {
@@ -98,18 +99,20 @@ public class CinemaService implements DaoService<Cinema> {
         }
     }
 
-    public void deleteLogo(String logoName, int cinemaId) {
-        fileService.deleteFile(logoName, CINEMA_UPLOAD_PATH);
+    public void deleteLogo(int cinemaId) {
         Cinema cinema = getById(cinemaId);
+        fileService.deleteFile(cinema.getLogo().getName(), CINEMA_UPLOAD_PATH);
         cinema.setLogo(null);
         update(cinema);
     }
-    public void deleteBanner(String name, int cinemaId) {
-        fileService.deleteFile(name, CINEMA_UPLOAD_PATH);
+
+    public void deleteBanner(int cinemaId) {
         Cinema cinema = getById(cinemaId);
+        fileService.deleteFile(cinema.getBanner().getName(), CINEMA_UPLOAD_PATH);
         cinema.setBanner(null);
         update(cinema);
     }
+
     public void deleteFromGallery(String name, int cinemaId) {
         fileService.deleteFile(name, CINEMA_UPLOAD_PATH);
         Cinema cinema = getById(cinemaId);

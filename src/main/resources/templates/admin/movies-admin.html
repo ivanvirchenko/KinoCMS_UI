@@ -10,32 +10,13 @@
 
     <div class="content-wrapper p-3">
 
-<!--        <div class="col-3 float-right" th:if="${delete != null}">-->
-<!--            <div class="card bg-success">-->
-<!--                <div class="card-header">-->
-<!--                    <h3 class="card-title">Success</h3>-->
-
-<!--                    <div class="card-tools">-->
-<!--                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; /.card-tools &ndash;&gt;-->
-<!--                </div>-->
-<!--                &lt;!&ndash; /.card-header &ndash;&gt;-->
-<!--                <div class="card-body">-->
-<!--                    The body of the card-->
-<!--                </div>-->
-<!--                &lt;!&ndash; /.card-body &ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-
 
         <p class="text-xl title text-uppercase">Текущие фильмы</p>
 
         <div class="current grid-5">
             <div class="movie" th:each="mov : ${movie_current}">
                 <a href="#" th:href="@{/admin/movies/{id}(id = ${mov.id})}">
-                    <img src="#" alt="#" th:src="${mov.logo.url}" class="w-100">
+                    <img src="#" alt="#" th:src="${mov.logo != null} ? ${mov.logo.url} : ' /default/default_image.png'" class="w-100">
                     <p th:text="${mov.name}" class="text-xl text-center bg-dark"></p>
                 </a>
             </div>
@@ -46,7 +27,7 @@
         <div class="current grid-5">
             <div class="movie" th:each="mov : ${movie_future}">
                 <a href="#" th:href="@{/admin/movies/{id}(id = ${mov.id})}">
-                    <img src="#" alt="#" th:src="${mov.logo.url}" class="w-100">
+                    <img src="#" alt="#" th:src="${mov.logo != null} ? ${mov.logo.url} : ' /default/default_image.png'" class="w-100">
                     <p th:text="${mov.name}" class="text-xl text-center bg-dark"></p>
                 </a>
             </div>

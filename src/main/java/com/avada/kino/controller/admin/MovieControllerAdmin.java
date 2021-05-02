@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -66,12 +67,20 @@ public class MovieControllerAdmin {
 
     @PostMapping("/update")
     public String update(
-            Movie movie,
+            @Valid Movie movie,
+            BindingResult bindingResult,
+            Model model,
             @RequestParam("checked_type") int[] typeIds,
             @RequestParam("logo-image") MultipartFile file,
             @RequestParam("gallery-images") MultipartFile[] files
     ) {
         extractMovieTypes(typeIds, movie);
+        saveValidation(file, bindingResult, movie);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("movie_types", movieService.getAllTypes());
+
+            return "/admin/movies-admin-add";
+        }
         movieService.updateWithFiles(movie, file, files);
         return "redirect:/admin/movies/" + movie.getId();
     }

@@ -15,8 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import java.io.IOException;
 import java.util.List;
 
+import static com.avada.kino.util.UtilConstant.CINEMA_ATTRIBUTE;
 import static com.avada.kino.util.UtilConstant.IMAGE_ERROR;
 
 @Controller
@@ -40,67 +42,48 @@ public class CinemaAdminController {
 
     @GetMapping("/{id}")
     public String getCinema(@PathVariable int id, Model model) {
-        model.addAttribute("cinema", cinemaService.getById(id));
+        model.addAttribute(CINEMA_ATTRIBUTE, cinemaService.getById(id));
         return "/admin/cinema-admin-concrete";
     }
 
     @PostMapping("/save")
-    public String saveCinema(
+    public String save(
             @Valid Cinema cinema,
             BindingResult bindingResult,
-            HttpSession session,
-            @RequestParam(name = "city") int cityId,
+            @RequestParam("city") int cityId,
             @RequestParam("logo-image") MultipartFile logo,
             @RequestParam("banner-image") MultipartFile banner,
             @RequestParam("gallery-images") MultipartFile[] gallery
     ) {
-        if (logo.isEmpty()) {
-            FieldError logoError = new FieldError("cinema", "logo", IMAGE_ERROR);
-            bindingResult.addError(logoError);
-        }
-        if (bindingResult.hasFieldErrors()) {
-            return "/admin/cinema-admin-add";
-        }
-        cinema.setCity(cityService.getById(cityId));
-        cinemaService.saveWithFiles(cinema, logo, banner, gallery);
-        session.setAttribute("cinema", cinema);
-        return "redirect:/admin/hall/add";
-    }
-
-    @PostMapping("/update")
-    public String update(
-            @Valid Cinema cinema,
-            BindingResult bindingResult,
-            @RequestParam("city.id") int cityId,
-            Model model,
-            @RequestParam("logo-image") MultipartFile logo,
-            @RequestParam("banner-image") MultipartFile banner,
-            @RequestParam("gallery-images") MultipartFile[] gallery
-    ) {
-        if (logo.isEmpty() && cinema.getLogo() == null) {
-            bindingResult.addError(new FieldError("cinema", "logo", IMAGE_ERROR));
+        if (cinema.getLogo() == null) {
+            if (logo.isEmpty()) {
+                bindingResult.addError(
+                        new FieldError("cinema", "logo", IMAGE_ERROR)
+                );
+            }
         }
         if (bindingResult.hasErrors()) {
-            model.addAttribute("cityList", cityService.getAll());
             return "/admin/cinema-admin-concrete";
         }
         cinema.setCity(cityService.getById(cityId));
-        cinemaService.updateWithFiles(cinema, logo, banner, gallery);
+        cinemaService.saveWithFiles(cinema, logo, banner, gallery);
         return "redirect:/admin/cinema/" + cinema.getId();
     }
 
+
+
     @PostMapping("/logo/delete")
-    public String deleteLogoImage(@RequestParam("logo-image") String name, @RequestParam("cinema_id") Integer id){
-        cinemaService.deleteLogo(name, id);
+    public String deleteLogoImage(@RequestParam("cinema-id") Integer id){
+        cinemaService.deleteLogo(id);
         return "redirect:/admin/cinema/" + id;
     }
     @PostMapping("/banner/delete")
-    public String deleteBannerImage(@RequestParam("banner-image") String name, @RequestParam("cinema_id") Integer id){
-        cinemaService.deleteBanner(name, id);
+    public String deleteBannerImage(@RequestParam("cinema-id") Integer id){
+        cinemaService.deleteBanner(id);
         return "redirect:/admin/cinema/" + id;
     }
     @PostMapping("/gallery/delete")
-    public String deleteGalleryImage(@RequestParam("image-name") String name, @RequestParam("cinema_id") Integer id){
+    public String deleteGalleryImage(@RequestParam("image-name") String name, @RequestParam("cinema-id") Integer id){
         cinemaService.deleteFromGallery(name, id);
         return "redirect:/admin/cinema/" + id;
     }

@@ -7,9 +7,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.avada.kino.util.UtilConstant.MAX_SIZE;
 import static javax.persistence.CascadeType.*;
@@ -20,7 +21,7 @@ import static javax.persistence.CascadeType.*;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 
-public class Cinema extends BasicEntity implements Serializable{
+public class Cinema extends BasicEntity {
     @Size(max = 4000, message = MAX_SIZE + 4000)
     private String conditions;
 
@@ -43,6 +44,13 @@ public class Cinema extends BasicEntity implements Serializable{
 
     @OneToMany(mappedBy = "cinema", cascade = ALL)
     private List<MovieSession> sessions;
+
+
+
+
+
+
+
 
     public void addHall(Hall hall) {
         if (this.hallsList == null) {

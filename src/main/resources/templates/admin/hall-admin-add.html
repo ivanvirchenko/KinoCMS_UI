@@ -51,15 +51,10 @@
                 </div>
             </div>
 
-            <div class="title d-flex justify-content-between align-items-center mt-3">
-                <p class="m-0">Галерея</p>
-                <label for="gallery-input" class="btn btn-outline-light">
-                    <i class="fa fa-plus mr-2"></i>Загрузить
-                </label>
-                <input id="gallery-input" name="gallery-images" type="file" hidden multiple>
-            </div>
-            <div id="image-holder" class="grid-5"></div>
 
+
+            <!-- Gallery -->
+            <div class="mt-3" th:include="~{/share/elements/gallery-element :: gallery-element}"></div>
             <div class="mt-3" th:include="~{/share/elements/seo-element :: seo-element}"></div>
 
             <div class="container mt-5">

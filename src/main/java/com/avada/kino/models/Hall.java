@@ -1,15 +1,10 @@
 package com.avada.kino.models;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static javax.persistence.CascadeType.*;
 
@@ -26,26 +21,48 @@ public class Hall extends BasicEntity {
             }
     )
     private Image banner;
+
     @ManyToOne(cascade = {MERGE, REFRESH, DETACH})
     @JoinColumn(name = "cinema_id")
     private Cinema cinema;
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<Place> places;
+
     @OneToMany(mappedBy = "hall", cascade = ALL)
     private List<MovieSession> movieSessions;
 
-    public void addPlace(Place place) {
-        if (this.places == null) {
-            this.places = new ArrayList<>();
-        }
-        this.places.add(place);
-    }
+    @ElementCollection
+    private List<Place> places;
 
-    public void fillTheHall(int rowCount, int placesInTheRow) {
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < placesInTheRow; j++) {
-                addPlace(new Place(false, i + 1, j + 1));
+    public void fillTheHall(int rows, int placesNum) {
+        if (places == null) {
+            places = new ArrayList<>();
+        }
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < placesNum; j++) {
+                this.places.add(new Place(i + 1, j + 1, false));
             }
         }
+    }
+
+    @Data
+    @Embeddable
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static class Place {
+        private int rowsNum;
+        private int placesNum;
+        private boolean isTaken;
+    }
+
+    public int getRowsCount(){
+        if (places != null && !places.isEmpty()) {
+            return places.get(places.size() - 1).rowsNum;
+        }
+        return 0;
+    }
+    public int getPlacesInRow() {
+        if (places != null && !places.isEmpty()) {
+            return places.size() / getRowsCount();
+        }
+        return 0;
     }
 }

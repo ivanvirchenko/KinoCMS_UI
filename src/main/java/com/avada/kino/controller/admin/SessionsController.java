@@ -9,10 +9,7 @@ import com.avada.kino.service.MovieSessionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -30,14 +27,12 @@ public class SessionsController {
     private final MovieSessionService sessionService;
 
     @GetMapping("/add")
-    public String addScheduleForm(@RequestParam("id") int cinemaId, Model model, HttpSession session) {
-        Cinema cinema = cinemaService.getById(cinemaId);
-        session.setAttribute(CINEMA_ATTRIBUTE, cinema);
+    public String addScheduleForm(@RequestParam("cinema-id") int cinemaId, Model model, HttpSession session) {
+        session.setAttribute("cinema-id", cinemaId);
 
         model.addAttribute("movieSession", new MovieSession());
-        model.addAttribute("cinema", cinema);
         model.addAttribute("movies", movieService.getAll());
-        return "/admin/schedule-admin-add";
+        return "/admin/session-admin-add";
     }
 
     @PostMapping("/save")
@@ -48,36 +43,26 @@ public class SessionsController {
             MovieSession movieSession,
             HttpSession session
     ) {
-        Cinema cinema = (Cinema) session.getAttribute(CINEMA_ATTRIBUTE);
+        int cinemaId = (int) session.getAttribute("cinema-id");
+        Cinema cinema = cinemaService.getById(cinemaId);
 
         movieSession.setTime(LocalTime.parse(time));
         cinema.getHallsList().stream()
                 .filter(h -> h.getId() == hallId)
                 .findAny().ifPresent(movieSession::setHall);
-        movieSession.setMovie(movieService.getById(movieId));
 
+        movieSession.setMovie(movieService.getById(movieId));
         cinema.addMovieSession(movieSession);
         cinemaService.update(cinema);
-        session.invalidate();
+        session.removeAttribute("cinema-id");
 
         return "redirect:/admin/cinema/" + cinema.getId();
     }
 
-    @GetMapping("/update")
+    @GetMapping("/{id}")
     public String update(
-            Model model,
-            HttpSession httpSession,
-            @RequestParam("session-id") int sessionId,
-            @RequestParam("cinema-id") int cinemaId
+            @PathVariable int id
     ) {
-        Cinema cinema = cinemaService.getById(cinemaId);
-        httpSession.setAttribute(CINEMA_ATTRIBUTE, cinema);
-        MovieSession session = sessionService.getById(sessionId);
-
-        model.addAttribute("movieSession", session);
-        model.addAttribute("time", session.getTime().toString());
-        model.addAttribute("movies", movieService.getAll());
-        model.addAttribute("cinema", cinema);
         return "/admin/session-admin-concrete";
     }
 
@@ -113,7 +98,4 @@ public class SessionsController {
         sessionService.deleteById(sessionId);
         return "redirect:/admin/cinema/" + cinemaId;
     }
-
-
-
 }

@@ -2,8 +2,8 @@ create table cinema
 (
     id          serial not null,
     description varchar(4000),
-    logo_name  varchar(255),
-    logo_url   varchar(255),
+    logo_name   varchar(255),
+    logo_url    varchar(255),
     name        varchar(255),
     banner_name varchar(255),
     banner_url  varchar(255),
@@ -15,9 +15,9 @@ create table cinema
 
 create table cinema_gallery
 (
-    cinema_id  int not null,
-    name varchar(255),
-    url  varchar(255)
+    cinema_id int not null,
+    name      varchar(255),
+    url       varchar(255)
 );
 create table city
 (
@@ -31,16 +31,16 @@ create table contact
     address     varchar(255),
     cinema_name varchar(255),
     coordinates varchar(255),
-    logo_name  varchar(255),
-    logo_url   varchar(255),
+    logo_name   varchar(255),
+    logo_url    varchar(255),
     primary key (id)
 );
 create table hall
 (
     id          serial not null,
     description varchar(5000),
-    logo_name  varchar(255),
-    logo_url   varchar(255),
+    logo_name   varchar(255),
+    logo_url    varchar(255),
     name        varchar(255),
     banner_name varchar(255),
     banner_url  varchar(255),
@@ -50,23 +50,23 @@ create table hall
 );
 create table hall_gallery
 (
-    hall_id    int not null,
-    name varchar(255),
-    url  varchar(255)
+    hall_id int not null,
+    name    varchar(255),
+    url     varchar(255)
 );
 create table hall_places
 (
-    hall_id      int     not null,
-    is_taken     boolean not null,
-    place_number int     not null,
-    row_number   int     not null
+    hall_id    int     not null,
+    is_taken   boolean not null,
+    places_num int     not null,
+    rows_num   int     not null
 );
 create table movie
 (
     id          serial not null,
     description varchar(5000),
-    logo_name  varchar(255),
-    logo_url   varchar(255),
+    logo_name   varchar(255),
+    logo_url    varchar(255),
     name        varchar(255),
     end_date    date,
     start_date  date,
@@ -76,9 +76,9 @@ create table movie
 );
 create table movie_gallery
 (
-    movie_id   int not null,
-    name varchar(255),
-    url  varchar(255)
+    movie_id int not null,
+    name     varchar(255),
+    url      varchar(255)
 );
 create table movies_to_types
 (
@@ -106,8 +106,8 @@ create table news
 (
     id          serial  not null,
     description varchar(5000),
-    logo_name  varchar(255),
-    logo_url   varchar(255),
+    logo_name   varchar(255),
+    logo_url    varchar(255),
     name        varchar(255),
     date        date    not null,
     enabled     boolean not null,
@@ -117,16 +117,16 @@ create table news
 );
 create table news_gallery
 (
-    news_id    int not null,
-    name varchar(255),
-    url  varchar(255)
+    news_id int not null,
+    name    varchar(255),
+    url     varchar(255)
 );
 create table promotion
 (
     id          serial  not null,
     description varchar(5000),
-    logo_name  varchar(255),
-    logo_url   varchar(255),
+    logo_name   varchar(255),
+    logo_url    varchar(255),
     name        varchar(255),
     date        date,
     enabled     boolean not null,
@@ -137,8 +137,8 @@ create table promotion
 create table promotion_gallery
 (
     promotion_id int not null,
-    name   varchar(255),
-    url    varchar(255)
+    name         varchar(255),
+    url          varchar(255)
 );
 create table seo
 (
